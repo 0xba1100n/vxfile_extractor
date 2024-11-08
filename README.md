@@ -24,6 +24,9 @@ mw313rV4固件
 tplink wr-855n固件
 
 # 注意事项
+使用前请先确保您的镜像能够binwalk出类似这样的结果，这意味着这是没有加密的正常vxworks镜像
+![384422042-7ef8cedf-0028-4f56-915f-35ddc8708229](https://github.com/user-attachments/assets/b2b05bd0-6176-4a75-b840-95c56fedb36e)
+
 基本上只在vxworks5.5以下测过，这也是最最常见的版本，而更高的版本目前没有遇到过
 有些固件的偏移表没有记录路径，会显得“扁平化”，需要进一步分析内部htm文件引用以将静态资源文件放入正确位置，目前没有想到合适的办法
 ![image](https://github.com/user-attachments/assets/fb30a9dd-481d-4686-986c-20548dc40afd)
