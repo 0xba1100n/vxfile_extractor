@@ -20,7 +20,7 @@ python3 vxfile_extracter.py <bin 文件路径>
 ![5](https://github.com/user-attachments/assets/ae9c3f81-404e-46d1-a70d-e355e2ad12b8)
 
 # 测试用例
-mw313rV4固件
+Mercury水星mw313rV4固件
 tplink wr-855n固件
 
 # 注意事项
