@@ -16,6 +16,8 @@ def run_binwalk_extract(file_path):
     """
     执行 binwalk -Me 命令将解压内容存入指定目录，并检查文件是否为未加密镜像。
     同时确认是否为标准的 vxworks5 镜像。
+    参数:
+    file_path: vxworks固件文件路径
     """
     output_dir = "vxfile_" + os.path.basename(file_path).split('.')[0]
     
@@ -96,6 +98,8 @@ def run_binwalk_extract(file_path):
 def find_filesystem_offset(file_info):
     """
     从 binwalk 输出文本中提取 "IMG0 (VxWorks) header" 的下一行偏移位置。
+    参数: 
+    file_info: binwalk的命令行输出结果，里面有不少值得分析提取的信息
     """
     print(f"开始查找文件系统偏移...")
     #print(f"提供的 binwalk 输出:\n{file_info}")
@@ -140,6 +144,9 @@ def find_filesystem_offset(file_info):
 def find_start_marker(file_path, start_position=0):
     """
     从文件指定位置开始扫描，找到连续指定数量的0x00字节后的第一个非0x00字节位置。
+    参数:
+    file_path: uImage镜像文件.7z的位置
+    start_position: 目前的扫描位置，为了扫描出偏移表真正在该文件内部的偏移
     """
     zero_threshold = 128
     with open(file_path, 'rb') as f:
@@ -182,6 +189,10 @@ def extract_file_info(file_path, start_offset, endian='big'):
     从指定的偏移量开始提取文件名和偏移信息，返回文件名及其偏移的键值对。
     在找到文件名后，继续向后找非零字符，然后对齐4字节，读取4字节内容作为偏移值。
     如果匹配到的文件名长度达到 0x100，说明已经是接下来的大片程序代码区域而非表格，则放弃继续匹配。
+    参数:
+    file_path: uImage镜像路径
+    start_offset: 偏移表的开头
+    endian: 端序，little或big
     """
     print(f"从偏移量 {hex(start_offset)} 开始提取文件信息...")
     file_name_pattern = re.compile(rb'^[A-Za-z0-9_\/\-]*\.[A-Za-z0-9_\/\-]*$')
@@ -265,9 +276,9 @@ def rename_extracted_files(file_info, output_dir, filesystem_offset):
     将文件复制到解压后的根目录之下并保留相对路径结构。
 
     参数：
-    file_info (dict): 文件信息，键为目标文件名，值为调整后的偏移值（十六进制字符串）。
-    output_dir (str): 解压后的文件所在的目录。
-    filesystem_offset (int): 文件系统的偏移值。
+    file_info : 文件信息，键为目标文件名，值为调整后的偏移值（十六进制字符串）。
+    output_dir : 解压后的文件所在的目录。
+    filesystem_offset : 文件系统的偏移值。
     """
     # 输出目录已经是解压后的目录，例如：vxfile_mw313rv4/_mw313rv4.bin.extracted
     extracted_dir = output_dir
@@ -310,7 +321,6 @@ def rename_extracted_files(file_info, output_dir, filesystem_offset):
     return True
 
 def main(file_path):
-    print("欢迎使用 binwalk 解包工具！")
     check_binwalk_installed()
     print(f"准备解包文件: {file_path}\n")
     output, output_dir = run_binwalk_extract(file_path)
