@@ -1,0 +1,2 @@
+# vxfile_extractor
+一键提取vxwork固件内部文件，并依据binwalk分析结果和uboot镜像内文件名偏移表，正确恢复vxwork文件名
