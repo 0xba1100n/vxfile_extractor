@@ -7,7 +7,7 @@ binwalk尚未支持对vxworks系统固件的正确解包，而且已经停止更
 ![2](https://github.com/user-attachments/assets/2f179233-c580-4f01-bef3-fd7c9b7fd512)
 
 这个工具做的就是在uImage找偏移表，把文件名正确恢复，并放入独立的结果文件夹；如果固件内部有记载路径，还会放入正确的路径（否则会放到一个文件夹，需要进一步的分析）
-
+附上博客文章作为某些补充说明：https://ba1100n.tech/iot_security/%e6%8e%a2%e7%a9%b6vxworks%e6%96%87%e4%bb%b6%e5%90%8d%e6%81%a2%e5%a4%8d/
 # 使用方法
 python3 vxfile_extracter.py <bin 文件路径>
 
@@ -18,6 +18,8 @@ python3 vxfile_extracter.py <bin 文件路径>
 ![4](https://github.com/user-attachments/assets/8f34b6ad-9655-4120-8e4d-3fc2efa180b6)
 其中一个路径的文件如下
 ![5](https://github.com/user-attachments/assets/ae9c3f81-404e-46d1-a70d-e355e2ad12b8)
+可以看到图片名称的恢复，也是能对上名字的
+![image](https://github.com/user-attachments/assets/749b9416-5514-41da-ae15-5bff4ab66539)
 
 # 测试用例
 Mercury水星mw313rV4固件
