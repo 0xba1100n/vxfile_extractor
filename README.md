@@ -32,4 +32,6 @@ tplink wr-855n固件
 基本上只在vxworks5.5以下测过，这也是最最常见的版本，而更高的版本目前没有遇到过
 有些固件的偏移表没有记录路径，会显得“扁平化”，需要进一步分析内部htm文件引用以将静态资源文件放入正确位置，目前没有想到合适的办法
 ![image](https://github.com/user-attachments/assets/fb30a9dd-481d-4686-986c-20548dc40afd)
+程序设计细节和恢复原理详见 https://bbs.kanxue.com/thread-284324.htm
+
 有问题欢迎issue，如果好用请不吝啬您的⭐star，谢谢~
