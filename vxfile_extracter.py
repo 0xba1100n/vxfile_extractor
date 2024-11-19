@@ -660,7 +660,7 @@ if __name__ == "__main__":
     time.sleep(1.14514)
 
     # 解析 fuzzmode 参数
-    fuzzymode = "--fuzzmode" in sys.argv
+    fuzzymode = "--fuzzymode" in sys.argv
 
     # 调用主函数
     main(sys.argv[1], fuzzymode)
