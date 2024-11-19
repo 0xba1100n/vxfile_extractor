@@ -1,4 +1,5 @@
 # vxfile_extractor
+[EN_readme](https://github.com/0xba1100n/vxfile_extractor/blob/main/README_EN.md)
 ## 版本更新
 V2.0版本相较于V1.14这一概念验证版本，有了更兼容、更准确的匹配方案，欢迎提改进建议和issue
 ## 简介
