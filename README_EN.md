@@ -16,14 +16,14 @@ Here's a blog post for additional clarification: https://ba1100n.tech/iot_securi
 
 # Usage
 Usage:
-    python3 vxfile_extracter.py <bin file path> [--fuzzmode]
+    python3 vxfile_extracter.py <bin file path> [--fuzzymode]
 
 Options:
     -h, --help      Show help information
-    --fuzzmode      Use fuzzy matching mode to process files
+    --fuzzymode      Use fuzzy matching mode to process files
 
 Description:
-    This tool is used to process bin files. By default, it uses exact matching. If the --fuzzmode parameter is specified, it will force fuzzy matching.
+    This tool is used to process bin files. By default, it uses exact matching. If the --fuzzymode parameter is specified, it will force fuzzy matching.
 
 # Example Output
 The tool will unpack, automatically locate the offset table, extract each file's offset, and restore filenames based on the names in the offset table.
