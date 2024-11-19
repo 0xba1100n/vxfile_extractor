@@ -1,4 +1,5 @@
 # vxfile_extractor
+[中文介绍](https://github.com/0xba1100n/vxfile_extractor/blob/main/README.md)
 ## Version Update
 Version 2.0 offers more compatible and accurate matching solutions compared to the V1.14 proof of concept version. Suggestions for improvements and issues are welcome.
 
