@@ -35,6 +35,7 @@ binwalk尚未支持对vxworks系统固件的正确解包，而且已经停止更
 # 测试用例
 Mercury水星mw313rV4固件
 tplink wr-855n固件
+tplink wr842nv3固件
 
 # 注意事项
 使用前请先确保您的镜像能够binwalk出类似这样的结果，这意味着这是没有加密的正常vxworks镜像
