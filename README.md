@@ -15,14 +15,14 @@ binwalk尚未支持对vxworks系统固件的正确解包，而且已经停止更
 
 # 使用方法
 用法：
-    python3 vxfile_extracter.py <bin 文件路径> [--fuzzmode]
+    python3 vxfile_extracter.py <bin 文件路径> [--fuzzymode]
 
 选项：
     -h, --help      显示帮助信息
     --fuzzymode      使用模糊匹配模式处理文件
 
 说明：
-    该工具用于处理 bin 文件。默认情况下，优先使用精确匹配。如果指定 --fuzzmode 参数，将强制使用模糊匹配。
+    该工具用于处理 bin 文件。默认情况下，优先使用精确匹配。如果指定 --fuzzymode 参数，将强制使用模糊匹配。
 
 # 效果展示
 该工具会一键解包、自动寻找偏移表位置、自动提取每个文件的偏移，并根据偏移表中记录的名称恢复文件名
