@@ -44,10 +44,11 @@ binwalk尚未支持对vxworks系统固件的正确解包，而且已经停止更
 可以看到图片名称的恢复，也是能对上名字的
 ![image](https://github.com/user-attachments/assets/749b9416-5514-41da-ae15-5bff4ab66539)
 
-# 测试用例
+# 通过的测试用例
 - Mercury水星mw313rV4固件
 - tplink wr-855n固件
 - tplink wr842nv3固件
+- tplink Archer系列 C80v1 C80v2固件
 
 # 注意事项
 使用前请确保您的镜像能够通过binwalk正确解包，类似以下结果，这意味着固件没有加密，是正常的vxworks镜像
