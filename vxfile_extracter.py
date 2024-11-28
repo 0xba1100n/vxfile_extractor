@@ -1,9 +1,13 @@
 import re
-import subprocess
-import sys
 import os
-import shutil
+import sys
 import time
+import math
+import lzma
+import shutil
+import subprocess
+from pathlib import Path
+from random import choice, randint
 from collections import defaultdict
 # 检查当前 Python 版本，3.7 及以上版本使用 text=True，3.6 及以下版本使用 universal_newlines=True
 def get_subprocess_params():
@@ -40,11 +44,12 @@ def run_binwalk_extract(file_path):
         if os.path.exists(extracted_subdir):
             output_dir = extracted_subdir
         print(f"使用已有解压目录：{output_dir}")
-
-        # 直接执行 binwalk 命令以获取文件信息
-        command = ['binwalk', file_path]
-        # print(f"执行命令: {' '.join(command)}")
-
+    else:
+        # 输出目录不存在时，执行解包
+        print("开始解包文件，并检查文件格式和加密状态...可能长达一分钟没有回显，请稍候...")
+        command = ['binwalk', '-Me', '-C', output_dir, file_path]
+        print(f"执行命令: {' '.join(command)}")
+        
         try:
             # 获取 subprocess 参数
             subprocess_params = get_subprocess_params()
@@ -58,27 +63,23 @@ def run_binwalk_extract(file_path):
             )
             
             output = result.stdout
-            print(f"binwalk 分析输出:\n{output}")
+            print(f"binwalk 解包输出:\n{output}")
             
-            # 检查端序
-            endian = "big" if "big endian" in output.lower() else "little" if "little endian" in output.lower() else "unknown"
-            print(f"检测到的端序：{endian}")
-
-            # 输出的三个参数
-            return output, output_dir, endian
-
+            extracted_subdir = os.path.join(output_dir, f"_{os.path.basename(file_path)}.extracted")
+            if os.path.exists(extracted_subdir):
+                output_dir = extracted_subdir
+            
         except subprocess.CalledProcessError as e:
-            print(f"分析失败了，错误信息如下：")
+            print(f"解包失败了，错误信息如下：")
             print(f"stdout: {e.stdout}")
             print(f"stderr: {e.stderr}")
-            print("binwalk 可能没有正确安装或者发生了其他错误。请访问下列网址获取安装教程：")
+            print("binwalk 可能没有正确完整安装")
             sys.exit(1)
 
-    # 输出目录不存在时，执行解包
-    print("开始解包文件，并检查文件格式和加密状态...")
-    command = ['binwalk', '-Me', '-C', output_dir, file_path]
+    # 直接执行 binwalk 命令以获取文件信息
+    command = ['binwalk', file_path]
     print(f"执行命令: {' '.join(command)}")
-    
+
     try:
         # 获取 subprocess 参数
         subprocess_params = get_subprocess_params()
@@ -91,34 +92,26 @@ def run_binwalk_extract(file_path):
             **subprocess_params
         )
         
-        output = result.stdout
-        print(f"binwalk 解包输出:\n{output}")
-        is_unencrypted_image = "uImage" in output or "U-Boot" in output
-        is_standard_vxworks = "VxWorks" in output or "Wind River" in output
+        output = result.stdout if isinstance(result.stdout, str) else result.stdout.decode('utf-8')
+        print(f"binwalk 分析输出:\n{output}")
         
-        if is_unencrypted_image:
-            print("文件中包含 'uImage' 或 'U-Boot'，判断为未加密的镜像文件。")
-        else:
-            print("未检测到 'uImage' 或 'U-Boot'，文件可能被加密或采用了其他格式。")
-        
-        if not is_standard_vxworks:
-            print("注意：这可能不是标准的 vxworks5 镜像。")
-        
-        extracted_subdir = os.path.join(output_dir, f"_{os.path.basename(file_path)}.extracted")
-        if os.path.exists(extracted_subdir):
-            output_dir = extracted_subdir
-        
+        # 检查端序
         endian = "big" if "big endian" in output.lower() else "little" if "little endian" in output.lower() else "unknown"
-        print(f"检测到的大小端：{endian}")
-        
+        print(f"检测到的端序：{endian}")
+        if endian == "unknown":
+            print(f"注意！未检测到端序字样，假定为Vxworks更一般的big")
+            endian = "big" 
+
         # 输出的三个参数
         return output, output_dir, endian
+
     except subprocess.CalledProcessError as e:
-        print(f"解包失败了，错误信息如下：")
+        print(f"分析失败了，错误信息如下：")
         print(f"stdout: {e.stdout}")
         print(f"stderr: {e.stderr}")
-        print("binwalk 可能没有正确完整安装")
+        print("binwalk 可能没有正确安装或者发生了其他错误。请访问下列网址获取安装教程：")
         sys.exit(1)
+
 
 def extract_web_source_filenames(target_directory):
     """
@@ -424,8 +417,9 @@ def find_files_offset_table(file_path):
     except IndexError:
         print(f"未找到符合条件的结果，无法提取偏移。")
 
-def extract_file_info(file_path, start_offset, endian='big'):
+def extract_file_info_type1(file_path, start_offset, endian='big'):
     """
+    type1: 文件名1+"00"*n+文件偏移1+文件名2+"00"*n+文件偏移2 形态
     从指定的偏移量开始提取文件名和偏移信息，返回文件名及其偏移的键值对。
     在找到文件名后，继续向后找非零字符，然后对齐4字节，读取4字节内容作为偏移值。
     如果匹配到的文件名长度达到 0x100，说明已经是接下来的大片程序代码区域而非表格，则放弃继续匹配。
@@ -489,7 +483,7 @@ def extract_file_info(file_path, start_offset, endian='big'):
                     offset_hex = offset_hex if offset_hex else "0"
                     offset_int = int(offset_hex, 16)
                     adjusted_offset = offset_int #+ filesystem_offset
-                    adjusted_offset_hex = hex(adjusted_offset).lstrip("0x").upper() or "0"
+                    #adjusted_offset = hex(adjusted_offset).lstrip("0x").upper() or "0"
                     # 如果文件名已经存在，则只保留最小的偏移量
                     if file_name in file_info:
                         file_info[file_name] = min(file_info[file_name], adjusted_offset)
@@ -512,68 +506,212 @@ def extract_file_info(file_path, start_offset, endian='big'):
     return file_info_str
 
 
-def extract_offsets_from_start(data, path):
-    # 用于存储从指定偏移开始后的十进制偏移数组
-    decimal_offsets = []
+def extract_file_info_type2(file_path, start_offset, endian='big'):
+    """
+    type2: 文件名1+"00"*1+文件名2+"00"*1+文件名3 
+    然后 文件偏移1+"00"*1+文件偏移2+"00"*1+文件偏移3 这种形态
+    """
+    #print(f"从偏移量 {hex(start_offset)} 处开始提取文件信息, 增加容错率...")
     
-    # 提取路径中的最后一个十六进制偏移地址
-    start_hex_offset = re.search(r'/([A-Fa-f0-9]+)$', path.strip("\.7z"))
+    file_info = {}
+    
+    with open(file_path, 'rb') as f:
+        data = f.read()
 
-    if start_hex_offset:
-        start_offset = int(start_hex_offset.group(1), 16)  # 使用 .group(1) 提取匹配的字符串
+    # 前向0x100范围内搜索MINIFS字符串
+    search_range_start = max(0, start_offset - 0x100)
+    search_range_end = start_offset
+    minifs_offset = data.find(b'MINIFS', search_range_start, search_range_end)
+    
+    if minifs_offset != -1:
+        start_offset = minifs_offset + 0x20
+        print(f"找到MINIFS字符串，新的起始偏移量为: {hex(start_offset)}")
     else:
-        print("未能提取有效的偏移地址。")
-        return []
+        print(f"未找到MINIFS字符串，使用原始起始偏移量: {hex(start_offset)}")
+
+    start = start_offset
+    max_scan_length = 0x10000  # 最大扫描长度
+    end_position = min(len(data), start + max_scan_length)
+
+    # 检测ToN_start_offset-N最前面的非空处
+    ToN_start_offset = start - 2
+    while ToN_start_offset > 0 and data[ToN_start_offset-1] != 0x00:
+        ToN_start_offset -= 1
+
+    # 记录当前偏移的4的倍数上取值
+    ToN_start_offset = math.ceil(ToN_start_offset / 4) * 4
+    print(f"ToN_start_offset: {hex(ToN_start_offset).upper()}")
+
+    # 从ToN_start_offset开始读取数据
+    current_position = ToN_start_offset
+    ToN_end_offset = None
+
+    while current_position < end_position - 1:  # 需要至少两个字节进行检查
+        if data[current_position] != 0x00 and data[current_position + 1] == 0x00 and data[current_position + 2] == 0x00:
+            ToN_end_offset = current_position
+            break
+        current_position += 1
+
+    if ToN_end_offset is not None:
+        print(f"找到Table of Name末尾，ToN_end_offset: {hex(ToN_end_offset).upper()}")
+    else:
+        print("未找到Table of Name末尾")
+
+    # 上取4的倍数于ToN_end_offset偏移值
+    if ToN_end_offset is not None:
+        ToF_start = math.ceil((ToN_end_offset+1) / 4) * 4
+        print(f"ToF_start: {hex(ToF_start).upper()}")
+    else:
+        ToF_start = None
+
+    # 读取ToN_start_offset-12开始的4字节，得到files_count
+    if ToN_start_offset >= 12:
+        files_count_offset = ToN_start_offset - 12
+        files_count = int.from_bytes(data[files_count_offset:files_count_offset + 4], byteorder=endian)
+        print(f"files_count: {hex(files_count)}")
+    else:
+        files_count = None
+        print("无法读取files_count，偏移量不足")
+
+    # 从ToF_start开始读取文件信息
+    file_entries = []
+    if ToF_start is not None and files_count is not None:
+        current_position = ToF_start
+        entry_size = 5 * 4  # 每组由5个4字节组成
+
+        for _ in range(files_count):
+            if current_position + entry_size <= len(data):
+                entry = {
+                    'ToN_offset_path': int.from_bytes(data[current_position:current_position + 4], byteorder=endian),
+                    'ToN_offset_filename': int.from_bytes(data[current_position + 4:current_position + 8], byteorder=endian),
+                    'chunk_number': int.from_bytes(data[current_position + 8:current_position + 12], byteorder=endian),
+                    'offset_within_chunk': int.from_bytes(data[current_position + 12:current_position + 16], byteorder=endian),
+                    'file_size': int.from_bytes(data[current_position + 16:current_position + 20], byteorder=endian)
+                }
+                file_entries.append(entry)
+                current_position += entry_size
+            else:
+                print("文件数据不足，无法继续读取文件条目。")
+                break
+
+        print(f"读取到的文件条目数: {len(file_entries)}")
+    else:
+        print("无法读取文件条目，ToF_start未找到或files_count无效")
+
+    # 从file_entries中读取路径和文件名，构造文件字典
+    for entry in file_entries:
+        # 从ToN_start_offset + ToN_offset_path读取路径，直到\x00
+        path_offset = ToN_start_offset + entry['ToN_offset_path']
+        path_end = data.find(b'\x00', path_offset)
+        if path_end != -1:
+            path = data[path_offset:path_end].decode('utf-8', 'ignore')
+        else:
+            path = ""
+
+        # 从ToN_start_offset + ToN_offset_filename读取文件名，直到\x00
+        filename_offset = ToN_start_offset + entry['ToN_offset_filename']
+        filename_end = data.find(b'\x00', filename_offset)
+        if filename_end != -1:
+            filename = data[filename_offset:filename_end].decode('utf-8', 'ignore')
+        else:
+            filename = ""
+
+        # 组合路径和文件名作为字典的键
+        full_path = f"{path}/{filename}" if path else filename
+
+        # 计算file_offset_in_filesystem
+        file_offset_in_filesystem = ToF_start + files_count * 20 + entry['chunk_number'] * 12 + entry['offset_within_chunk']
+        if file_offset_in_filesystem + 4 <= len(data):
+            value = int.from_bytes(data[file_offset_in_filesystem:file_offset_in_filesystem + 4], byteorder=endian)
+            #value_str = str(value)
+        else:
+            value = None
+
+        # 将键值对存入字典
+        if value is not None:
+            if full_path in file_info:
+                file_info[full_path] = min(file_info[full_path], value)
+            else:
+                file_info[full_path] = value
+
+    # 打印并返回键值对
+    for key, value in file_info.items():
+        print(f"文件名: {key}，相对文件系统偏移值: {hex(value)}")
+
+    return file_info
+
+
+
+def extract_offsets_from_output(data):
+    # 用于存储十进制偏移数组
+    decimal_offsets = []
     
     # 正则表达式匹配每行的十进制偏移、十六进制值和描述
     pattern = re.compile(r'(\d+)\s+0x([A-Fa-f0-9]+)\s+(.*)')
 
     # 标志位，指示是否开始提取数据
     started = False
+    lines = data.splitlines()
 
-    # 遍历每一行，使用正则表达式匹配
-    for line in data.splitlines():
+    # 确定从哪一行开始提取数据
+    for idx, line in enumerate(lines):
+        if "LZMA compressed data" in line:
+            started = True
+            start_idx = idx
+            break
+    else:
+        # 如果没有找到 "LZMA compressed data"，从第三行开始
+        start_idx = 2
+        started = True
+
+    # 遍历从确定行开始的每一行，使用正则表达式匹配
+    for line in lines[start_idx:]:
         match = pattern.match(line)
         if match:
             decimal_offset = int(match.group(1))  # 十进制偏移
-            hex_value = match.group(2)  # 十六进制值
-            description = match.group(3)  # 描述部分
-            # 如果已经开始提取数据，保存偏移并输出
-            #if started:
             decimal_offsets.append(decimal_offset)
-                # print(f"Hex Offset: {hex_value}, Description: {description}")
-            # 一旦找到起始偏移值，开始提取后续的所有偏移
-            #if hex_value.lower() == format(start_offset, 'x').lower():
-            #    started = True
 
     return decimal_offsets
 
 
 
-def rename_extracted_files(file_info, extracted_dir, filesystem_offset):  
+def rename_extracted_files(file_info, extracted_dir, filesystem_offset,binwalk_shell_output):  
     """ 
     根据给定的文件信息复制并重命名解压的文件，创建必要的文件夹结构。
     将文件复制到解压后的根目录之下并保留相对路径结构。
 
     参数：
-    file_info : 文件信息，键为目标文件名，值为调整后的偏移值（十六进制字符串）。
+    file_info : 文件信息，键为目标文件名，值为调整后的偏移值。
     extracted_dir : 解压后的文件所在的目录。
     filesystem_offset : 文件系统的偏移值。
+    binwalk_shell_output: binwalk输出,仅用于提取最后一行的偏移值,用来限制文件名的修复过程
     """
+    lines = binwalk_shell_output.strip().splitlines()
+    if lines:
+        last_line = lines[-1].strip()
+        # 使用正则表达式匹配行的十进制偏移
+        match = re.match(r'^(\d+)', last_line)
+        max_file_offset = int(match.group(1))
+    print(f"文件偏移最大值{hex(max_file_offset)}")
     # 输出目录已经是解压后的目录，例如：vxfile_mw313rv4/_mw313rv4.bin.extracted
     print(f"正在尝试文件系统偏移为：{hex(filesystem_offset)}")
     print(f"开始复制文件并移动到结果目录...")
-    false_count = 0
-    for target_name, adjusted_offset_hex in file_info.items():
+    # 正确数大于10则再也无视错误
+    true_count = 0
+    filesystem_offset_is_true = 0
+    #一直错则有可能不是这个文件偏移
+    false_count = 0    
+    for target_name, adjusted_offset in file_info.items():
         try:
             # 将十六进制偏移值转换为整数并加上文件系统偏移量
-            original_offset = int(adjusted_offset_hex) + filesystem_offset
+            original_offset = int(adjusted_offset) + filesystem_offset
             original_offset_hex = hex(original_offset).lstrip("0x").upper()  # 转换为八位十六进制字符串，去掉 0x 前缀，补足前导零
-            #print(f"文件: {target_name}, 原始偏移值: {adjusted_offset_hex}, 计算后的偏移值: {original_offset_hex}")  #DEBUG用
+            #print(f"文件: {target_name}, 相对文件系统偏移值: {hex(adjusted_offset)}, 加文件系统偏移后的偏移值: {original_offset_hex}")  #DEBUG用
         except ValueError as e:
-            print(f"无效的偏移值: {adjusted_offset_hex}, 跳过该文件。错误: {e}")
+            print(f"无效的偏移值: {adjusted_offset}, 跳过该文件。错误: {e}")
             continue
-
+        if(original_offset>max_file_offset):
+            continue
         # 生成旧的文件路径（以偏移值为文件名，在解压后的目录中）
         old_file_path = os.path.join(extracted_dir, original_offset_hex)
         # 生成新的文件路径 (解压路径/result_vxworks_file/binwalk把内存偏移所在作为文件的名称)
@@ -587,49 +725,274 @@ def rename_extracted_files(file_info, extracted_dir, filesystem_offset):
         if os.path.exists(old_file_path):
             try:
                 print(f"已重命名文件 {old_file_path} 并复制到 {new_file_path}")
+                true_count += 1
+
                 shutil.copy2(old_file_path, new_file_path)
             except IOError as e:
-                #print(f"复制文件失败: {old_file_path} 到 {new_file_path}，错误: {e}")
+                print(f"复制文件失败: {old_file_path} 到 {new_file_path}，错误: {e}")
                 pass
         else:
             false_count += 1
             print(f"文件 {old_file_path} 不存在，无法复制。")
-        if(false_count>=10):
+
+        if(true_count>=5):
+            filesystem_offset_is_true = 1
+        
+        if((false_count>=10) & (filesystem_offset_is_true == 0)):
             print(f"文件系统偏移值{hex(filesystem_offset)}很可能不正确！正在换一个试试")
+            return filesystem_offset_is_true
+        
+    return filesystem_offset_is_true
+    
+def check_if_firmware_itself_have_table(firmware_path):
+    """
+    检查固件文件本身是否包含指定的文件偏移表。
+    使用 strings 工具提取文本并通过正则过滤指定文件类型。
+    
+    :param firmware_path: 固件文件路径
+    :return: 如果返回的行数超过 10 行，返回 True，否则返回 False。
+    """
+    try:
+        # 获取兼容性参数
+        subprocess_params = get_subprocess_params()
+
+        # 构造 strings 命令
+        command = ["strings", "-t", "x", "-n", "5", firmware_path]
+        # 执行 strings 命令
+        process = subprocess.Popen(
+            command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            **subprocess_params
+        )
+        # 过滤特定文件类型
+        grep_process = subprocess.Popen(
+            ["grep", "-E", r"\.jpg|\.png|\.js|\.css|\.htm|\.cer|\.pem|\.bin"],
+            stdin=process.stdout,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            **subprocess_params
+        )
+        process.stdout.close()  # 关闭 strings 的标准输出，传递给 grep
+        stdout, stderr = grep_process.communicate()
+
+        if stderr:
+            print(f"[-] 执行错误: {stderr}")
             return False
-    return True
+
+        # 统计返回的行数
+        line_count = len(stdout.strip().split("\n")) if stdout else 0
+        return line_count > 10
+    except FileNotFoundError:
+        print("[-] 未找到 strings 或 grep 命令，请确保已安装这些工具。")
+        return False
+    except Exception as e:
+        print(f"[-] 检查固件时出错: {e}")
+        return False
+    
+
+def check_crypted_fileoffset_table(folder_path):
+    """
+    使用 grep -r 搜索目标文件夹中的关键字,如果有以下两个关键字之一，
+    就意味着是一类文件偏移表被压缩并且作者逆向了好几天以及尝试解密可疑地方也找不到，暂时实在技穷了无能为力QwQ的固件
+    :param folder_path: 目标文件夹路径
+    """
+    # 要搜索的关键字
+    search_patterns = ["Decryption for config.bin", "des_min_do"]
+    
+    try:
+        # 构造 grep 命令，支持多个关键字
+        result = subprocess.run(
+            ["grep", "-r", "-e", search_patterns[0], "-e", search_patterns[1], folder_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True  # 替换 text=True 为 universal_newlines=True
+        )
+
+        # 如果 stdout 有内容，说明找到了匹配项
+        if result.stdout:
+            print("\033[91m[-] 此形态的vxworks固件由于文件偏移表极有可能被以某种形式隐藏，sorry暂不支持，作者在积极想办法，\033[0m")
+            print("\033[91m[-] 如果您找到了这类文件偏移表的显现方法请务必issue，我会立刻学习的QwQ\033[0m")
+            sys.exit(1)
+
+        # 如果 stderr 有权限错误提示
+        if "Permission denied" in result.stderr:
+            print("\033[93m[!] 警告：一些文件由于权限问题无法读取，请检查权限配置。\033[0m")
+
+    except FileNotFoundError:
+        print("[-] 未找到 grep 命令，请确保在环境中安装了 grep。")
+    except Exception as e:
+        print(f"[-] 执行 grep 命令时出错: {e}")
+
+def decide_extract_mode(file_path, infile_offset, endian):
+    """
+    决定哪种偏移表提取方式
+    mode 1: 文件名1+"00"*n+文件偏移1+文件名2+"00"*n+文件偏移2 形态
+    mode 2: 文件名1+"00"*1+文件名2+"00"*1+文件名3  
+            文件偏移1+"00"*1+文件偏移2+"00"*1+文件偏移3  
+            形态
+    """
+    mode = 2  # 默认设置为 mode 2
+    
+    try:
+        with open(file_path, 'rb') as file:
+            # 移动到指定偏移位置
+            file.seek(infile_offset)
+            
+            # 检索0x50字节的数据
+            bytes_to_read = 0x50
+            data = file.read(bytes_to_read)
+            
+            # 查找连续的 0x00 00 00 00 字节
+            if b'\x00\x00\x00\x00' in data:
+                mode = 1
+    
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+    except Exception as e:
+        print(f"Error: {e}")
+    
+    return mode
 
 
+def extract_function_table(firmware_path, output_path):
+    """
+    处理固件文件，提取符号表。如果存在符号表，将其保存并返回路径。
+    所有操作在 tmp_ 文件夹下进行，执行完毕后删除临时文件。
+    """
+    if not firmware_path:
+        print("\033[91m请提供目标固件文件路径\033[0m")
+        return None
+
+    tmp_dir = "tmp_"
+    os.makedirs(tmp_dir, exist_ok=True)
+    
+    try:
+        firmware_name = os.path.basename(firmware_path)
+        result_dir = os.path.join(tmp_dir, f"result_file_{firmware_name}")
+        os.makedirs(result_dir, exist_ok=True)
+
+        # 读取文件内容
+        with open(firmware_path, "rb") as _fd:
+            content = _fd.read()
+
+        # 查找所有压缩数据的偏移（5A 00 00 80）
+        compress_offset_list = [i.start() for i in re.finditer(b"\x5A\x00\x00\x80", content)]
+        if not compress_offset_list:
+            print("\033[91m[-] 未找到压缩数据!\033[0m")
+            return None
+
+        # 循环处理所有压缩数据块
+        symbol_table_found = False
+        for i in range(len(compress_offset_list) - 1):
+            start_offset = compress_offset_list[i]
+            end_offset = compress_offset_list[i + 1]
+
+            # 提取 LZMA 数据块
+            lzma_data = content[start_offset:end_offset]
+
+            # 解压 LZMA 数据
+            try:
+                decompressed_data = lzma.decompress(lzma_data)
+            except lzma.LZMAError as e:
+                continue
+
+            # 检查是否包含 'bzero'，如果是则保存为符号表
+            if b"bzero" in decompressed_data:
+                # 修改符号表保存路径为上一层目录，去掉最后的 '_xxx.extracted' 部分
+                base_output_path = re.sub(r'_[^/\\]+\.extracted$', '', output_path)
+                symbol_table_path = os.path.join(base_output_path, "SYMBOL_Table")
+                # 确保符号表保存的父目录存在
+                os.makedirs(os.path.dirname(symbol_table_path), exist_ok=True)
+                with open(symbol_table_path, 'wb') as sym_file:
+                    sym_file.write(decompressed_data)
+                print(f"\033[92m[+]有符号表，已保存为: {symbol_table_path}\033[0m")
+                symbol_table_found = True
+                return symbol_table_path
+
+        if not symbol_table_found:
+            print("\033[92m[-]没有符号表\033[0m")
+            return None
+    
+    finally:
+        # 清理 tmp_ 目录
+        shutil.rmtree(tmp_dir)
+
+def find_max_uncompressed_offset(binwalk_output):
+    # 正则表达式匹配每一行包含偏移和uncompressed size的信息,最大的那个解压后大小的文件就是主程序，返回其偏移量
+    pattern = re.compile(r"(\d+)\s+(0x[0-9A-Fa-f]+)\s+.*uncompressed size:\s+(-?\d+) bytes")
+    
+    max_uncompressed_size = -1
+    max_offset = None
+
+    # 逐行查找匹配
+    for match in pattern.finditer(binwalk_output):
+        decimal_offset = int(match.group(1))
+        hex_offset = match.group(2)
+        uncompressed_size = int(match.group(3))
+
+        # 检查uncompressed size是否为正值并且比当前最大值大
+        if uncompressed_size > max_uncompressed_size:
+            max_uncompressed_size = uncompressed_size
+            max_offset = hex_offset
+
+    return max_offset
 
 def main(file_path,fuzzymode):
     # 检查 binwalk 是否安装
     check_binwalk_installed()
-
     try:
         # 运行 binwalk 并获取解压目录
-        binwalk_shell_output, target_directory, endian = run_binwalk_extract(file_path)
-        # 首先尝试提取目标目录中的web资源文件名以寻找偏移表
-        contained_filenames = extract_web_source_filenames(target_directory)        
-        if contained_filenames and not fuzzymode:
-            # 提取web资源文件名成功，那就使用精确的方案
-            best_matching_file = find_binary_matches(target_directory, contained_filenames)
+        binwalk_shell_output, vxfile_directory, endian = run_binwalk_extract(file_path)
+        function_offset_table = extract_function_table(file_path,vxfile_directory)
+        main_program_offset = find_max_uncompressed_offset(binwalk_shell_output)
+        main_program_name = str(main_program_offset).lstrip("0x").upper()
+        print(f"\033[92m主程序位于{vxfile_directory}/{main_program_name}\033[0m")
+        check_crypted_fileoffset_table(vxfile_directory)
+        
+        # 有些固件直接就在本身就有文件偏移表了,会省不少功夫，如C80v1
+        firm_itself_have_the_table = check_if_firmware_itself_have_table(file_path)
+        if firm_itself_have_the_table:
+            best_matching_file = file_path
+        # 大多数固件的文件偏移表还是在解包的内容里面的
         else:
-            # 提取web资源文件名失败，那就转而使用次精确的字符串匹配方案
-            print("未找到任何web资源文件名，或用户指定使用fuzzy模糊搜索模式，可能固件没有http服务，转而使用次精确的字符串匹配方案")
-            best_matching_file = fuzzy_search_file_contain_table(target_directory)
-       
+            # 尝试提取目标目录中的web资源文件名以寻找偏移表
+            contained_filenames = extract_web_source_filenames(vxfile_directory)        
+            if contained_filenames and not fuzzymode:
+            # 提取web资源文件名成功，那就使用精确的方案
+                best_matching_file = find_binary_matches(vxfile_directory, contained_filenames)
+            else:
+                # 提取web资源文件名失败，那就转而使用次精确的字符串匹配方案
+                print("未找到任何web资源文件名，或用户指定使用fuzzy模糊搜索模式，可能固件没有http服务，转而使用次精确的字符串匹配方案")
+                best_matching_file = fuzzy_search_file_contain_table(vxfile_directory)
+        
         infile_offset = find_files_offset_table(best_matching_file)
-        file_info = extract_file_info(file_path, infile_offset, endian)
-        maybe_filesystem_offsets = extract_offsets_from_start(binwalk_shell_output, best_matching_file)
+        mode = decide_extract_mode(file_path, infile_offset, endian)
+       
+        # 寻找是不是那种很难找到符号表的固件，方法是，找有没有"Decryption for config.bin"字样
+        if mode == 1:
+            file_info = extract_file_info_type1(file_path, infile_offset, endian)
+        if mode == 2:
+            file_info = extract_file_info_type2(best_matching_file, infile_offset, endian)
+
+        
+        # 提取binwalk输出结果里面可能的项，作为文件系统偏移
+        maybe_filesystem_offsets = extract_offsets_from_output(binwalk_shell_output)
+
         if maybe_filesystem_offsets:
             for testing_filesys_offset in maybe_filesystem_offsets:
                 print(f"正在尝试以:{hex(testing_filesys_offset)}作为文件系统偏移")
-                if(rename_extracted_files(file_info, target_directory, testing_filesys_offset)==True):
+                if(rename_extracted_files(file_info, vxfile_directory, testing_filesys_offset,binwalk_shell_output)==True):
                     break
-
+        if function_offset_table:
+            print(f"\033[92m[+]函数符号表也一并提取出来了，路径：{function_offset_table}\033[0m")
+        else:
+            print("没有找到函数符号表")
+        print(f"\033[92m主程序对应原来的文件{vxfile_directory}/{main_program_name}\033[0m") # 我没有偷懒0.0，这样更可靠吧
     except (ValueError, RuntimeError) as e:
         print(f"错误: {e}")
-        
+
+
 if __name__ == "__main__":
     # 检查是否请求了帮助信息
     if "-h" in sys.argv or "--help" in sys.argv or len(sys.argv) < 2:
