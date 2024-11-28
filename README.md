@@ -19,6 +19,7 @@ https://arxiv.org/html/2407.05064v1
 
 ## 简介
 一键提取vxwork固件内部文件，并依据binwalk分析结果和uboot镜像内文件名偏移表，正确恢复vxwork文件名
+在V2.1版本更新下，还引入了主要bin文件（分析web服务cgi后端之类的都找这个就对了）寻找和函数符号表提取功能，这也许是需求最大的功能，现在也可一键自动化了
 在日常分析固件的过程中，遇到不少设备是RTOS，其中目前见得最多的就是vxworks系统
 binwalk尚未支持对vxworks系统固件的正确解包，而且已经停止更新很久了。直接用binwalk一把梭会遇到这种情况：全是莫名其妙的文件名
 ![1](https://github.com/user-attachments/assets/7aaf1cee-de63-4af5-b145-95eafdfd2d88)
@@ -48,6 +49,8 @@ binwalk尚未支持对vxworks系统固件的正确解包，而且已经停止更
 ![5](https://github.com/user-attachments/assets/ae9c3f81-404e-46d1-a70d-e355e2ad12b8)
 可以看到图片名称的恢复，也是能对上名字的
 ![image](https://github.com/user-attachments/assets/749b9416-5514-41da-ae15-5bff4ab66539)
+主要bin文件寻找和函数符号表提取（如果有的话）功能
+![image.png](https://balloonblogsrcs.oss-cn-shanghai.aliyuncs.com/20241128192235.png)
 
 # 通过的测试用例
 - Mercury水星mw313rV4固件
