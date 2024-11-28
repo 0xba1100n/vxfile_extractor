@@ -1,8 +1,15 @@
 # vxfile_extractor
 [EN_readme](https://github.com/0xba1100n/vxfile_extractor/blob/main/README_EN.md)
-## 版本更新
-V2.0版本相较于V1.14这一概念验证版本，有了更兼容、更准确的匹配方案，欢迎提改进建议和issue
-目前还是有不完美的地方，不能完全解出，比如tplink wr842nv7v9这些固件，接下来忙完手头上的事情周末立马看看是怎么回事。。。目前暂时没有头绪，因为就是对于某些固件，找不到文件偏移表，也许存在某种对于这类固件的通用解决方案，再看看吧
+## 当前版本
+V2.1版本兼容了另外一种形态的符号表，感谢winmt师傅的建议，原理详见https://arxiv.org/html/2407.05064v1，晚些时候会在看雪上补充相关细节，欢迎提改进建议和issue
+此外，V2.1版本还有主要bin文件寻找和函数符号表提取功能，这也许是需求最大的功能，现在也可一键自动化了
+[image.png](https://balloonblogsrcs.oss-cn-shanghai.aliyuncs.com/20241128192235.png)
+
+## TODO
+只可惜仍有部分固件(vxfile_wr842nv7和v9、wdr7660gv1)的文件偏移表仍然以各种方式，即使采用更aggressive的lzma策略，似乎都寻不到，如果有相关方法的话请师傅务必issue，这块我目前也很想搞懂
+具体而言，这类无法解析出文件偏移表的，一般在binwalk解压后，grep -r "Decryption for config.bin"能够匹配到结果
+目前看来，这种固件有些没有文件偏移反倒会有符号表，所以我还实现了符号表提取、主要bin文件识别，希望能弥补这一缺点以帮助师傅们日常的分析
+
 ## 版本前瞻
 V2.1版本 is on the way，正在思考怎么进行对另一种文件偏移表模式的适配，可惜手上有一些东西还要赶着忙，周末（或者可能只有周日）立刻看看
 ## 简介
