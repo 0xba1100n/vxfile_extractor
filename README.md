@@ -1,9 +1,12 @@
 # vxfile_extractor
 [EN_readme](https://github.com/0xba1100n/vxfile_extractor/blob/main/README_EN.md)
 ## 当前版本
-V2.1版本兼容了另外一种形态的符号表，感谢winmt师傅的建议，原理详见https://arxiv.org/html/2407.05064v1，晚些时候会在看雪上补充相关细节，欢迎提改进建议和issue
+V2.1版本兼容了另外一种形态的符号表，感谢winmt师傅的建议，原理详见
+https://arxiv.org/html/2407.05064v1
+晚些时候会在看雪上补充相关细节，欢迎提改进建议和issue
 此外，V2.1版本还有主要bin文件寻找和函数符号表提取功能，这也许是需求最大的功能，现在也可一键自动化了
-[image.png](https://balloonblogsrcs.oss-cn-shanghai.aliyuncs.com/20241128192235.png)
+
+![image.png](https://balloonblogsrcs.oss-cn-shanghai.aliyuncs.com/20241128192235.png)
 
 ## TODO
 只可惜仍有部分固件(vxfile_wr842nv7和v9、wdr7660gv1)的文件偏移表仍然以各种方式，即使采用更aggressive的lzma策略，似乎都寻不到，如果有相关方法的话请师傅务必issue，这块我目前也很想搞懂
