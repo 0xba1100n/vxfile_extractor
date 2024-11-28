@@ -1,7 +1,5 @@
 # vxfile_extractor
 [中文介绍](https://github.com/0xba1100n/vxfile_extractor/blob/main/README.md)
-## Version Update
-Version 2.0 offers more compatible and accurate matching solutions compared to the V1.14 proof of concept version. Suggestions for improvements and issues are welcome.
 
 ## Introduction
 Extract files from vxworks firmware with one click, and correctly restore vxworks filenames based on binwalk analysis results and the file name offset table in the uboot image.
@@ -39,6 +37,7 @@ The filename restoration can also match correctly.
 - Mercury MW313R V4 firmware
 - TP-Link WR-855N firmware
 - TP-Link WR842N V3 firmware
+- TP-Link Archer C80 v1v2 firmware
 
 # Notes
 Before use, please ensure that your image can be unpacked by binwalk and shows results like the one below. This means it is a valid, unencrypted vxworks image:
