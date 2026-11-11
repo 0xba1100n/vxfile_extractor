@@ -134,14 +134,14 @@ high-entropy        1298432        3   99.2%
 [entropy 0..8] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@
 ```
 
-疑似加密判定：
+高熵加密区域判定：
 
 ```
 $ vxfile_extractor samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 [!] high-entropy 0x00040000-0x00141000 (1028 KiB, 99.4%) -> likely encrypted / unknown container
 ```
 
-更多案例（20 个解开 + 20 个解不开）：[`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
+全部案例：100 个解开的 + 全部解不开的，逐条带实际输出和解读，见 [`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
 
 样本和格式认识基本都来自 0xba1100n 的 [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) 和那篇[看雪帖](https://bbs.kanxue.com/thread-284324.htm)，MINIFS 分块结构参考了 [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) 与 winmt 师傅的[论文](https://arxiv.org/html/2407.05064v1)。
 

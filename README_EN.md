@@ -134,14 +134,14 @@ high-entropy        1298432        3   99.2%
 [entropy 0..8] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@
 ```
 
-Encrypted verdict:
+High-entropy region verdict:
 
 ```
 $ vxfile_extractor samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 [!] high-entropy 0x00040000-0x00141000 (1028 KiB, 99.4%) -> likely encrypted / unknown container
 ```
 
-More cases (20 solved + 20 unsolved): [`docs/EXAMPLES.md`](docs/EXAMPLES.md).
+Full case list: 100 solved plus every unsolved sample, each with real output and an explanation: [`docs/EXAMPLES.md`](docs/EXAMPLES.md).
 
 Sample collection and format knowledge come mostly from 0xba1100n's [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) and the [Kanxue post](https://bbs.kanxue.com/thread-284324.htm); the chunked MINIFS layout follows [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) and winmt's [paper](https://arxiv.org/html/2407.05064v1).
 
