@@ -80,20 +80,7 @@ chmod +x VxFirmwareExtractor_linux_x86_64_gnu
 ./VxFirmwareExtractor_linux_x86_64_gnu --version    # vxfile_extractor 3.0.0
 ```
 
-校验和（sha256）在 Release 页面每个文件下面，也可以直接对：
-
-| 文件 | sha256 |
-|---|---|
-| `VxFirmwareExtractor_linux_x86_64_gnu` | `2ee12fbb0ec55fe6783fd77f2cbda55324894b0a136c57a8df1edac9454acfa2` |
-| `VxFirmwareExtractor_linux_x86_64_musl` | `a49ff20fe15ecd01dca353317b32c7f42e07d977a10948d0aa0612a899c8a57a` |
-| `VxFirmwareExtractor_linux_aarch64_gnu` | `d7bf3d7f97bc05311e96874a7f7cbe99a861a424e17ab610817e04ab48e7319e` |
-| `VxFirmwareExtractor_linux_aarch64_musl` | `2b930a50551d73f09e1e65642bac339f0e8b93087e4264a300d65f01fe14ef9e` |
-| `VxFirmwareExtractor_linux_armv7_musl` | `9723df8bcf1a54a198829cbd2c7b04f12b946e1eab6b8645ef76451d116edc03` |
-| `VxFirmwareExtractor_windows_x86_64.exe` | `1c1130475c433c95e80e4a3e5b974d85be579817a7f7b0658ba80218db22bda5` |
-| `VxFirmwareExtractor_windows_i686.exe` | `6b204eda34c30124b99544d67c981a4034a3424904aedc39ebc5bcd62ac326cf` |
-| `VxFirmwareExtractor_windows_aarch64.exe` | `bed7b3a5a984ea0d49cc4609ab8791483d23087e60187446fb7af47471777835` |
-| `VxFirmwareExtractor_macos_aarch64` | `c3d5cc7069418fb3179583e0f27c58155350bd671d138fa7c9b11a4f2de868ed` |
-| `VxFirmwareExtractor_macos_x86_64` | `344eb1ff8f3a09d8166611a9f1f1f081dd55b29a5392da1a636f8dcdc2075e84` |
+校验和见 Release 页面每个文件下方（每次 CI 重建都会变，所以这里不抄死）。
 
 Release 页：<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
 

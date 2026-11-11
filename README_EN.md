@@ -80,7 +80,7 @@ chmod +x VxFirmwareExtractor_linux_x86_64_gnu
 ./VxFirmwareExtractor_linux_x86_64_gnu --version    # vxfile_extractor 3.0.0
 ```
 
-sha256 checksums are listed on the release page for every file.
+sha256 checksums are on the release page next to each file (they change on every CI rebuild, so they are not copied here).
 
 Release page: <https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
 
