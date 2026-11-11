@@ -2,7 +2,7 @@ name: build
 
 on:
   push:
-    branches: [main]
+    branches: [main, v3.0.0]
     tags: ["v*"]
   workflow_dispatch:
 
@@ -14,32 +14,80 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { os: ubuntu-latest,  target: x86_64-unknown-linux-musl }
-          - { os: ubuntu-latest,  target: aarch64-unknown-linux-musl }
+          - { os: ubuntu-latest,  target: x86_64-unknown-linux-musl,     cross: "yes" }
+          - { os: ubuntu-latest,  target: aarch64-unknown-linux-musl,    cross: "yes" }
+          - { os: ubuntu-latest,  target: armv7-unknown-linux-musleabihf, cross: "yes" }
+          - { os: ubuntu-latest,  target: x86_64-unknown-linux-gnu,     cross: "yes" }
+          - { os: ubuntu-latest,  target: aarch64-unknown-linux-gnu,    cross: "yes" }
           - { os: windows-latest, target: x86_64-pc-windows-msvc }
+          - { os: windows-latest, target: i686-pc-windows-msvc }
           - { os: windows-latest, target: aarch64-pc-windows-msvc }
           - { os: macos-latest,   target: x86_64-apple-darwin }
           - { os: macos-latest,   target: aarch64-apple-darwin }
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install cross
+        if: matrix.cross == 'yes'
+        run: cargo install cross --locked
+
       - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.target }}
-      - name: Linux musl deps
-        if: contains(matrix.target, 'linux-musl')
-        run: sudo apt-get update && sudo apt-get install -y musl-tools
-      - name: Build
+
+      - name: Build (cross)
+        if: matrix.cross == 'yes'
         working-directory: rust/vxcore
-        run: cargo build --release --target ${{ matrix.target }}
+        run: cross build --release --target ${{ matrix.target }}
+
+      - name: Build (native)
+        if: matrix.cross != 'yes'
+        working-directory: rust/vxcore
+        run: |
+          rustup target add ${{ matrix.target }}
+          cargo build --release --target ${{ matrix.target }}
+
       - name: Package
         shell: bash
         working-directory: rust/vxcore
         run: |
-          ext=""
-          case "${{ matrix.target }}" in *windows*) ext=".exe";; esac
+          set -eu
+          case "${{ matrix.target }}" in
+            *windows*) ext=".exe" ;;
+            *)         ext="" ;;
+          esac
+          case "${{ matrix.target }}" in
+            *linux*)   os="linux" ;;
+            *windows*) os="windows" ;;
+            *darwin*)  os="macos" ;;
+            *)         os="unknown" ;;
+          esac
+          case "${{ matrix.target }}" in
+            x86_64-*)  arch="x86_64" ;;
+            aarch64-*) arch="aarch64" ;;
+            armv7-*)   arch="armv7" ;;
+            i686-*)    arch="i686" ;;
+            *)         arch="unknown" ;;
+          esac
           mkdir -p dist
-          cp "target/${{ matrix.target }}/release/vx$ext" "dist/vx-${{ matrix.target }}$ext"
+          cp "target/${{ matrix.target }}/release/vx${ext}" "dist/VxFirmwareExtractor_${os}_${arch}${ext}"
+          ls -l dist
+
       - uses: actions/upload-artifact@v4
         with:
-          name: vx-${{ matrix.target }}
+          name: VxFirmwareExtractor_${{ matrix.target }}
           path: rust/vxcore/dist/*
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
