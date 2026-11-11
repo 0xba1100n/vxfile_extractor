@@ -57,17 +57,32 @@ cargo build --release --target x86_64-pc-windows-msvc
 cargo build --release --target aarch64-apple-darwin
 ```
 
-If you would rather not set up a toolchain, grab a prebuilt binary from the release (10 targets, built by CI):
+## Download (recommended)
 
-| OS | Arch | Asset |
-|---|---|---|
-| Linux | x86_64 | `VxFirmwareExtractor_linux_x86_64_gnu` / `_musl` |
-| Linux | aarch64 | `VxFirmwareExtractor_linux_aarch64_gnu` / `_musl` |
-| Linux | armv7 | `VxFirmwareExtractor_linux_armv7_musl` |
-| Windows | x86_64 / i686 / aarch64 | `VxFirmwareExtractor_windows_*.exe` |
-| macOS | x86_64 / aarch64 | `VxFirmwareExtractor_macos_*` |
+Skip the toolchain and grab the binary for your platform:
 
-<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
+| Your machine | Download | Size |
+|---|---|---:|
+| Linux x86_64 (Ubuntu / Debian / CentOS) | [`..._linux_x86_64_gnu`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_x86_64_gnu) | 1.44 MB |
+| Linux x86_64 (Alpine / fully static) | [`..._linux_x86_64_musl`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_x86_64_musl) | 1.54 MB |
+| Linux ARM64 (servers, 64-bit Pi OS) | [`..._linux_aarch64_gnu`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_aarch64_gnu) | 1.32 MB |
+| Linux ARMv7 (older Pi, router Linux) | [`..._linux_armv7_musl`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_armv7_musl) | 1.39 MB |
+| Windows 64-bit | [`..._windows_x86_64.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_x86_64.exe) | 1.1 MB |
+| Windows 32-bit | [`..._windows_i686.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_i686.exe) | 1020 KB |
+| Windows ARM64 | [`..._windows_aarch64.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_aarch64.exe) | 970 KB |
+| macOS Apple Silicon (M1-M4) | [`..._macos_aarch64`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_macos_aarch64) | 1.1 MB |
+| macOS Intel | [`..._macos_x86_64`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_macos_x86_64) | 1.34 MB |
+
+On Linux / macOS just make it executable:
+
+```bash
+chmod +x VxFirmwareExtractor_linux_x86_64_gnu
+./VxFirmwareExtractor_linux_x86_64_gnu --version    # vx 3.0.0
+```
+
+sha256 checksums are listed on the release page for every file.
+
+Release page: <https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
 
 ## Usage
 

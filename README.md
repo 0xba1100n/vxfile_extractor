@@ -57,17 +57,45 @@ cargo build --release --target x86_64-pc-windows-msvc
 cargo build --release --target aarch64-apple-darwin
 ```
 
-懒得折腾环境就直接下 Release 里的二进制（10 个目标，CI 编的）：
+## 直接下载（推荐）
 
-| 系统 | 架构 | 资产 |
-|---|---|---|
-| Linux | x86_64 | `VxFirmwareExtractor_linux_x86_64_gnu` / `_musl` |
-| Linux | aarch64 | `VxFirmwareExtractor_linux_aarch64_gnu` / `_musl` |
-| Linux | armv7 | `VxFirmwareExtractor_linux_armv7_musl` |
-| Windows | x86_64 / i686 / aarch64 | `VxFirmwareExtractor_windows_*.exe` |
-| macOS | x86_64 / aarch64 | `VxFirmwareExtractor_macos_*` |
+不想装 Rust 环境的话，直接下对应平台的文件就行：
 
-<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
+| 你的机器 | 下这个 | 大小 |
+|---|---|---:|
+| Linux x86_64（Ubuntu / Debian / CentOS） | [`..._linux_x86_64_gnu`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_x86_64_gnu) | 1.44 MB |
+| Linux x86_64（Alpine、要全静态） | [`..._linux_x86_64_musl`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_x86_64_musl) | 1.54 MB |
+| Linux ARM64（服务器 / 64 位树莓派系统） | [`..._linux_aarch64_gnu`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_aarch64_gnu) | 1.32 MB |
+| Linux ARMv7（老树莓派 / 路由器上的 Linux） | [`..._linux_armv7_musl`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_armv7_musl) | 1.39 MB |
+| Windows 64 位 | [`..._windows_x86_64.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_x86_64.exe) | 1.1 MB |
+| Windows 32 位 | [`..._windows_i686.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_i686.exe) | 1020 KB |
+| Windows ARM64 | [`..._windows_aarch64.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_aarch64.exe) | 970 KB |
+| macOS Apple Silicon（M1/M2/M3/M4） | [`..._macos_aarch64`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_macos_aarch64) | 1.1 MB |
+| macOS Intel | [`..._macos_x86_64`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_macos_x86_64) | 1.34 MB |
+
+Linux / macOS 下载后给个执行权限就能跑：
+
+```bash
+chmod +x VxFirmwareExtractor_linux_x86_64_gnu
+./VxFirmwareExtractor_linux_x86_64_gnu --version    # vx 3.0.0
+```
+
+校验和（sha256）在 Release 页面每个文件下面，也可以直接对：
+
+| 文件 | sha256 |
+|---|---|
+| `VxFirmwareExtractor_linux_x86_64_gnu` | `2ee12fbb0ec55fe6783fd77f2cbda55324894b0a136c57a8df1edac9454acfa2` |
+| `VxFirmwareExtractor_linux_x86_64_musl` | `a49ff20fe15ecd01dca353317b32c7f42e07d977a10948d0aa0612a899c8a57a` |
+| `VxFirmwareExtractor_linux_aarch64_gnu` | `d7bf3d7f97bc05311e96874a7f7cbe99a861a424e17ab610817e04ab48e7319e` |
+| `VxFirmwareExtractor_linux_aarch64_musl` | `2b930a50551d73f09e1e65642bac339f0e8b93087e4264a300d65f01fe14ef9e` |
+| `VxFirmwareExtractor_linux_armv7_musl` | `9723df8bcf1a54a198829cbd2c7b04f12b946e1eab6b8645ef76451d116edc03` |
+| `VxFirmwareExtractor_windows_x86_64.exe` | `1c1130475c433c95e80e4a3e5b974d85be579817a7f7b0658ba80218db22bda5` |
+| `VxFirmwareExtractor_windows_i686.exe` | `6b204eda34c30124b99544d67c981a4034a3424904aedc39ebc5bcd62ac326cf` |
+| `VxFirmwareExtractor_windows_aarch64.exe` | `bed7b3a5a984ea0d49cc4609ab8791483d23087e60187446fb7af47471777835` |
+| `VxFirmwareExtractor_macos_aarch64` | `c3d5cc7069418fb3179583e0f27c58155350bd671d138fa7c9b11a4f2de868ed` |
+| `VxFirmwareExtractor_macos_x86_64` | `344eb1ff8f3a09d8166611a9f1f1f081dd55b29a5392da1a636f8dcdc2075e84` |
+
+Release 页：<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
 
 ## 用法
 
