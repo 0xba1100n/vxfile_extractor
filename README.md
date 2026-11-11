@@ -2,26 +2,24 @@
 
 [English](README_EN.md)
 
-**重大更新！** 这次把 300+ 个型号的 VxWorks 固件都过了一遍：解包成功率 **100%**，符号表识别率 **33.4%**，文件名重命名成功率 **53.2%**。
+**重大更新！** 适配 **300+** 型号 VxWorks 固件，解包成功率 **100%**，符号表识别率 **33.4%**，文件名重命名成功率 **53.2%**。
 
 ## 三个成功率
-
-先把数摆出来，免得看完一堆功能还不知道到底能干什么：
 
 | 指标 | 结果 | 口径 |
 |---|---:|---|
 | 解包成功率 | 308 / 308 = **100%** | 每个固件至少解出产物（文件 / 内核镜像 / 解压层） |
-| └ 整层全解出 | 209 / 308 = 67.9% | 所解容器的字节覆盖率 ≥ 90%，这个口径更严 |
-| 文件名重命名成功率 | 164 / 308 = 53.2% | 恢复出**原始文件名**，`stream_*`、`v2_*` 这种生成名不算 |
-| 符号表识别率 | 103 / 308 = 33.4% | 单个固件里识别到 ≥ 20 个符号名 |
+| └ 整层全解出 | 209 / 308 = 67.9% | 所解容器的字节覆盖率 ≥ 90%，严格口径 |
+| 文件名重命名成功率 | 164 / 308 = 53.2% | 恢复出**原始文件名**，生成名（`stream_*`、`v2_*`）不算 |
+| 符号表识别率 | 103 / 308 = 33.4% | 单个固件内识别到 ≥ 20 个符号名 |
 
-逐固件的数据在 [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv)，类型画像在 [`stats/PROFILE.csv`](stats/PROFILE.csv)，都能直接拉进表格里看。
+逐固件数据在 [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv)，类型画像在 [`stats/PROFILE.csv`](stats/PROFILE.csv)。
 
 ## 新特性
 
-1. **以 Rust 重构，速度提升约 20 倍**。这块是这次改动最大的地方：端到端从纯 Python 版的 4–34 秒/样本降到 0.2–1.6 秒/样本（21.7×）。而且现在是单文件二进制，不用再装 Python，也不用 binwalk。
+1. **以 Rust 重构，速度提升约 20 倍**。端到端从纯 Python 版的 4–34 秒/样本降到 0.2–1.6 秒/样本（21.7×），单文件二进制，不再依赖 Python 和 binwalk。
 
-2. **按文件系统分类适配**。前 AI 时代只能靠人力一个个去试偏移；这次拿 300+ 个真实固件做分类匹配，才敢说摸清了五类文件系统，每类走不同的分析方案和解包方法：
+2. **按文件系统分类适配**。前 AI 时代只能靠人力逐个试偏移；这次用 300+ 个真实固件做分类匹配，摸清五类文件系统，每类采用不同的分析方案和解包方法：
 
    | 族 | 代表 | 结构 |
    |---|---|---|
@@ -31,13 +29,11 @@
    | OW | MR900 | LZMA 流内 32 字节 `OW` 魔数 + 76 字节记录 |
    | PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]` |
 
-3. **新的 UI 能力（命令行）**。顺手做了个能「看」结构的东西：`vxfile_extractor profile` 逐块给出识别类型和熵值，`vxfile_extractor entropy` 直接把高熵区间标成 `0x起-0x止`，并判断这一段是已经解出来了、还是疑似加密。分析的时候不用再猜这块到底是什么。
+3. **新的 UI 能力（命令行）**。`vxfile_extractor profile` 展示每个文件块的识别类型与熵值，`vxfile_extractor entropy` 标出高熵区间（`0x起-0x止`）并判断该区域已解出还是疑似加密，辅助分析人员快速理解固件结构组成。
 
-4. **固件案例可复现**。308 个样本的厂商、型号、版本、sha256、来源 URL、文件系统族都在 [`stats/CORPUS.csv`](stats/CORPUS.csv)。
+4. **固件案例可复现**。308 个样本的厂商、型号、版本、sha256、来源 URL、文件系统族见 [`stats/CORPUS.csv`](stats/CORPUS.csv)。
 
 ## 编译
-
-想自己编的话，就三步：
 
 ```bash
 git clone https://github.com/0xba1100n/vxfile_extractor.git
@@ -46,10 +42,10 @@ git checkout v3.0.0
 
 cd rust/vxcore
 cargo build --release
-./target/release/vx --version     # vxfile_extractor 3.0.0
+./target/release/vxfile_extractor --version     # vxfile_extractor 3.0.0
 ```
 
-要交叉编译的话，先 `rustup target add <target>` 再配上对应 linker，比如：
+交叉编译需要 `rustup target add <target>` 和对应 linker：
 
 ```bash
 cargo build --release --target aarch64-unknown-linux-musl
@@ -59,56 +55,47 @@ cargo build --release --target aarch64-apple-darwin
 
 ## 直接下载（推荐）
 
-不想装 Rust 环境的话，直接下对应平台的文件就行：
-
-| 你的机器 | 下这个 | 大小 |
+| 你的机器 | 下载 | 大小 |
 |---|---|---:|
 | Linux x86_64（Ubuntu / Debian / CentOS） | [`..._linux_x86_64_gnu`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_x86_64_gnu) | 1.44 MB |
-| Linux x86_64（Alpine、要全静态） | [`..._linux_x86_64_musl`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_x86_64_musl) | 1.54 MB |
+| Linux x86_64（Alpine、全静态） | [`..._linux_x86_64_musl`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_x86_64_musl) | 1.54 MB |
 | Linux ARM64（服务器 / 64 位树莓派系统） | [`..._linux_aarch64_gnu`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_aarch64_gnu) | 1.32 MB |
-| Linux ARMv7（老树莓派 / 路由器上的 Linux） | [`..._linux_armv7_musl`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_armv7_musl) | 1.39 MB |
-| Windows 64 位 | [`..._windows_x86_64.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_x86_64.exe) | 1.1 MB |
+| Linux ARMv7（老树莓派 / 路由器 Linux） | [`..._linux_armv7_musl`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_linux_armv7_musl) | 1.39 MB |
+| Windows 64 位 | [`..._windows_x86_64.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_x86_64.exe) | 1.11 MB |
 | Windows 32 位 | [`..._windows_i686.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_i686.exe) | 1020 KB |
-| Windows ARM64 | [`..._windows_aarch64.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_aarch64.exe) | 970 KB |
-| macOS Apple Silicon（M1/M2/M3/M4） | [`..._macos_aarch64`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_macos_aarch64) | 1.1 MB |
+| Windows ARM64 | [`..._windows_aarch64.exe`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_windows_aarch64.exe) | 972 KB |
+| macOS Apple Silicon | [`..._macos_aarch64`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_macos_aarch64) | 1.12 MB |
 | macOS Intel | [`..._macos_x86_64`](https://github.com/0xba1100n/vxfile_extractor/releases/download/v3.0.0/VxFirmwareExtractor_macos_x86_64) | 1.34 MB |
 
-Linux / macOS 下载后给个执行权限就能跑：
+Linux / macOS 下载后赋予执行权限：
 
 ```bash
 chmod +x VxFirmwareExtractor_linux_x86_64_gnu
 ./VxFirmwareExtractor_linux_x86_64_gnu --version    # vxfile_extractor 3.0.0
 ```
 
-校验和见 Release 页面每个文件下方（每次 CI 重建都会变，所以这里不抄死）。
+校验和见 Release 页面每个文件下方（每次 CI 重建都会变，此处不固定）。
 
 Release 页：<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
 
 ## 用法
 
-最省事的就一条：
-
 ```bash
-vxfile_extractor fw.bin            # 一键解包，产物落在当前目录的 out/
-```
-
-等价于 `vxfile_extractor extract fw.bin -o out/`。想细看结构再用子命令：
-
-```bash
-vxfile_extractor verdict   fw.bin                  # 先看是不是 VxWorks
-vxfile_extractor scan      fw.bin                  # 列出容器 / 解压层
-vxfile_extractor tables    fw.bin                  # 打印文件名偏移表
-vxfile_extractor symbols   fw.bin                  # 打印符号名表
-vxfile_extractor extract   fw.bin -o out/          # 解包：文件 + 符号 + 摘要
+vxfile_extractor fw.bin                      # 一键解包，产物在 ./out
+vxfile_extractor extract fw.bin -o out/      # 同上，显式指定输出目录
+vxfile_extractor verdict   fw.bin            # 判定是否为 VxWorks
+vxfile_extractor scan      fw.bin            # 列出容器 / 解压层
+vxfile_extractor tables    fw.bin            # 打印文件名偏移表
+vxfile_extractor symbols   fw.bin            # 打印符号名表
 vxfile_extractor profile   fw.bin --block 1024 --ascii   # 逐块类型 + 熵
 
-# 批量跑
+# 批量
 vxfile_extractor batch         . -o stats/RUST_METRICS.csv   # 三项能力（19 分钟 / 308 样本）
 vxfile_extractor profile-batch . -o stats/PROFILE.csv        # 类型占比（13 秒）
 vxfile_extractor entropy       . -o stats/ENTROPY.csv        # 高熵区间（10 秒）
 ```
 
-`vxfile_extractor extract` 出来的东西长这样：
+`vxfile_extractor extract` 的产物：
 
 ```
 out/
@@ -121,10 +108,10 @@ out/
 
 ## 运行示例
 
-跑起来大概是这样——先看解包：
+解包：
 
 ```
-$ vxfile_extractor extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
+$ vxfile_extractor samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
 [+] Output layout
     bin/   8 file(s)  <- executable / firmware image candidates
     src/   285 file(s)  <- static resources (js 166, html 81, css 13, json 9, xml 6)
@@ -133,7 +120,7 @@ $ vxfile_extractor extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
 [!] high-entropy 0x00158C00-0x0027E800 (1203 KiB, 99.4%) -> compressed (data was recovered)
 ```
 
-再看逐块画像：
+逐块画像：
 
 ```
 $ vxfile_extractor profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
@@ -145,14 +132,14 @@ high-entropy        1298432        3   99.2%
 [entropy 0..8] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@
 ```
 
-以及疑似加密的判定：
+疑似加密判定：
 
 ```
-$ vxfile_extractor extract samples/expand-a/inner/FW300R__2012126162529.bin -o out/
+$ vxfile_extractor samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 [!] high-entropy 0x00040000-0x00141000 (1028 KiB, 99.4%) -> likely encrypted / unknown container
 ```
 
-更多案例（20 个解开 + 20 个解不开）放在 [`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
+更多案例（20 个解开 + 20 个解不开）：[`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
 
 ## v2.1（原文）
 
