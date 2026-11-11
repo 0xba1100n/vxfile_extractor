@@ -2,24 +2,26 @@
 
 [中文说明](README.md)
 
-**Major update.** **300+** VxWorks firmware models covered. Unpack success **100%**, symbol-table detection **33.4%**, original-filename recovery **53.2%**.
+**Major update.** We went through 300+ VxWorks firmware models: unpack success **100%**, symbol-table detection **33.4%**, original-filename recovery **53.2%**.
 
 ## Three success rates
+
+Numbers first, so you know what this thing actually does before reading the feature list:
 
 | Metric | Result | Definition |
 |---|---:|---|
 | Unpack success | 308 / 308 = **100%** | at least one artifact per firmware (files / kernel image / layers) |
-| └ whole layer decoded | 209 / 308 = 67.9% | byte coverage of the decoded container >= 90% (strict) |
+| └ whole layer decoded | 209 / 308 = 67.9% | byte coverage of the decoded container >= 90% (stricter) |
 | Original filename recovery | 164 / 308 = 53.2% | real names restored; generated names (`stream_*`, `v2_*`) do not count |
 | Symbol-table detection | 103 / 308 = 33.4% | >= 20 symbol names found in one firmware |
 
-Per-firmware data: [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv); type profile: [`stats/PROFILE.csv`](stats/PROFILE.csv).
+Per-firmware data lives in [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv), type profile in [`stats/PROFILE.csv`](stats/PROFILE.csv).
 
 ## What is new
 
-1. **Rewritten in Rust, ~20x faster.** End-to-end runtime went from 4-34 s per sample (pure Python) to 0.2-1.6 s (21.7x). Single binary, no Python and no binwalk.
+1. **Rewritten in Rust, about 20x faster.** This is the biggest change in this release: end-to-end runtime went from 4-34 s per sample (pure Python) to 0.2-1.6 s (21.7x). It is a single binary now - no Python, no binwalk.
 
-2. **Filesystem-aware dispatching.** Before the AI era this was manual trial and error. We classified 308 real firmware images into five filesystem families and gave each its own parser:
+2. **Filesystem-aware dispatching.** Before the AI era this was manual trial and error, one offset table at a time. With 300+ real images classified, we could finally say we understand five families, each with its own parser:
 
    | Family | Example | Layout |
    |---|---|---|
@@ -29,11 +31,13 @@ Per-firmware data: [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv); type prof
    | OW | MR900 | 32-byte `OW` magic inside an LZMA stream + 76-byte records |
    | PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]`, data laid out sequentially |
 
-3. **New UI capability (CLI).** `vx profile` reports the detected type and entropy of every block; `vx entropy` marks high-entropy ranges (`0xstart-0xend`) and judges whether they were decoded or are likely encrypted, so analysts can read the firmware layout at a glance.
+3. **New UI capability (CLI).** So you can actually *look* at the structure: `vx profile` reports the detected type and entropy of every block, and `vx entropy` marks high-entropy ranges as `0xstart-0xend`, telling you whether that region was decoded or is likely encrypted. No more guessing what a chunk is.
 
 4. **Reproducible corpus.** Vendor, model, version, sha256, source URL and filesystem family for all 308 samples: [`stats/CORPUS.csv`](stats/CORPUS.csv).
 
 ## Build
+
+Three steps:
 
 ```bash
 git clone https://github.com/0xba1100n/vxfile_extractor.git
@@ -45,7 +49,7 @@ cargo build --release
 ./target/release/vx --version     # vx 3.0.0
 ```
 
-Cross compilation (requires `rustup target add <target>` and a linker):
+For cross builds, `rustup target add <target>` and point cargo at a linker:
 
 ```bash
 cargo build --release --target aarch64-unknown-linux-musl
@@ -53,7 +57,7 @@ cargo build --release --target x86_64-pc-windows-msvc
 cargo build --release --target aarch64-apple-darwin
 ```
 
-Or grab a prebuilt binary from the release (10 targets built by CI):
+If you would rather not set up a toolchain, grab a prebuilt binary from the release (10 targets, built by CI):
 
 | OS | Arch | Asset |
 |---|---|---|
@@ -66,6 +70,8 @@ Or grab a prebuilt binary from the release (10 targets built by CI):
 <https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
 
 ## Usage
+
+The commands you will actually use:
 
 ```bash
 vx verdict   fw.bin                  # is it VxWorks?
@@ -81,7 +87,7 @@ vx profile-batch . -o stats/PROFILE.csv        # type shares (13 s)
 vx entropy       . -o stats/ENTROPY.csv        # high-entropy ranges (10 s)
 ```
 
-Output of `vx extract`:
+What `vx extract` produces:
 
 ```
 out/
@@ -139,4 +145,6 @@ More cases (20 solved + 20 unsolved): [`docs/EXAMPLES.md`](docs/EXAMPLES.md).
 
 ## Credits
 
-winmt, 大肥鱼
+Sample collection and format knowledge come mostly from 0xba1100n's [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) and the [Kanxue post](https://bbs.kanxue.com/thread-284324.htm); the chunked MINIFS layout follows [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) and winmt's [paper](https://arxiv.org/html/2407.05064v1).
+
+Da Feiyu (DeepSeek V4.1 Flash) ran 99 rounds, 1260 steps, at 176 tok/s - 503M tokens in total - and built this project from the corpus up to the Rust engine.

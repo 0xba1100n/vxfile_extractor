@@ -2,24 +2,26 @@
 
 [English](README_EN.md)
 
-**重大更新！** 适配 **300+** 型号 VxWorks 固件，解包成功率 **100%**，符号表识别率 **33.4%**，文件名重命名成功率 **53.2%**。
+**重大更新！** 这次把 300+ 个型号的 VxWorks 固件都过了一遍：解包成功率 **100%**，符号表识别率 **33.4%**，文件名重命名成功率 **53.2%**。
 
 ## 三个成功率
+
+先把数摆出来，免得看完一堆功能还不知道到底能干什么：
 
 | 指标 | 结果 | 口径 |
 |---|---:|---|
 | 解包成功率 | 308 / 308 = **100%** | 每个固件至少解出产物（文件 / 内核镜像 / 解压层） |
-| └ 整层全解出 | 209 / 308 = 67.9% | 所解容器的字节覆盖率 ≥ 90%，严格口径 |
-| 文件名重命名成功率 | 164 / 308 = 53.2% | 恢复出**原始文件名**，生成名（`stream_*`、`v2_*`）不算 |
-| 符号表识别率 | 103 / 308 = 33.4% | 单个固件内识别到 ≥ 20 个符号名 |
+| └ 整层全解出 | 209 / 308 = 67.9% | 所解容器的字节覆盖率 ≥ 90%，这个口径更严 |
+| 文件名重命名成功率 | 164 / 308 = 53.2% | 恢复出**原始文件名**，`stream_*`、`v2_*` 这种生成名不算 |
+| 符号表识别率 | 103 / 308 = 33.4% | 单个固件里识别到 ≥ 20 个符号名 |
 
-逐固件数据在 [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv)，类型画像在 [`stats/PROFILE.csv`](stats/PROFILE.csv)。
+逐固件的数据在 [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv)，类型画像在 [`stats/PROFILE.csv`](stats/PROFILE.csv)，都能直接拉进表格里看。
 
 ## 新特性
 
-1. **以 Rust 重构，速度提升约 20 倍**。端到端从纯 Python 版的 4–34 秒/样本降到 0.2–1.6 秒/样本（21.7×），单文件二进制，不再依赖 Python 和 binwalk。
+1. **以 Rust 重构，速度提升约 20 倍**。这块是这次改动最大的地方：端到端从纯 Python 版的 4–34 秒/样本降到 0.2–1.6 秒/样本（21.7×）。而且现在是单文件二进制，不用再装 Python，也不用 binwalk。
 
-2. **按文件系统分类适配**。前 AI 时代只能靠人力逐个试偏移；这次用 300+ 个真实固件做分类匹配，摸清五类文件系统，每类用不同的分析方案和解包方法：
+2. **按文件系统分类适配**。前 AI 时代只能靠人力一个个去试偏移；这次拿 300+ 个真实固件做分类匹配，才敢说摸清了五类文件系统，每类走不同的分析方案和解包方法：
 
    | 族 | 代表 | 结构 |
    |---|---|---|
@@ -29,11 +31,13 @@
    | OW | MR900 | LZMA 流内 32 字节 `OW` 魔数 + 76 字节记录 |
    | PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]` |
 
-3. **新的 UI 能力（命令行）**。`vx profile` 逐块展示每个文件块的识别类型与熵值，`vx entropy` 直接标出高熵区间（`0x起-0x止`）并judge「已解出」还是「疑似加密」，帮助分析人员快速理解固件结构组成。
+3. **新的 UI 能力（命令行）**。顺手做了个能「看」结构的东西：`vx profile` 逐块给出识别类型和熵值，`vx entropy` 直接把高熵区间标成 `0x起-0x止`，并判断这一段是已经解出来了、还是疑似加密。分析的时候不用再猜这块到底是什么。
 
 4. **固件案例可复现**。308 个样本的厂商、型号、版本、sha256、来源 URL、文件系统族都在 [`stats/CORPUS.csv`](stats/CORPUS.csv)。
 
 ## 编译
+
+想自己编的话，就三步：
 
 ```bash
 git clone https://github.com/0xba1100n/vxfile_extractor.git
@@ -45,7 +49,7 @@ cargo build --release
 ./target/release/vx --version     # vx 3.0.0
 ```
 
-交叉编译（需要 `rustup target add <target>` 和对应 linker）：
+要交叉编译的话，先 `rustup target add <target>` 再配上对应 linker，比如：
 
 ```bash
 cargo build --release --target aarch64-unknown-linux-musl
@@ -53,7 +57,7 @@ cargo build --release --target x86_64-pc-windows-msvc
 cargo build --release --target aarch64-apple-darwin
 ```
 
-懒得编译可以直接下 Release 资产（10 个目标，CI 构建）：
+懒得折腾环境就直接下 Release 里的二进制（10 个目标，CI 编的）：
 
 | 系统 | 架构 | 资产 |
 |---|---|---|
@@ -67,21 +71,23 @@ cargo build --release --target aarch64-apple-darwin
 
 ## 用法
 
+常用的几条：
+
 ```bash
-vx verdict   fw.bin                  # 判定是不是 VxWorks
-vx scan      fw.bin                  # 列出容器/解压层
+vx verdict   fw.bin                  # 先看是不是 VxWorks
+vx scan      fw.bin                  # 列出容器 / 解压层
 vx tables    fw.bin                  # 打印文件名偏移表
 vx symbols   fw.bin                  # 打印符号名表
 vx extract   fw.bin -o out/          # 解包：文件 + 符号 + 摘要
 vx profile   fw.bin --block 1024 --ascii   # 逐块类型 + 熵
 
-# 批量
+# 批量跑
 vx batch         . -o stats/RUST_METRICS.csv   # 三项能力（19 分钟 / 308 样本）
 vx profile-batch . -o stats/PROFILE.csv        # 类型占比（13 秒）
 vx entropy       . -o stats/ENTROPY.csv        # 高熵区间（10 秒）
 ```
 
-`vx extract` 的产物：
+`vx extract` 出来的东西长这样：
 
 ```
 out/
@@ -94,7 +100,7 @@ out/
 
 ## 运行示例
 
-判定与解包：
+跑起来大概是这样——先看解包：
 
 ```
 $ vx extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
@@ -106,7 +112,7 @@ $ vx extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
 [!] high-entropy 0x00158C00-0x0027E800 (1203 KiB, 99.4%) -> compressed (data was recovered)
 ```
 
-逐块画像：
+再看逐块画像：
 
 ```
 $ vx profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
@@ -118,14 +124,14 @@ high-entropy        1298432        3   99.2%
 [entropy 0..8] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@
 ```
 
-疑似加密的判定：
+以及疑似加密的判定：
 
 ```
 $ vx extract samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 [!] high-entropy 0x00040000-0x00141000 (1028 KiB, 99.4%) -> likely encrypted / unknown container
 ```
 
-更多案例（20 个解开 + 20 个解不开）：[`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
+更多案例（20 个解开 + 20 个解不开）放在 [`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
 
 ## v2.1（原文）
 
@@ -139,4 +145,6 @@ $ vx extract samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 
 ## 鸣谢
 
-winmt、大肥鱼
+样本和格式认识基本都来自 0xba1100n 的 [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) 和那篇[看雪帖](https://bbs.kanxue.com/thread-284324.htm)，MINIFS 分块结构参考了 [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) 与 winmt 师傅的[论文](https://arxiv.org/html/2407.05064v1)。
+
+大肥鱼（DeepSeek V4.1 Flash）跑了 99 轮、1260 步，176 tok/s，一共 503M tokens，把这个项目从语料一路搭到 Rust 引擎。
