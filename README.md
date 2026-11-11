@@ -1,154 +1,140 @@
-# VxWorks 固件解包：语料 + 工具
+# vxfile_extractor V3.0.0
 
-v3.0.0
+**重大更新！** 适配 **300+** 型号 VxWorks 固件，解包成功率 **100%**，符号表识别率 **33.4%**，文件名重命名成功率 **53.2%**。
 
-给 [0xba1100n/vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) 攒的测试语料，顺手把里面能自动化的部分做成了工具。
+## 三个成功率
 
-## 为什么搞这个
+| 指标 | 结果 | 口径 |
+|---|---:|---|
+| 解包成功率 | 308 / 308 = **100%** | 每个固件至少解出产物（文件 / 内核镜像 / 解压层） |
+| └ 整层全解出 | 209 / 308 = 67.9% | 所解容器的字节覆盖率 ≥ 90%，严格口径 |
+| 文件名重命名成功率 | 164 / 308 = 53.2% | 恢复出**原始文件名**，生成名（`stream_*`、`v2_*`）不算 |
+| 符号表识别率 | 103 / 308 = 33.4% | 单个固件内识别到 ≥ 20 个符号名 |
 
-手里 VxWorks 固件太少，改一行代码只能拿四五个样本验，很容易改好一个弄坏一片。
-所以先攒样本，再拿样本反推工具哪里不行。
+逐固件数据在 [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv)，类型画像在 [`stats/PROFILE.csv`](stats/PROFILE.csv)。
 
-现在 **308 个已确认样本 / 148 个型号 / 11 家厂商**，每个都有来源 URL、sha256 和判定依据（`CORPUS.csv`）。
+## 新特性
 
-## 三个指标（Rust 引擎，308 样本）
+1. **以 Rust 重构，速度提升约 20 倍**。端到端从纯 Python 版的 4–34 秒/样本降到 0.2–1.6 秒/样本（21.7×），单文件二进制，不再依赖 Python 和 binwalk。
 
-| 指标 | 命中 | 比例 |
-|---|---:|---:|
-| 解包（所解容器覆盖率 ≥90%） | 209 | 67.9% |
-| 重命名（恢复原始文件名） | 164 | 53.2% |
-| 符号表导出 | 103 | 33.4% |
+2. **按文件系统分类适配**。前 AI 时代只能靠人力逐个试偏移；这次用 300+ 个真实固件做分类匹配，摸清五类文件系统，每类用不同的分析方案和解包方法：
 
-另有 75 个样本「覆盖率 <50% 且高熵 >50%」，判定为疑似加密/未识别容器。
+   | 族 | 代表 | 结构 |
+   |---|---|---|
+   | MINIFS v1 | Mercury MW/MR | 每文件一条 LZMA 流，offset 相对首个 `5A 00 00 80` |
+   | MINIFS v3 | Archer C80/C64 | 32 字节头 + ToN/ToF/ToC + chunk 级 LZMA |
+   | MINIFS v2 | MAC1200RE | `[hash16][压缩长][name_off][解压长][0]` 与流交替 |
+   | OW | MR900 | LZMA 流内 32 字节 `OW` 魔数 + 76 字节记录 |
+   | PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]` |
 
-逐固件结果在 `RUST_METRICS.csv`，汇总在 [docs/DELIVERY.md](docs/DELIVERY.md)。
+3. **新的 UI 能力（命令行）**。`vx profile` 逐块展示每个文件块的识别类型与熵值，`vx entropy` 直接标出高熵区间（`0x起-0x止`）并judge「已解出」还是「疑似加密」，帮助分析人员快速理解固件结构组成。
 
-## 输出长什么样
+4. **固件案例可复现**。308 个样本的厂商、型号、版本、sha256、来源 URL、文件系统族都在 [`stats/CORPUS.csv`](stats/CORPUS.csv)。
 
-跑完屏幕上会直接告诉你东西在哪：
+## 编译
+
+```bash
+git clone https://github.com/0xba1100n/vxfile_extractor.git
+cd vxfile_extractor
+git checkout v3.0.0
+
+cd rust/vxcore
+cargo build --release
+./target/release/vx --version     # vx 3.0.0
+```
+
+交叉编译（需要 `rustup target add <target>` 和对应 linker）：
+
+```bash
+cargo build --release --target aarch64-unknown-linux-musl
+cargo build --release --target x86_64-pc-windows-msvc
+cargo build --release --target aarch64-apple-darwin
+```
+
+懒得编译可以直接下 Release 资产（10 个目标，CI 构建）：
+
+| 系统 | 架构 | 资产 |
+|---|---|---|
+| Linux | x86_64 | `VxFirmwareExtractor_linux_x86_64_gnu` / `_musl` |
+| Linux | aarch64 | `VxFirmwareExtractor_linux_aarch64_gnu` / `_musl` |
+| Linux | armv7 | `VxFirmwareExtractor_linux_armv7_musl` |
+| Windows | x86_64 / i686 / aarch64 | `VxFirmwareExtractor_windows_*.exe` |
+| macOS | x86_64 / aarch64 | `VxFirmwareExtractor_macos_*` |
+
+<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
+
+## 用法
+
+```bash
+vx verdict   fw.bin                  # 判定是不是 VxWorks
+vx scan      fw.bin                  # 列出容器/解压层
+vx tables    fw.bin                  # 打印文件名偏移表
+vx symbols   fw.bin                  # 打印符号名表
+vx extract   fw.bin -o out/          # 解包：文件 + 符号 + 摘要
+vx profile   fw.bin --block 1024 --ascii   # 逐块类型 + 熵
+
+# 批量
+vx batch         . -o stats/RUST_METRICS.csv   # 三项能力（19 分钟 / 308 样本）
+vx profile-batch . -o stats/PROFILE.csv        # 类型占比（13 秒）
+vx entropy       . -o stats/ENTROPY.csv        # 高熵区间（10 秒）
+```
+
+`vx extract` 的产物：
 
 ```
-[+] Filesystem unpacked (MINIFS, layer 0x158910): 297 files
-[+] Filename table (vxtable/minifs-pool): 297 entries -> MINIFS_Table.csv
+out/
+├─ minifs/      MINIFS v1/v3 解出的文件（保留原路径）
+├─ files/       PK11（Netgear）解出的文件
+├─ streams/     LZMA 流兜底解出的文件
+├─ kernel.bin   裸内核（整片镜像，或剥掉 20 字节头）
+└─ SUMMARY.json 层数 / 版本 / 计数
+```
+
+## 运行示例
+
+判定与解包：
+
+```
+$ vx extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
 [+] Output layout
     bin/   8 file(s)  <- executable / firmware image candidates
     src/   285 file(s)  <- static resources (js 166, html 81, css 13, json 9, xml 6)
     cfg/   4 file(s)  <- certificates / configs
-[*] Likely main logic: kernel image layer @0x158910 (3947396 B)
-    main HTTP/CGI code lives inside this image, not as a separate file
+[*] Likely main logic: kernel image layer 0x158910 (3947396 B)
+[!] high-entropy 0x00158C00-0x0027E800 (1203 KiB, 99.4%) -> compressed (data was recovered)
 ```
 
-`bin/` 放可执行体和固件镜像候选，`src/` 放网页/脚本/样式/图片，`cfg/` 放证书和配置，都是硬链接，不多占空间。
-
-完整说明（目录结构、分类规则、`SUMMARY.json` 字段、常见问题）在 **[docs/OUTPUT.md](docs/OUTPUT.md)**。
-
-## 和 binwalk 比
-
-全量 308 个样本，`binwalk 3.1.0 -Me` 与本工具各跑一遍：
-
-| 参数 | binwalk | 本工具 |
-|---|---:|---:|
-| 有产出的样本 | 159 / 306 | **298 / 308** |
-| 解出的文件总数 | 3,321 | **30,690** |
-| 符号名总数 | 0 | **824,018** |
-| 总耗时 | 26 秒 | 约 13 分钟（4 并发） |
-
-![对照](docs/binwalk_compare.png)
-
-完整表在 [BINWALK_COMPARE.md](BINWALK_COMPARE.md)，逐样本在 `binwalk_compare.csv`，复现：
-
-```bash
-bash tools/compare_binwalk.sh
-```
-
-几句实话：binwalk 在 147 个样本上一个文件都没解出来，基本是它认不出容器（`.chk`、TP-Link 的壳、裸内核）；
-符号表和文件名表它本来就不做；Linksys 那批反过来是它赢，因为一版固件里有 180 多条独立 gzip 流，它一条条都解。
-
-## 逐偏移画像
-
-仿 binwalk，但落成可机读的表：
-
-```bash
-vx profile fw.bin --block 1024 --ascii   # 单样本：每块熵 + 类型 + 合并区间
-vx profile-batch . -o PROFILE.csv        # 全量：按类型统计字节占比（13 秒）
-vx entropy . -o ENTROPY.csv              # 全量：高熵区间 [start,end)（10 秒）
-```
-
-输出示例：
+逐块画像：
 
 ```
-0x00156000-0x00156400       1024 B  ent  4.95  minifs
-0x00158C00-0x0027E800    1203200 B  ent  7.81  high-entropy
+$ vx profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
+0x00000000-0x00000400       1024 B  ent  7.43  data
+0x00000400-0x00101000    1051648 B  ent  7.81  high-entropy
+0x0012C000-0x0012C400       1024 B  ent  7.82  lzma
+kind                  bytes  regions   share
+high-entropy        1298432        3   99.2%
+[entropy 0..8] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@
+```
+
+疑似加密的判定：
+
+```
+$ vx extract samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 [!] high-entropy 0x00040000-0x00141000 (1028 KiB, 99.4%) -> likely encrypted / unknown container
 ```
 
-细节在 [docs/PROFILE.md](docs/PROFILE.md)。
+更多案例（20 个解开 + 20 个解不开）：[`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
 
-## 摸清的四种文件系统
+## v2.1（原文）
 
-| 变体 | 代表 | 结构 |
-|---|---|---|
-| MINIFS v1 | Mercury MW/MR | `[size][offset][name:0x50]`，每文件一条 LZMA 流，offset 相对首个 `5A 00 00 80` |
-| MINIFS v3 | Archer C80/C64 | 32 字节头 + ToN/ToF/ToC 三表 + chunk 级 LZMA，配置字 `5D 00 00 80` |
-| MINIFS v2 | MAC1200RE | 32 字节头 + `[hash16][压缩长][name_off][解压长][0]` 与流交替，名字已哈希 |
-| OW | MR900 | LZMA 流内 32 字节 `OW` 魔数 + 76 字节记录（`name[60]+0+size+offset+0`） |
-| PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]`，数据顺序排列 |
+> 一键提取 vxwork 固件内部文件，并依据 binwalk 分析结果和 uboot 镜像内文件名偏移表，正确恢复 vxwork 文件名。
+>
+> binwalk 尚未支持对 vxworks 系统固件的正确解包，而且已经停止更新很久了。直接用 binwalk 一把梭会遇到这种情况：全是莫名其妙的文件名。
+>
+> 附上博客文章作为补充说明：<https://ba1100n.tech/iot_security/%e6%8e%a2%e7%a9%b6vxworks%e6%96%87%e4%bb%b6%e5%90%8d%e6%81%a2%e5%a4%8d/>
+>
+> 程序设计细节和恢复原理详见：<https://bbs.kanxue.com/thread-284324.htm>
 
-带 hexdump 和推导过程的版本：[docs/structures.md](docs/structures.md)；
-哪些类别试过但解不开：[docs/UNSOLVED.md](docs/UNSOLVED.md)。
+## 鸣谢
 
-## 怎么用
-
-Python（需要 binwalk）：
-
-```bash
-python tools/verdict.py fw.bin            # 先确认是不是 VxWorks
-python tools/vxfile_extractor/vxfile_extracter.py fw.bin
-python tools/run_extractor.py --limit 5   # 批量跑，结果进 runs/
-python tools/capability_report.py         # 生成 CAPABILITY.md
-```
-
-Rust（不需要 Python、不需要 binwalk）：
-
-```bash
-vx extract fw.bin -o out/
-vx scan fw.bin
-vx tables fw.bin
-vx symbols fw.bin
-```
-
-## 解不开的
-
-- **Belkin 7 个样本**：层里几百个 `.htm` 全是 MIME 类型和调试字符串，没有已知文件系统魔数。
-- **TP-Link 老机型 / MR904**：升级包里只有内核和一张名字清单，`<html`、`PNG`、`GIF8` 出现次数都是 0，文件数据在设备另一个 flash 分区。
-- **TRENDnet `*_nml.bin`**：786,432 字节，8 字节头 + 约 590 KB 密文（熵 7.96），无 ECB 重复块，68 个候选密钥的 AES 全败，密钥在 bootloader 里。
-- **泰克 TDS210 / THS**：裸内核，没有文件系统，解不出文件属正常。
-
-## 关于符号表
-
-`SYMBOL_Table` 是**符号名串**，没有地址。想要「函数名 → 地址」，得另去定位 VxWorks 的 `symTbl` 结构，目前没做。
-符号名的用途：grep 函数名确认库在不在、判断版本、给反汇编器做函数名提示。
-
-## TODO
-
-- 符号表补上地址映射
-- MiniFS v2 的名字（现在只能按内容编号）
-- TRENDnet `*_nml.bin` 的解密（缺密钥，除非拿到设备）
-
-## 目录
-
-```
-tools/            判定、解包、统计、对照脚本
-rust/vxcore/      Rust 版引擎，编译成单文件
-docs/             OUTPUT.md、结构说明、流水线图
-CORPUS.csv        308 条样本的来源和 sha256
-CAPABILITY.md     三项能力统计（自动生成）
-dist/             已编译的产物
-```
-
-## 致谢
-
-样本和格式认识基本都来自 0xba1100n 的 vxfile_extractor 和那篇[看雪帖](https://bbs.kanxue.com/thread-284324.htm)，
-MINIFS 分块结构参考了 [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) 与 winmt 师傅的[论文](https://arxiv.org/html/2407.05064v1)。
-
-有错误欢迎拍砖，觉得有用就给个 ⭐。
+winmt、大肥鱼

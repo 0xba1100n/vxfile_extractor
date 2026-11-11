@@ -130,7 +130,7 @@ vx extract fw.bin -o out/ 2>/dev/null | jq .verdict
 
 **`src/` 是空的？** 这个固件没有网页资源，或者网页在加密分区里。看 `SUMMARY.json` 的 `recovered_named`。
 
-**`bin/` 里几百个文件？** 说明把解压层也算进去了。Rust 版会自动排除 `00158910_lzma-alone` 这类层转储，Python 版本来就不会算。
+**`bin/` 里几百个文件？** 说明把解压层也算进去了。`vx` 会自动排除 `00158910_lzma-alone` 这类层转储。
 
 **符号表有，但没地址？** 正常，见上面那节。
 

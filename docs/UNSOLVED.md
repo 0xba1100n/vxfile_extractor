@@ -34,17 +34,9 @@
 - 文件名+内容都恢复的样本：163 / 308（53%）
 
 
-## 验收：Python / Rust 双端对齐
+## 实现
 
-| 变体 | Python | Rust | 结果 |
-|---|---:|---:|---|
-| MiniFS v1（MW313R） | 123 | 123 | 一致（已加文件名 sanitize + 容错解压） |
-| MiniFS v3（C80） | 297 | 297 | 一致 |
-| MiniFS v2（MAC1200RE） | 175 | 175 | 一致 |
-| OW（MR900） | 240 | 240 | 一致 |
-| PK11（WGR614） | 120 | 120 | 一致 |
-
-Rust 侧模块：`minifs.rs`（v1/v3）、`minifs_v2.rs`、`lzcarve.rs`（LZMA 流 + OW）、`pk11.rs`。
+早期 Python 实现已从仓库移除，Rust 是唯一实现；`vx batch` 三项能力的验收数据在 `stats/RUST_METRICS.csv`。
 
 ## 最终指标（308 样本）
 

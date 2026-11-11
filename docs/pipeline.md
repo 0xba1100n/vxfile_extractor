@@ -69,12 +69,12 @@ out/
 ## 6. 复现
 
 ```bash
-python tools/verdict.py fw.bin
-python tools/run_extractor.py --limit 5
-python tools/capability_report.py
+vx verdict fw.bin
+vx extract fw.bin -o out/
+vx batch . -o stats/RUST_METRICS.csv
 ```
 
-Rust 版（不需要 Python / binwalk）：
+批量统计：
 
 ```bash
 vx extract fw.bin -o out/
