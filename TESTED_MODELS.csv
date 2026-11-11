@@ -1,0 +1,309 @@
+vendor,model,firmware_version,kernel_version,family,file,size_bytes,sha256_16,verdict,m1_unpack,m2_symbol_table,m2_symbol_names,m3_filename_table,m3_filename_entries,m3_names_only,m3_named_content
+anritsu,MS2024A,1.66,5.5.1,instrument,samples\expand-e\anritsu_MS2024A_V1.66_fw.zip,8861857,910eec2660807ed0,vxworks,yes,yes,6060,no,0,0,0
+anritsu,MS2026B,2.01,"5.5,5.5.1",instrument,samples\expand-e\anritsu_MS2026B_V2.01_fw.zip,21108211,3df63988677f1e00,vxworks,yes,yes,6041,no,0,0,0
+anritsu,MS2034A,1.21,5.5.1,instrument,samples\expand-e\anritsu_MS2034A_V1.21_fw.zip,10903342,049bfec9fe5a75c3,vxworks,yes,yes,6060,no,0,0,0
+anritsu,MS2717B,4.04,5.5.1,instrument,samples\expand-e\anritsu_MS2717B_V4.04_fw.zip,16091198,f43ddaea94a3b249,vxworks,yes,yes,6060,no,0,0,0
+anritsu,MS2720T,4.80,"5.5,5.5.1",instrument,samples\expand-e\anritsu_MS2720T_V4.80_fw.zip,46601783,e0676a2001427158,vxworks,yes,yes,6041,no,0,0,0
+anritsu,MS2721B,1.51,5.5.1,instrument,samples\expand-e\anritsu_MS2721B_V1.51_fw.zip,20934514,fb556b11ea8cce50,vxworks,yes,yes,6060,no,0,0,0
+anritsu,MS2723B,1.39,5.5.1,instrument,samples\expand-e\anritsu_MS2723B_V1.39_fw.zip,16888330,9faf486f2e51499f,vxworks,yes,yes,6060,no,0,0,0
+anritsu,MS272xC,2.30,"5.5,5.5.1",instrument,samples\expand-e\anritsu_MS272xC_V2.30_fw.zip,46210330,33fe65fada46fece,vxworks,yes,yes,6041,no,0,0,0
+anritsu,MT8222A,1.80,5.5.1,instrument,samples\expand-e\anritsu_MT8222A_V1.80_fw.zip,21766519,cdc9092eb928215a,vxworks,yes,yes,6060,no,0,0,0
+anritsu,MW82119A,2.30,"5.5,5.5.1",instrument,samples\expand-e\anritsu_MW82119A_V2.30_fw.zip,28201771,2dd34d09335bac65,vxworks,yes,yes,6041,no,0,0,0
+anritsu,MW82119B,4.80,"5.5,5.5.1",instrument,samples\expand-e\anritsu_MW82119B_V4.80_fw.zip,29600099,3010ab0fa5c7e990,vxworks,yes,yes,6041,no,0,0,0
+anritsu,S412E,4.81,"5.5,5.5.1",instrument,samples\expand-e\anritsu_S412E_V4.81_fw.zip,54484931,4dff2a1c6b809899,vxworks,yes,yes,6041,no,0,0,0
+belkin,Belkin F5D5231-4 v1,1.00.00,WIND 2.5 (VxWorks 5.x),other,samples\other\a6_belkin_F5D5231-4_v1-1.00.00.bin,833419,32964d947cc0e5f6,vxworks,yes,no,0,no,0,166,0
+belkin,F5D5230-4,1.20.001,v1.20.001,deflate-stub,samples\expand-b\belkin_F5D5230-4-v1.20.001.bin,599932,17ba2a874738426a,vxworks,yes,no,0,no,0,33,0
+belkin,F5D5230-4,1.20.002,v1.20.002,deflate-stub,samples\expand-b\belkin_F5D5230u4-v1.20.002-runtime.bin,619440,6294069559fc0457,vxworks,yes,no,0,no,0,38,0
+belkin,F5D5230-4,1.20.003,v1.20.003,deflate-stub,samples\expand-b\belkin_F5D5230u4-v1.20.003-runtime.bin,626896,6336f1d7c01fe841,vxworks,yes,no,0,no,0,38,0
+belkin,F5D6230-3,1.20.000,v1.20.000,deflate-stub,samples\expand-b\belkin_F5D6230-3-v1.20.000.bin,676180,cd0f4bd1fd9b3fe3,vxworks,yes,no,0,no,0,50,0
+belkin,F5D6230-3,1.20.000,v1.20.000 (g3 build),deflate-stub,samples\expand-b\belkin_F5D6230g3-v1.20.000-runtime.bin,723380,4c109a4889a0dadb,vxworks,yes,no,0,no,0,48,0
+belkin,F5D6230-3,1.20.004,v1.20.004,deflate-stub,samples\expand-b\belkin_F5D6230-3-v1.20.004-runtime.bin,708384,54af52bac1799bc9,vxworks,yes,no,0,no,0,50,0
+fast,FR40,,5.5.1,opaque,samples\fast\2011824152834.rar,456107,5da219114080704f,vxworks,yes,no,0,yes,19,45,0
+fast,FR50,,5.5.1,opaque,samples\expand-a\20091028152225.rar,915993,d4b3e074a46e13cc,vxworks,yes,no,0,yes,117,56,0
+fast,FR516,,5.5.1,opaque,samples\expand-a\2009102990137.rar,637021,c24cb5f89b2a6015,vxworks,yes,no,0,yes,117,56,0
+fast,FR524,,5.5.1,opaque,samples\expand-a\2009102990609.rar,637085,09abf9c308cc009b,vxworks,yes,no,0,yes,117,56,0
+fast,FR60,,6.6,opaque,samples\expand-a\2013125191408.rar,3980382,53dacb7f5f5fca96,vxworks,yes,no,0,yes,234,273,0
+fast,FR80,,5.5.1,opaque,samples\expand-a\201182201224.rar,1659439,0fdf52d6883f0acb,vxworks,yes,no,0,yes,166,334,0
+fast,FR90,,5.5.1,opaque,samples\expand-a\2010119143518.rar,1348789,27969c17ebe5816f,vxworks,yes,no,0,yes,18,112,0
+fast,FW150R,,,opaque,samples\expand-a\2014326163556.zip,1113434,cae6b5e5fdae6b27,vxworks,yes,no,0,yes,163,0,0
+fast,FW150R,,5.5.1,opaque,samples\expand-a\inner\FW150R__20121212153667.bin,1076564,aadfaff04afb87f7,vxworks,yes,no,0,yes,168,0,0
+fast,FW300R,,5.5.1,opaque,samples\expand-a\inner\FW300R__2012126162529.bin,1574884,ad085b50c3b4220d,vxworks,yes,yes,7610,yes,170,0,0
+fast,FW300R,,5.5.1,opaque,samples\expand-a\2013117155732.rar,1404999,89d112ac70c02425,vxworks,yes,yes,6798,no,0,0,0
+fast,FW300R,,5.5.1,opaque,samples\expand-a\2013724172437.rar,1411008,90ba345e4343a2b4,vxworks,yes,yes,6862,no,0,0,0
+fast,FW300R,,5.5.1,opaque,samples\expand-a\2014314161063.zip,837701,cbbff8103aeb1c63,vxworks,yes,no,0,yes,165,0,1
+fast,FW325R,,5.5.1,minifs,samples\expand-a\201615150824.zip,1141807,569f0483bee24a17,vxworks,yes,no,0,yes,132,0,20
+intellistar,IntelliStar 1 ThunderStorm bootrom,,5.4.2,other,samples\other\intellistar_thunderstorm_bootrom.bin,174848,7eda6b4efb4a9f03,vxworks,yes,no,0,no,0,0,0
+intellistar,IntelliStar 1 ThunderStorm 图形卡,,5.4.2,other,samples\other\intellistar_thunderstorm_vxworks.bin,652544,ef666c969c920573,vxworks,yes,yes,2555,no,0,0,0
+linksys,WRT54G v5/v6,1.02.5,5.4.2,troc,samples\jp\linksys_WRT54Gv5v6_1.02.5.bin,1672996,2e2712c55f33df93,vxworks,yes,yes,683,yes,93,0,0
+linksys,WRT54G v5/v6,1.02.8,5.4.2,troc,samples\jp\linksys_WRT54Gv5v6_1.02.8.bin,1768904,a6a2e710652c70aa,vxworks,yes,yes,684,yes,86,0,0
+linksys,WRT54G v7.2,7.2,5.4.2,troc,samples\jp\linksys_WRT54Gv7.2_7.2.01.007.bin,1768116,ab0946092992177d,vxworks,yes,yes,684,yes,86,0,0
+linksys,WRT54G2 v1,1.0.01.003,5.4.2,troc,samples\jp\linksys_WRT54G2v1_1.0.01.003.bin,1779120,2d404d83110319b8,vxworks,yes,yes,684,yes,85,0,0
+linksys,WRT54G2 v1.3,1.3,5.5,troc,samples\jp\linksys_FW_WRT54G2V1.3_1.3.00.028_US_20081205.bin,1723384,6991898534303575,vxworks,yes,no,0,yes,102,0,0
+linksys,WRT54G2 v1.5,1.5,5.5,other,samples\jp\linksys_FW_WRT54G2V1.5_1.5.02.005_US_20120221.bin,1699832,1572c988842cf03d,vxworks,yes,no,0,yes,102,0,0
+linksys,WRT54GS v5/v6,,5.4.2,troc,samples\jp\linksys_WRT54GSv5_v1_50_9.zip,1442686,746b106beb2f4f2a,vxworks,yes,yes,746,yes,84,0,0
+linksys,WRT54GS v5/v6,1.52.5.002,5.4.2,troc,samples\jp\linksys_WRT54GS-v5v6_1.52.5.002_fw.bin,1673180,3c9bae747c770342,vxworks,yes,yes,683,yes,93,0,0
+linksys,WRT54GS v5/v6,1.52.8.001,5.4.2,troc,samples\jp\linksys_FW_WRT54GSv5v6_1.52.8.001_US_20091005.bin,1769384,20cf7d06ca655fa9,vxworks,yes,yes,684,yes,86,0,0
+linksys,WRT54GS2 v1,1.0.02.007,5.5,troc,samples\jp\linksys_WRT54GS2v1_1.0.02.007.bin,1762240,5ebadd14a917ca52,vxworks,yes,no,0,yes,104,0,0
+mercury,MAC1200RE,2.0,5.5.1,minifs,samples\mercury\MAC1200RE_V2.0.zip,1535859,a24fede432c80503,vxworks,yes,yes,6176,no,0,34,0
+mercury,MR100P-AC,1.0,5.5.1,minifs,samples\mercury\MR100P-AC_V1.0_171124.zip,958355,f42833867fb51bb0,vxworks,yes,no,0,yes,106,0,0
+mercury,MR804,,5.5.1,opaque,samples\mercury\MR804_V1_V5_V6_100430.rar,477229,a8e8b9327ce6b836,vxworks,no,no,0,no,0,0,0
+mercury,MR804,,5.5.1,opaque,samples\mercury\MR804_V7_100624.rar,433132,a864f64ef55e0d76,vxworks,yes,no,0,yes,18,43,0
+mercury,MR804,,5.5.1,opaque,samples\mercury\MR804_V8_101220.rar,414117,14b21addfea8aa46,vxworks,yes,no,0,yes,18,43,0
+mercury,MR804,,5.5.1,opaque,samples\mercury\MR804_V8_120312.rar,472918,f9d6e4731b4aded5,vxworks,yes,no,0,yes,18,47,0
+mercury,MR804,,5.5.1,opaque,samples\mercury\MR804_V9_121023.rar,559977,dd29d89c35312299,vxworks,yes,no,0,yes,101,0,0
+mercury,MR804,,5.5.1,opaque,samples\mercury\MR804_V9_121225.rar,557290,fa003332daa269e9,vxworks,yes,no,0,yes,103,0,1
+mercury,MR804,,5.5.1,opaque,samples\expand-a\2010628150457.rar,440085,806d13c843f6f918,vxworks,yes,no,0,yes,18,43,0
+mercury,MR804,,5.5.1,opaque,samples\expand-a\2011113135422.rar,415932,1e56d5d1ff7a1ab3,vxworks,yes,no,0,yes,18,44,0
+mercury,MR804,,5.5.1,opaque,samples\expand-a\2011921171332.rar,437930,bc6e60904bfdd7f9,vxworks,yes,no,0,yes,18,43,0
+mercury,MR804,,5.5.1,opaque,samples\expand-a\20111215182029.rar,437613,9daf001966133bd6,vxworks,yes,no,0,yes,18,43,0
+mercury,MR804,,5.5.1,opaque,samples\expand-f\mercury_MR804_V1V5V6_100526_special.bin,400788,af808395d2f73b9a,vxworks,no,no,0,no,0,0,0
+mercury,MR804,,5.5.1,opaque,samples\expand-f\mercury_MR804_V1V5V6_100728_test.bin,398324,055cefa70eb24300,vxworks,no,no,0,no,0,0,0
+mercury,MR807,,5.5.1,opaque,samples\mercury\MR807_V2_101125.rar,414192,be58868b7925a65c,vxworks,yes,no,0,yes,18,43,0
+mercury,MR807,,5.5.1,opaque,samples\mercury\MR807_V2_120312.rar,473165,232d1fc2024319f2,vxworks,yes,no,0,yes,18,47,0
+mercury,MR807,,5.5.1,opaque,samples\expand-a\2011113140253.rar,433201,6b454069c0f46c8f,vxworks,yes,no,0,yes,18,44,0
+mercury,MR807,,5.5.1,opaque,samples\expand-a\2011113140954.rar,415761,4ee8f4426e9d238f,vxworks,yes,no,0,yes,18,43,0
+mercury,MR808,,5.5.1,opaque,samples\expand-a\2009115163851.rar,863076,d243267d0f72bd03,vxworks,yes,no,0,yes,17,66,0
+mercury,MR808,,5.5.1,opaque,samples\expand-f\mercury_MR808_v1v2v3_090916_special.bin,596356,536f46ea86091fb3,vxworks,yes,no,0,yes,116,0,0
+mercury,MR814,,5.5.1,opaque,samples\expand-a\2009115171255.rar,862989,ca61eac308a33699,vxworks,yes,no,0,yes,17,66,0
+mercury,MR814,,5.5.1,opaque,samples\expand-a\2009115170928.rar,848411,a224ca721b7b0c51,vxworks,yes,no,0,yes,116,56,0
+mercury,MR814,,5.5.1,opaque,samples\expand-f\mercury_MR814_V1_070807.bin,745700,d5d8620eaafa023f,vxworks,yes,no,0,yes,17,0,0
+mercury,MR816,,5.5.1,opaque,samples\expand-a\200911695340.rar,863231,f06ec7f1d1cf9abd,vxworks,yes,no,0,yes,17,66,0
+mercury,MR816,,5.5.1,opaque,samples\expand-a\200911695119.rar,637119,f9228ce9bff2dc22,vxworks,yes,no,0,yes,116,56,0
+mercury,MR824,,5.5.1,opaque,samples\expand-a\2009116100221.rar,637183,e4be0abf84b30d81,vxworks,yes,no,0,yes,116,56,0
+mercury,MR824,,5.5.1,opaque,samples\expand-f\mercury_MR824_V2_081020.bin,790084,b0b4e6ed38c82dcb,vxworks,yes,no,0,yes,17,0,0
+mercury,MR900,,6.6,opaque,samples\mercury\MR900_V2_130109.rar,3981893,6f62cb9b918efb4b,vxworks,yes,no,0,yes,234,273,0
+mercury,MR900,3.0,6.6,opaque,samples\mercury\MR900_V3.0_20161126.zip,2806001,4ed06480e2ee3b14,vxworks,yes,yes,17955,yes,239,280,0
+mercury,MR900B,,6.6,opaque,samples\mercury\MR900B_V2_130109.rar,4033254,6fe1a9c79b424c43,vxworks,yes,no,0,yes,246,291,0
+mercury,MR900B,3.0,6.6,opaque,samples\mercury\MR900B_V3.0_150521.zip,2861178,bac11c469a0628ff,vxworks,yes,yes,17933,yes,251,306,0
+mercury,MR900B,3.0,6.6,opaque,samples\mercury\MR900B_V3.0_161126.zip,2941558,4e4f5a59f8a4492b,vxworks,yes,yes,17955,yes,251,307,0
+mercury,MR904,,5.5.1,opaque,samples\mercury\MR904_V1_100107.rar,1307390,30f4d03d9745d4e6,vxworks,yes,no,0,yes,17,112,0
+mercury,MR904,,5.5.1,opaque,samples\mercury\MR904_V3_110529.rar,2750564,a9bc802bb2e034c7,vxworks,yes,no,0,yes,161,321,0
+mercury,MR904,,5.5.1,opaque,samples\mercury\MR904_V3_110714.rar,1619354,051aab199510f6d3,vxworks,yes,no,0,yes,167,334,0
+mercury,MR904,2.0,5.5.1,opaque,samples\mercury\MR904_V2.0_101130.zip,1263613,c57ec26e9208e3b4,vxworks,yes,no,0,yes,23,97,0
+mercury,MR904B,,5.5.1,opaque,samples\mercury\MR904B_V1_100107.rar,1328349,f1a9967cf544639f,vxworks,yes,no,0,yes,17,124,0
+mercury,MR904B,,5.5.1,opaque,samples\mercury\MR904B_v2_110529.rar,2796581,eb292056b28e41d1,vxworks,yes,no,0,yes,174,347,0
+mercury,MR904B,,5.5.1,opaque,samples\mercury\MR904B_v2_110714.rar,1641576,c714fb71a05c4f62,vxworks,yes,no,0,yes,180,360,0
+mercury,MR914,,5.5.1,opaque,samples\mercury\MR914_V1_100107.rar,1306188,f21e4c48ea4d1169,vxworks,yes,no,0,yes,17,112,0
+mercury,MR914B,,5.5.1,opaque,samples\mercury\MR914B_V1_100107.rar,1328213,d285b9858151a566,vxworks,yes,no,0,yes,17,124,1
+mercury,MW108R,,5.5.1,opaque,samples\expand-f\mercury_MW108R_V1_070820.bin,986196,fac8fde1f753abb0,vxworks,yes,no,0,no,0,61,0
+mercury,MW150R,,5.5.1,opaque,samples\mercury\MW150R_V5_V6_111219.rar,1523839,1d4216dd57be5993,vxworks,yes,yes,6692,yes,167,0,0
+mercury,MW150R,,5.5.1,opaque,samples\mercury\MW150R_V8_121113.rar,1028158,2b4cb5e102abcb7a,vxworks,yes,no,0,yes,164,0,0
+mercury,MW150R,,5.5.1,opaque,samples\expand-a\inner\MW150R__201342200320.bin,1074164,f00f86bdeabb6879,vxworks,yes,no,0,yes,166,0,2
+mercury,MW150R,,5.5.1,opaque,samples\expand-f\mercury_MW150R_V5-V6_111231_test.bin,1260852,f9f7fec8cace3416,vxworks,yes,yes,6685,yes,167,0,0
+mercury,MW150R,,5.5.1,opaque,samples\expand-f\mercury_MW150R_V5-V6_120109_special.bin,1260820,fe9920dc889940ad,vxworks,yes,yes,6690,yes,167,0,0
+mercury,MW150R,,5.5.1,opaque,samples\expand-f\mercury_MW150R_V5-V6_120217_special.bin,1270516,335d25269d231064,vxworks,yes,yes,6725,yes,170,0,1
+mercury,MW150R,,5.5.1,opaque,samples\expand-f\mercury_MW150R_V8_130226_test.bin,1074148,f729d66091b6b79e,vxworks,yes,no,0,yes,166,0,1
+mercury,MW150R,10.0,V10.0_140225,opaque,samples\mercury\MW150R_V10.0_140225.rar,834885,87d41a15193ddc91,vxworks,yes,no,0,yes,160,0,0
+mercury,MW150RM,,5.5.1,opaque,samples\mercury\MW150RM_V1_V2_120530.rar,1345198,825a131c7d56caaf,vxworks,yes,yes,7099,yes,212,0,2
+mercury,MW150RM,,5.5.1,opaque,samples\mercury\MW150RM_V1_V2_120809.rar,1553941,1b095d5e16d4406f,vxworks,yes,yes,7122,yes,212,0,1
+mercury,MW1515R,,5.5.1,opaque,samples\mercury\MW1515R_V1_121012.rar,1033044,e16237dd5f4bb7e5,vxworks,yes,no,0,yes,175,0,1
+mercury,MW151R,,5.5.1,opaque,samples\mercury\MW151R_V1_100113.rar,1456676,59ee5b3061252493,vxworks,yes,yes,4516,yes,127,0,0
+mercury,MW151R,,5.5.1,opaque,samples\expand-a\inner\MW151R__2010628151219.bin,1331228,e54c45a40eb9a9d0,vxworks,yes,yes,4525,yes,127,0,0
+mercury,MW151RM,,5.5.1,opaque,samples\mercury\MW151RM_V1_120425.rar,1338914,572fc0bca0a137fd,vxworks,yes,yes,7054,yes,212,0,2
+mercury,MW151RM,,5.5.1,opaque,samples\mercury\MW151RM_V1_121107.rar,1554911,e3a8b6471bfaecc7,vxworks,yes,yes,7121,yes,212,0,1
+mercury,MW151RM,,5.5.1,opaque,samples\expand-a\inner\MW151RM__201223163746.bin,1333988,c7fc44043dd9cac8,vxworks,yes,yes,7129,yes,212,0,2
+mercury,MW153R,,5.5.1,opaque,samples\mercury\MW153R_V1_110909.rar,1336383,071f70634840720f,vxworks,yes,yes,7377,yes,169,0,0
+mercury,MW153R,,5.5.1,opaque,samples\mercury\MW153R_V1_121127.rar,1030207,2ba0756c7bc66600,vxworks,yes,no,0,yes,164,0,0
+mercury,MW153R,,5.5.1,opaque,samples\expand-a\inner\MW153R__201342200827.bin,1074340,204f7398e87e6c13,vxworks,yes,no,0,yes,166,0,2
+mercury,MW153R,,5.5.1,opaque,samples\expand-a\inner\MW153R__201342200957.bin,1074244,3e53e2f7cf773098,vxworks,yes,no,0,yes,166,0,2
+mercury,MW155R,,V1/V2_130427,opaque,samples\mercury\MW155R_V1_V2_130427.rar,882158,adc883e8e0f62950,vxworks,yes,no,0,yes,160,0,1
+mercury,MW155R,1.0,V1.0_140310,opaque,samples\mercury\MW155R_V1.0_140310.zip,872879,9832f87bb7d231d5,vxworks,yes,no,0,yes,163,0,0
+mercury,MW300R,,5.5.1,opaque,samples\mercury\MW300R_V4_121126.rar,1418920,98d4b8d538158d77,vxworks,yes,yes,7610,yes,166,0,2
+mercury,MW300R,,5.5.1,opaque,samples\mercury\MW300R_V6_130226.rar,1374645,74d68c84b6264847,vxworks,yes,yes,6836,no,0,0,0
+mercury,MW300R,,5.5.1,opaque,samples\expand-a\inner\MW300R__201275172121.bin,1309124,d7224f3b6bbeaaf7,vxworks,yes,yes,7609,yes,166,0,2
+mercury,MW300R,,5.5.1,opaque,samples\expand-a\inner\MW300R__201275173752.bin,1308756,1aba8a41dcfddff9,vxworks,yes,yes,7610,yes,166,0,2
+mercury,MW300R,,5.5.1,opaque,samples\expand-a\inner\MW300R__201216162049.bin,1260020,4c285631ec8c3eb4,vxworks,yes,yes,7623,yes,140,0,0
+mercury,MW300R,,5.5.1,opaque,samples\expand-a\inner\MW300R__201275174246.bin,1258468,bf801a615fb73db7,vxworks,yes,yes,7609,yes,140,0,0
+mercury,MW300R,,5.5.1,opaque,samples\expand-a\inner\MW300R__201275174464.bin,1258100,1cfa498bdcaa1b64,vxworks,yes,yes,7610,yes,140,0,0
+mercury,MW300R,10.0,5.5.1,minifs,samples\mercury\MW300R_V10.0_150504.zip,927547,4f53a42683f53afe,vxworks,yes,no,0,yes,96,0,22
+mercury,MW300R,10.0,5.5.1,minifs,samples\mercury\MW300R_V10.0_150902.zip,915703,d488e830032c1148,vxworks,yes,no,0,yes,96,0,22
+mercury,MW300R,12.0,5.5.1,minifs,samples\mercury\MW300R_V12.0_150610.zip,1020694,779a2ee0d03d3d3c,vxworks,yes,no,0,yes,124,0,0
+mercury,MW300R,12.0,5.5.1,minifs,samples\mercury\MW300R_V12.0_160309.zip,1023719,08e07d1ead8953ed,vxworks,yes,no,0,yes,124,0,0
+mercury,MW300R,15.0,5.5.1,minifs,samples\mercury\MW300R_V15.0_160506.zip,899887,b60073472b59b5f5,vxworks,yes,no,0,yes,124,0,22
+mercury,MW300R,6.0,5.5.1,opaque,samples\mercury\MW300R_V6.0_130705.rar,1376380,aeb9d3c8f532f63e,vxworks,yes,yes,6862,no,0,0,0
+mercury,MW300R,9.0,5.5.1,opaque,samples\mercury\MW300R_V9.0_140210.rar,830872,58d06f3e55bcccf8,vxworks,yes,no,0,yes,162,0,1
+mercury,MW300R,9.0,5.5.1,opaque,samples\mercury\MW300R_V9.0_140528.zip,865058,9ed0459852403a0a,vxworks,yes,no,0,yes,162,0,0
+mercury,MW300RE,2.0,5.5.1,minifs,samples\mercury\MW300RE_V2.0_20161230.zip,998610,970f327861f00d43,vxworks,yes,no,0,yes,102,0,0
+mercury,MW301RE,1.0,5.5.1,minifs,samples\mercury\MW301RE_V1.0_160421.zip,983145,fa15d16e20ecb9d4,vxworks,yes,no,0,yes,99,0,0
+mercury,MW303R,,5.5.1,opaque,samples\mercury\MW303R_V1_120201.rar,1366080,f9cda04413016160,vxworks,yes,yes,7607,yes,166,0,0
+mercury,MW303R,,5.5.1,opaque,samples\expand-a\inner\MW303R__201275174751.bin,1309204,71f8e46f215a15e6,vxworks,yes,yes,7609,yes,166,0,0
+mercury,MW303R,,5.5.1,opaque,samples\expand-a\inner\MW303R__201275174943.bin,1308836,f82b5f89ab5e5745,vxworks,yes,yes,7610,yes,166,0,0
+mercury,MW305R,,5.5.1,opaque,samples\mercury\MW305R_V1_130111.rar,1366864,b35fe72b8f339bbb,vxworks,yes,yes,6798,no,0,0,0
+mercury,MW305R,1.0,5.5.1,opaque,samples\mercury\MW305R_V1.0_130627.rar,1376534,de4c720a05e51d95,vxworks,yes,yes,6862,no,0,0,0
+mercury,MW305R,3.0,5.5.1,opaque,samples\mercury\MW305R_V3.0_140210.zip,864282,19eb2af4c453dfcf,vxworks,yes,no,0,yes,162,0,1
+mercury,MW305R,3.0,5.5.1,opaque,samples\mercury\MW305R_V3.0_140528.zip,865064,dafa99f1dd53340c,vxworks,yes,no,0,yes,162,0,1
+mercury,MW305R,4.0,5.5.1,minifs,samples\mercury\MW305R_V4.0_150428.zip,980655,3689426f622ff983,vxworks,yes,no,0,yes,96,0,0
+mercury,MW305R,5.0,5.5.1,minifs,samples\mercury\MW305R_V5.0_150929.zip,915693,b07f3f7a4a7b674f,vxworks,yes,no,0,yes,124,0,22
+mercury,MW305R,5.0,5.5.1,minifs,samples\mercury\MW305R_V5.0_151111.zip,915726,1c2b6d7f43f270c1,vxworks,yes,no,0,yes,124,0,22
+mercury,MW305R,7.0,5.5.1,minifs,samples\mercury\MW305R_V7.0_150706.zip,1021361,2f70b81fd6123e0a,vxworks,yes,no,0,yes,124,0,0
+mercury,MW305R,7.0,5.5.1,minifs,samples\mercury\MW305R_V7.0_160121.zip,1024201,84aea7372ca8aa61,vxworks,yes,no,0,yes,124,0,0
+mercury,MW305R+,,5.5.1,opaque,samples\expand-a\2014512165923.zip,864338,bb3394d5c2e8f97f,vxworks,yes,no,0,yes,162,0,1
+mercury,MW306R,1.0,5.5.1,opaque,samples\mercury\MW306R_V1.0_140210.zip,864284,8eef27279450efcf,vxworks,yes,no,0,yes,162,0,1
+mercury,MW306R,1.0,5.5.1,opaque,samples\mercury\MW306R_V1.0_140528.zip,865065,d12e47e6ef93e23c,vxworks,yes,no,0,yes,162,0,1
+mercury,MW309R,1.0,5.5.1,opaque,samples\mercury\MW309R_V1.0_140219.zip,864792,c59da2c7d3b54310,vxworks,yes,no,0,yes,162,0,1
+mercury,MW309R,1.0,5.5.1,opaque,samples\mercury\MW309R_V1.0_140613.zip,865561,4f1bb01c7ef726ce,vxworks,yes,no,0,yes,162,0,1
+mercury,MW310R,,5.5.1,opaque,samples\mercury\MW310R_V1_V2_120201.rar,1366089,ac43a2495e4a5ba5,vxworks,yes,yes,7607,yes,166,0,0
+mercury,MW310R,,5.5.1,opaque,samples\mercury\MW310R_V1_V2_130201.rar,1422667,af854002a92457db,vxworks,yes,yes,7624,yes,168,0,0
+mercury,MW310R,,5.5.1,opaque,samples\expand-f\mercury_MW310R_V1-V2_120507_special.bin,1309204,f35be26e8998b243,vxworks,yes,yes,7609,yes,166,0,0
+mercury,MW310R,,5.5.1,opaque,samples\expand-f\mercury_MW310R_V1-V2_120508_special.bin,1308836,86318fe4c58c678c,vxworks,yes,yes,7610,yes,166,0,0
+mercury,MW310R,5.0,5.5.1,minifs,samples\mercury\MW310R_V5.0_150624.zip,1021184,f028ce2a62b4ce9a,vxworks,yes,no,0,yes,124,0,0
+mercury,MW310R,5.0,5.5.1,minifs,samples\mercury\MW310R_V5.0_160301.zip,1024086,487c7bbea264c33e,vxworks,yes,no,0,yes,124,0,0
+mercury,MW310RE,2.0,5.5.1,minifs,samples\mercury\MW310RE_V2.0_170227.zip,998393,065765a4809fc11c,vxworks,yes,no,0,yes,103,0,0
+mercury,MW310RE,3.0,5.5.1,minifs,samples\mercury\MW310RE_V3.0.zip,989075,ef9b2bd79696671a,vxworks,yes,no,0,yes,89,0,0
+mercury,MW313R,1.0,5.5.1,opaque,samples\mercury\MW313R_V1.0_140307.zip,986349,7dffacd05c948a9a,vxworks,yes,no,0,no,0,0,0
+mercury,MW313R,1.0,5.5.1,opaque,samples\mercury\MW313R_V1.0_140701.zip,986583,3487a638db88e272,vxworks,yes,no,0,no,0,0,0
+mercury,MW313R,2.0,5.5.1,minifs,samples\mercury\MW313R_V2.0_150110.zip,1036073,4a8208de7b62dfa7,vxworks,yes,no,0,yes,96,0,0
+mercury,MW313R,2.0,5.5.1,minifs,samples\mercury\MW313R_V2.0_150305.zip,1011496,40f7ac70b0399d4d,vxworks,yes,no,0,yes,96,0,0
+mercury,MW313R,2.0,5.5.1,minifs,samples\mercury\MW313R_V2.0_150428.zip,980664,c10ba2cc694908d0,vxworks,yes,no,0,yes,96,0,0
+mercury,MW313R,3.0,5.5.1,minifs,samples\mercury\MW313R_V3.0_151021.zip,1022346,72b195e03b8f614d,vxworks,yes,no,0,yes,124,0,0
+mercury,MW313R,3.0,5.5.1,minifs,samples\mercury\MW313R_V3.0_160314.zip,1024768,32c44ebfd0f05f25,vxworks,yes,no,0,yes,124,0,0
+mercury,MW313R,4.0,5.5.1,minifs,samples\mercury\MW313R_V4.0_160602.zip,901009,02bb7c8d3b181018,vxworks,yes,no,0,yes,124,0,22
+mercury,MW315R,1.0,5.5.1,minifs,samples\mercury\MW315R_V1.0_160323.zip,1024697,44133e560405b12f,vxworks,yes,no,0,yes,124,0,0
+mercury,MW315R,1.0,5.5.1,minifs,samples\mercury\MW315R_V1.0_161020.zip,1024552,4bedfeec912bba0f,vxworks,yes,no,0,yes,124,0,0
+mercury,MW315R,2.0,5.5.1,minifs,samples\mercury\MW315R_V2.0_160616.zip,899955,b82a133b32a4f973,vxworks,yes,no,0,yes,124,0,22
+mercury,MW316R,1.0,5.5.1,opaque,samples\mercury\MW316R_V1.0_141105.zip,867374,2674e7abf2e1b94e,vxworks,yes,no,0,yes,162,0,1
+mercury,MW316R,1.0,5.5.1,minifs,samples\mercury\MW316R_V1.0_150611.zip,921360,c036d44e74a64e50,vxworks,yes,no,0,yes,162,0,1
+mercury,MW316R,1.0,5.5.1,minifs,samples\mercury\MW316R_V1.0_150817.zip,921536,833b0de5862b5cf1,vxworks,yes,no,0,yes,162,0,1
+mercury,MW320R,1.0,5.5.1,opaque,samples\mercury\MW320R_V1.0_141111.zip,867566,781c0590d8a0bb58,vxworks,yes,no,0,yes,162,0,1
+mercury,MW320R,1.0,5.5.1,minifs,samples\mercury\MW320R_V1.0_150925.zip,911119,0d3d7ac3476d5e47,vxworks,yes,no,0,yes,162,0,1
+mercury,MW323R,1.0,5.5.1,minifs,samples\mercury\MW323R_V1.0_150504.zip,929282,1410b1e07ea0c5cd,vxworks,yes,no,0,yes,96,0,22
+mercury,MW325R,2.0,5.5.1,minifs,samples\mercury\MW325R_V2.0_160607.zip,900082,350019bbfa6746bd,vxworks,yes,no,0,yes,124,0,22
+mercury,MW325R,3.0,5.5.1,minifs,samples\mercury\MW325R_V3.0_160725.zip,1025348,58dd35c76c99fc2d,vxworks,yes,no,0,yes,124,0,0
+mercury,MW325R,3.0,5.5.1,minifs,samples\mercury\MW325R_V3.0_160926.zip,1025588,dd3ab253f62a9af5,vxworks,yes,no,0,yes,124,0,0
+mercury,MW325R,4.0,5.5.1,minifs,samples\mercury\MW325R_V4.0.zip,1104608,f697a4e9f840b9e9,vxworks,yes,no,0,yes,125,0,0
+mercury,MW326R,1.0,5.5.1,minifs,samples\mercury\MW326R_V1.0_150626.zip,897540,c6824298863b427d,vxworks,yes,no,0,yes,124,0,22
+mercury,MW326R,2.0,5.5.1,minifs,samples\mercury\MW326R_V2.0_160328.zip,1023541,6fdbea4a8e3ff197,vxworks,yes,no,0,yes,124,0,0
+mercury,MW326R,2.0,5.5.1,minifs,samples\mercury\MW326R_V2.0_160803.zip,1025226,4e5f196587ac376c,vxworks,yes,no,0,yes,124,0,0
+mercury,MW351R,1.0,5.5.1,minifs,samples\mercury\MW351R_V1.0_160329.zip,1024510,8d68166fbe990c83,vxworks,yes,no,0,yes,124,0,0
+mercury,MW450R,2.0,5.5.1,opaque,samples\mercury\MW450R_V2.0_140225.zip,1131529,6c420858e631bd65,vxworks,yes,yes,5215,yes,162,0,0
+mercury,MW450R,4.0,5.5.1,minifs,samples\mercury\MW450R_V4.0_150925.zip,1021245,1759a9e0d737d271,vxworks,yes,no,0,yes,124,0,22
+mercury,MW548R,,5.5.1,opaque,samples\mercury\MW548R_V1_091104.rar,1122271,914ee141ada95c53,vxworks,yes,no,0,yes,121,60,0
+mercury,MW54R,,5.5.1,opaque,samples\mercury\MW54R_V10_110311.rar,1279302,2691750551e45cd4,vxworks,yes,yes,7345,yes,140,0,1
+mercury,MW54R,,5.5.1,opaque,samples\mercury\MW54R_V4_V5_V6_V7_100531.rar,922497,f637a9460b18d39c,vxworks,yes,no,0,yes,124,0,0
+mercury,MW54R,,5.5.1,opaque,samples\expand-a\inner\MW54R__201181192837.bin,1227748,cf85752ed5111121,vxworks,yes,yes,7371,yes,143,0,0
+mercury,MW54R,,5.5.1,opaque,samples\expand-a\inner\MW54R__2011111162552.bin,1298596,164654c3f6f45fff,vxworks,yes,yes,7529,yes,169,0,1
+mercury,MW54R,,5.5.1,opaque,samples\expand-a\inner\MW54R__2011111163235.bin,1298628,c098e4d4c96c055b,vxworks,yes,yes,7529,yes,169,0,1
+mercury,MW54R,,5.5.1,opaque,samples\expand-f\mercury_MW54R_V4V5V6V7_100625_special.bin,877596,494db9a5bbbfd36d,vxworks,yes,no,0,yes,124,0,0
+mercury,MW54R,,5.5.1,opaque,samples\expand-f\mercury_MW54R_V4V5V6V7_101227_special.bin,885248,80da3041afc7a65f,vxworks,yes,no,0,yes,123,0,0
+mercury,MW54R+,,5.5.1,opaque,samples\expand-a\2009115105714.rar,1053244,218928048f0a9c4a,vxworks,yes,no,0,no,0,61,0
+mercury,MW54R+,,5.5.1,opaque,samples\expand-a\2009115105451.rar,1063129,d4f6294431b13368,vxworks,yes,no,0,no,0,64,0
+netgear,Netgear WGR614v5,201.03,5.4.2,chk,samples\netgear\a6b_1_WGR614v5_20Initial_20Release_20Firmware_20Version_201.03.zip,883364,ff1f8dab99522032,vxworks,yes,no,0,no,0,211,0
+netgear,Netgear WGR614v5,201.07,5.4.2,chk,samples\netgear\a6b_2_WGR614v5_20Firmware_20Version_201.07.zip,891239,e30f6552f3ca1050,vxworks,yes,no,0,no,0,215,0
+netgear,Netgear WGT624v2,204.2.10,5.4.2,chk,samples\netgear\a6b_3_WGT624_20and_20WGT624v2_20Firmware_20Version_204.2.10.zip,1202838,2578b39472fd71ea,vxworks,yes,yes,9634,no,0,220,0
+netgear,WGR614V7-V2.0.30_2.0.30NA/WGR614V7-V2.0.30_2.0.30NA.chk,2.0.30,5.4.2,chk,samples\netgear\WGR614v7_FW2.0.30.zip,962646,57cad2660c80c3e4,vxworks,yes,no,0,no,0,291,0
+netgear,WGR614v3_FW2.00.zip,2.00,5.4.2,chk,samples\netgear\WGR614v3_FW2.00.zip,986781,3381ccc207b86a48,vxworks,yes,no,0,no,0,178,0
+netgear,WGT624v1_FW4.2.8.zip,4.2.8,5.4.2,chk,samples\netgear\WGT624v1_FW4.2.8.zip,1201994,42c1153076185107,vxworks,yes,yes,9634,no,0,220,0
+netgear,WGT624v2_FW4.2.11.zip,4.2.11,5.4.2,chk,samples\netgear\WGT624v2_FW4.2.11.zip,1203670,5310f5f9eda629a9,vxworks,yes,yes,9639,no,0,220,0
+netgear,a6_WPN824v2_2.0.16.zip,2.0.16,5.4.2,chk,samples\netgear\a6_WPN824v2_2.0.16.zip,1117765,da68d0f804122b51,vxworks,yes,yes,7563,no,0,384,0
+netgear,wgr614v5_1_0_9_1_0_6.chk,1.09,5.4.2,chk,samples\netgear\WGR614v5_FW1.09.zip,891107,86ed47ebe9ac9265,vxworks,yes,no,0,no,0,215,0
+nortel,Nortel Contivity Extranet Switch 1500,,WIND 2.5,other,samples\gateway\nortel_contivity1500_partial.img,209715200,26873b90f72bef46,vxworks,yes,no,0,no,0,0,0
+tektronix,TDS210,,1.06,instrument,samples\expand-d\tektronix_TDS210_1.06_fw.bin,524288,e291119166408f0b,vxworks,no,no,0,no,0,0,0
+tektronix,TDS210,,1.09,instrument,samples\expand-d\tektronix_TDS210_1.09_fw.bin,524288,b5bdd9074134189a,vxworks,no,no,0,no,0,0,0
+tektronix,TDS210,,1.17,instrument,samples\expand-d\tektronix_TDS210_1.17_fw.bin,524288,97f9f79ce1e5daf8,vxworks,no,no,0,no,0,0,0
+tektronix,TDS210,,1.19,instrument,samples\expand-d\tektronix_TDS210_1.19_fw.bin,524288,586811ec7c5552a6,vxworks,no,no,0,no,0,0,0
+tektronix,TDS210,1.19,1.19b,instrument,samples\expand-d\tektronix_TDS210_1.19b_fw.bin,524288,a14206f4320414e4,vxworks,no,no,0,no,0,0,0
+tektronix,TDS510A,1.0,1.0e,instrument,samples\expand-d\tektronix_TDS510A_1.0e_fw.bin,4194304,c8537d87944feb11,vxworks,yes,yes,4887,no,0,0,0
+tektronix,TDS520,2.16,WIND 1.0,instrument,samples\expand-c\tektronix_TDS520_v2.16e_fw.bin,1572864,d82e9f9eadf1795f,vxworks,no,no,0,no,0,0,0
+tektronix,TDS520A,3.8.7,WIND 2.0,instrument,samples\expand-c\tektronix_TDS520A_v3.8.7e_fw.bin,4194304,d49a351b666ed8d9,vxworks,yes,yes,4891,no,0,0,0
+tektronix,TDS520C,5.0,WIND 2.4,instrument,samples\expand-c\tektronix_TDS520C_v5.0e_fw.bin,4194304,2e7d2cfdac52de91,vxworks,yes,yes,6207,no,0,0,0
+tektronix,TDS520C,5.1.1,WIND 2.4,instrument,samples\expand-c\tektronix_TDS520C_v5.1.1e_fw.bin,4194304,d6dfbfd6862445d3,vxworks,yes,yes,6252,no,0,0,0
+tektronix,TDS520C,5.3,5.3e,instrument,samples\expand-d\tektronix_TDS520C_5.3e_fw.bin,4194304,15a07eac7f261454,vxworks,yes,yes,6286,no,0,0,0
+tektronix,TDS524A,3.8.7,WIND 2.0,instrument,samples\expand-c\tektronix_TDS524A_v3.8.7e_fw.bin,3145728,b086dd680c45d91d,vxworks,yes,yes,4891,no,0,0,0
+tektronix,TDS540,2.16,WIND 1.0,instrument,samples\expand-c\tektronix_TDS540_v2.16e_fw.bin,1572864,77619de137bd8011,vxworks,yes,no,0,no,0,0,0
+tektronix,TDS540A,3.8.3,WIND 2.0,instrument,samples\expand-c\tektronix_TDS540A_v3.8.3e_fw.bin,4194304,1c2d7f5cdc17e81f,vxworks,yes,yes,4881,no,0,0,0
+tektronix,TDS540B,4.1,WIND 2.0,instrument,samples\expand-c\tektronix_TDS540B_v4.1e_fw.bin,4194304,f05bc6bc492708da,vxworks,yes,yes,5340,no,0,0,0
+tektronix,TDS540C,5.2,WIND 2.4,instrument,samples\expand-c\tektronix_TDS540C_v5.2e_fw.bin,4194304,27a6509b83db226c,vxworks,yes,yes,6310,no,0,0,0
+tektronix,TDS544A,3.8.4,WIND 2.0,instrument,samples\expand-c\tektronix_TDS544A_v3.8.4e_eprom_fw.bin,3145728,7fe5c5b6b175bc86,vxworks,yes,yes,4884,no,0,0,0
+tektronix,TDS620,2.04,WIND 1.0,instrument,samples\expand-c\tektronix_TDS620_v2.04e_bin_fw.bin,1572864,ed3384d89e128ecb,vxworks,yes,no,0,no,0,0,0
+tektronix,TDS620A,3.8.5,WIND 2.0,instrument,samples\expand-c\tektronix_TDS620A_v3.8.5e_fw.bin,3145728,3a92ae137f9ab3ce,vxworks,yes,yes,4786,no,0,0,0
+tektronix,TDS620B,4.2,WIND 2.0,instrument,samples\expand-c\tektronix_TDS620B_v4.2e_fw.bin,4194304,bcb4fddbe7a2ebf4,vxworks,yes,yes,5196,no,0,0,0
+tektronix,TDS620B,4.4.1,WIND 2.0,instrument,samples\expand-c\tektronix_TDS620B_v4.4.1e_fw.bin,4194304,2065acd4443b0e25,vxworks,yes,yes,5270,no,0,0,0
+tektronix,TDS644A,3.8.4,WIND 2.0,instrument,samples\expand-c\tektronix_TDS644A_v3.8.4e_fw.bin,3145728,97e6d4d8cad9a526,vxworks,yes,yes,4786,no,0,0,0
+tektronix,TDS644A,3.8.5,WIND 2.0,instrument,samples\expand-c\tektronix_TDS644A_v3.8.5e_fw.bin,4194304,da1a94bad897aefb,vxworks,yes,yes,4786,no,0,0,0
+tektronix,TDS684C,5.1,WIND 2.4,instrument,samples\expand-c\tektronix_TDS684C_v5.1e_fw.bin,4194304,4e6df2c91c397672,vxworks,yes,yes,5950,no,0,0,0
+tektronix,TDS714L,7.1.1,WIND 2.4,instrument,samples\expand-c\tektronix_TDS714L_v7.1.1e_fw.bin,4194304,dd1be28a67aadafd,vxworks,yes,yes,7100,no,0,0,0
+tektronix,TDS714L,7.4,WIND 2.4,instrument,samples\expand-c\tektronix_TDS714L_v7.4e_fw.bin,4194304,7e80aad56c25dbef,vxworks,yes,yes,7115,no,0,0,0
+tektronix,TDS744A,1.0,1.0e,instrument,samples\expand-d\tektronix_TDS744A_1.0e_fw.bin,3145728,83502025be50f113,vxworks,yes,yes,5247,no,0,0,0
+tektronix,TDS744A,1.1,1.1e,instrument,samples\expand-d\tektronix_TDS744A_1.1e_fw.bin,4194304,610f5cb923653a40,vxworks,yes,yes,5250,no,0,0,0
+tektronix,TDS744A,4.0,4.0e,instrument,samples\expand-d\tektronix_TDS744A_4.0e_fw.bin,4194304,781dbbcf2773144f,vxworks,yes,yes,5337,no,0,0,0
+tektronix,TDS744A,4.2.1,4.2.1e,instrument,samples\expand-d\tektronix_TDS744A_4.2.1e_fw.bin,4194304,f8f1bda2c80826a2,vxworks,yes,yes,5340,no,0,0,0
+tektronix,TDS754D,6.0,WIND 2.4,instrument,samples\expand-c\tektronix_TDS754D_v6.0e_fw.bin,4194304,633b69173152a6ea,vxworks,yes,yes,7019,no,0,0,0
+tektronix,TDS784D,6.6,WIND 2.4,instrument,samples\expand-c\tektronix_TDS784D_v6.6e_fw.bin,4194304,d02c8cbf014a6219,vxworks,yes,yes,7081,no,0,0,0
+tektronix,TDS784D,7.2,WIND 2.4,instrument,samples\expand-c\tektronix_TDS784D_v7.2e_fw.bin,4194304,214a2845c4015913,vxworks,yes,yes,7112,no,0,0,0
+tektronix,TDS794D,6.3,WIND 2.4,instrument,samples\expand-c\tektronix_TDS794D_v6.3e_fw.bin,4194304,2f0723c329d29156,vxworks,yes,yes,7051,no,0,0,0
+tektronix,TDS794D,6.4,WIND 2.4,instrument,samples\expand-c\tektronix_TDS794D_v6.4e_fw.bin,4194304,78df00183be5e53e,vxworks,yes,yes,7079,no,0,0,0
+tektronix,TDS794D,8.0,WIND 2.4,instrument,samples\expand-c\tektronix_TDS794D_v8.0e_fw.bin,4194304,9f176f8efeeeae35,vxworks,yes,yes,7085,no,0,0,0
+tektronix,TDS820,,2.03,instrument,samples\expand-d\tektronix_TDS820_2.03_fw.bin,4194304,42fec8e5a3b0d002,vxworks,yes,no,0,no,0,0,0
+tektronix,THS710A,,1.11,instrument,samples\expand-d\tektronix_THS710A_1.11_fw.bin,1048576,6f63b76d35332b64,vxworks,yes,no,0,no,0,0,0
+tektronix,THS720,,1.03,instrument,samples\expand-d\tektronix_THS720_1.03_fw.bin,1048576,78bf7d9f52cc4346,vxworks,yes,no,0,no,0,0,0
+tektronix,THS720X,,1.16,instrument,samples\expand-d\tektronix_THS720X_1.16_fw.bin,1048576,0be35db7d04b9162,vxworks,yes,no,0,no,0,0,0
+tektronix,TLS216,1.0,1.0e,instrument,samples\expand-d\tektronix_TLS216_1.0e_fw.bin,4194304,4c7f351a41dc51ee,vxworks,yes,yes,4751,no,0,0,0
+tektronix,TLS216,1.0.3,1.0.3e,instrument,samples\expand-d\tektronix_TLS216_1.0.3e_fw.bin,4194304,758027fa1f4b3d43,vxworks,yes,yes,4761,no,0,0,0
+tektronix,Tektronix 1740A/1750A/1760 波形监视器 FW 2.2,,WIND 2.0,instrument,samples\industrial\tektronix_1740_SOFTWARE.bin,524288,c9ce268620000ff8,vxworks,yes,no,0,no,0,0,0
+tektronix,Tektronix TDS1012 示波器,,5.x,instrument,samples\industrial\tektronix_tds1012_flash.bin,2097152,93aec6649e1d7fad,vxworks,yes,no,0,no,0,0,0
+tektronix,Tektronix TDS754C 示波器 FW 5.3e,,WIND 2.4,instrument,samples\industrial\tektronix_tds754c_fw53e.zip,1578799,c8dccfe86f98d869,vxworks,yes,yes,6286,no,0,0,0
+tp-link,Archer C64,,5.5.1,rtos,samples\tp-link\Archer C64(EU)_V1_210219.zip,3619292,59d3294a27fb4383,vxworks,yes,yes,10385,yes,309,0,0
+tp-link,Archer C80,,5.5.1,rtos,samples\expand-f\tplink_ArcherC80_V1_200628_US.bin,2855396,65fbffd0e6b88778,vxworks,yes,yes,11042,yes,314,0,26
+tp-link,Archer C80,,5.5.1,rtos,samples\expand-f\tplink_ArcherC80_V1_200907_US.bin,2847204,d9f5093d6f9ce63e,vxworks,yes,yes,10936,yes,317,0,26
+tp-link,Archer C80,,5.5.1,rtos,samples\expand-f\tplink_ArcherC80_V1_201003_US.bin,2847204,702a102a7103c2a3,vxworks,yes,yes,10944,yes,317,0,26
+tp-link,Archer C80,,5.5.1,rtos,samples\expand-f\tplink_ArcherC80_V1_210128_US.bin,2925148,21c2ab62a2d50ab7,vxworks,yes,yes,10373,yes,309,0,26
+tp-link,Archer C80,,5.5.1,rtos,samples\expand-f\tplink_ArcherC80_V1_210308_US.bin,3007068,40d7a0b377f2bf0b,vxworks,yes,yes,11208,yes,309,0,0
+tp-link,Archer C80,,5.5.1,rtos,samples\expand-f\tplink_ArcherC80_V1_210203_CA.bin,2925148,c1d6f98c92fe7aa5,vxworks,yes,yes,10373,yes,309,0,26
+tp-link,Archer C80(US)_V1-_200221/C80(US)_v1-up-noboot_2020-02-21_16.07.06.bin,,5.5.1,rtos,samples\tp-link\Archer_C80(US)_V1_200221.zip,3263204,117208104eaac577,vxworks,yes,yes,10959,yes,311,0,25
+tp-link,Archer_C80_US_V1_191122.zip,,5.5.1,other,samples\tp-link\Archer_C80_US_V1_191122.zip,2608206,7e60b08a691ad204,vxworks,yes,yes,10956,yes,297,0,24
+tp-link,TL-ER5120,,6.6,legacy,samples\tp-link\TL-ER5120_V1_120719.zip,4571532,a51d6b790f2e6327,vxworks,yes,no,0,yes,224,248,0
+tp-link,TL-ER5120,,6.6,legacy,samples\tp-link\TL-ER5120_V2_140212.zip,4572202,4830b1e17434b84a,vxworks,yes,no,0,yes,226,250,0
+tp-link,TL-ER6020,,6.6,legacy,samples\tp-link\TL-ER6020_V1_120807.zip,4417921,523bfac02a345a58,vxworks,yes,no,0,yes,239,252,0
+tp-link,TL-ER604W,,6.6,legacy,samples\tp-link\TL-ER604W_V1_130116.zip,5186090,2d3fbec72a30cdeb,vxworks,yes,no,0,yes,251,271,0
+tp-link,TL-ER604W,,6.6,legacy,samples\tp-link\TL-ER604W(EU)_V2_160825_1480562237189w.zip,5170165,bca964ec92c95142,vxworks,yes,no,0,yes,265,285,0
+tp-link,TL-ER6120,,6.6,legacy,samples\tp-link\TL-ER6120_V1_120719.zip,4638707,568e6ea05fef590a,vxworks,yes,no,0,yes,239,254,0
+tp-link,TL-R402M,,5.5.1,legacy,samples\tp-link\TL-R402M_V2_091224.zip,467279,2eff52a3319dbe44,vxworks,no,no,0,no,0,0,0
+tp-link,TL-R402M,,5.5.1,legacy,samples\tp-link\TL_R402M_V3_2010122118525815.zip,485350,4b7bb960f9f9b5c3,vxworks,yes,no,0,yes,13,74,0
+tp-link,TL-R410,,5.5.1,legacy,samples\tp-link\TL-R410_V1_070703.zip,760855,93a21bcdfa14b8e5,vxworks,yes,no,0,yes,17,78,0
+tp-link,TL-R4299G,,5.5.1,legacy,samples\tp-link\TL-R4299G_V1_091225.zip,1344592,83bc312e159568ea,vxworks,yes,no,0,yes,10,154,0
+tp-link,TL-R460,5.0,5.5.1,legacy,samples\tp-link\TL-R460_v5.0_120704_RU_UA.zip,673742,97d36dac538b2e42,vxworks,yes,no,0,yes,136,0,1
+tp-link,TL-R488T,,5.5.1,legacy,samples\tp-link\TL-R488T_V2_091225.zip,1340393,fa9f0983939d86db,vxworks,yes,no,0,yes,10,152,0
+tp-link,TL-R860,,5.5.1,legacy,samples\tp-link\TL_R860_V1_201112513445417.zip,721235,a036428e4348bc2e,vxworks,yes,no,0,yes,126,163,0
+tp-link,TL-WA501G,,5.5.1,legacy,samples\tp-link\TL_WA501G_V1_2007818085933.zip,1032789,392b707c076e79d6,vxworks,yes,no,0,yes,16,51,0
+tp-link,TL-WA5110G,,5.5.1,legacy,samples\tp-link\TL_WA5110G_V1_2009721151054.zip,1116738,406d1e005eef1277,vxworks,yes,no,0,yes,151,192,2
+tp-link,TL-WA5110G,,5.5.1,legacy,samples\tp-link\TL-WA5110G_V1_For_EU.zip,1091490,0a0cb1ed2d303629,vxworks,yes,no,0,yes,151,192,2
+tp-link,TL-WA5110G,,5.5.1,legacy,samples\tp-link\TL-WA5110G_V2_120217.zip,1088565,a0b07107583f4a0c,vxworks,yes,no,0,yes,151,192,2
+tp-link,TL-WA5210G,,5.5.1,legacy,samples\tp-link\TL-WA5210G_V1_130502.zip,1125446,96980328b72cf21c,vxworks,yes,no,0,yes,154,205,0
+tp-link,TL-WR340G,,5.5.1,legacy,samples\tp-link\TL-WR340G_V1_101102.zip,945602,927eb274efb58b1b,vxworks,yes,no,0,yes,136,0,1
+tp-link,TL-WR340G,,5.5.1,legacy,samples\tp-link\TL_WR340G_V2_2010102011103318.zip,886139,f2a1938b2cdaf1a2,vxworks,yes,no,0,yes,136,0,1
+tp-link,TL-WR340GD,,5.5.1,legacy,samples\tp-link\TL_WR340GD_V1_2007811080925.zip,1018939,f0ac78580ffdaa5e,vxworks,yes,no,0,no,0,98,0
+tp-link,TL-WR340GD,,5.5.1,legacy,samples\tp-link\ru_2010461450313.zip,870844,9a11eb3012815f31,vxworks,yes,no,0,yes,134,0,2
+tp-link,TL-WR541G,,5.5.1,legacy,samples\tp-link\TL-WR541G_V2_070714.zip,1060274,82bda6731d9b2123,vxworks,yes,no,0,no,0,103,0
+tp-link,TL-WR541G,,5.5.1,legacy,samples\tp-link\TL_WR541G_V3_200911516304613.zip,1140915,64f7c1858deb4f30,vxworks,yes,no,0,yes,135,179,0
+tp-link,TL-WR541G,,5.5.1,legacy,samples\tp-link\ru_2010462074711.zip,897146,82aef35f6e3ca304,vxworks,yes,no,0,yes,136,0,2
+tp-link,TL-WR541G,,5.5.1,legacy,samples\tp-link\TL_WR541G_V4_20071217204439.zip,1022288,c9a06dbdf8fc8319,vxworks,yes,no,0,no,0,103,0
+tp-link,TL-WR541G,,5.5.1,legacy,samples\tp-link\TL_WR541G_V4_200961473666.zip,2206509,0bcc4ee3004d05c5,vxworks,yes,no,0,yes,135,169,0
+tp-link,TL-WR543G,,5.5.1,legacy,samples\tp-link\TL_WR543G_V1_2007811082554.zip,1021933,34282aae19c08150,vxworks,yes,no,0,no,0,104,0
+tp-link,TL-WR543G,,5.5.1,legacy,samples\tp-link\TL_WR543G_V1_200872391554.zip,1064258,304351fc17bcb2d3,vxworks,yes,no,0,no,0,104,0
+tp-link,TL-WR543G,,5.5.1,legacy,samples\tp-link\TL-WR543G_V2_081013.zip,1060858,ec8de405997bc772,vxworks,yes,no,0,no,0,108,0
+tp-link,TL-WR641G,,5.5.1,legacy,samples\tp-link\TL_WR641G_V1_200774114608.zip,1008238,7807e9a8afe2a658,vxworks,yes,no,0,yes,17,82,0
+tp-link,TL-WR820N,,5.5.1,rtos,samples\tp-link\TL-WR820N(EU)_V1_180817.zip,1209688,19bfcd564c5cbeb3,vxworks,yes,no,0,yes,91,0,0
+tp-link,TL-WR820N,,5.5.1,rtos,samples\tp-link\TL-WR820N(EU)_V1_190905.zip,1457395,3f2d83c1463161c0,vxworks,yes,no,0,yes,89,0,0
+tp-link,archer-c64,,5.5.1,rtos,samples\expand-a\Archer C64(EU)_V1_210317.zip,3619795,b90c40bd65ad92a1,vxworks,yes,yes,10390,yes,310,0,26
+tp-link,archer-c64,,5.5.1,rtos,samples\expand-a\Archer C64(EU)_V1_210609.zip,3630624,586de7c24591fad5,vxworks,yes,yes,10418,yes,310,0,26
+tp-link,archer-c80,,5.5.1,rtos,samples\expand-a\Archer C80(EU)_V1 200907.zip,2836083,31c54ba08914d0df,vxworks,yes,yes,10936,yes,317,0,26
+tp-link,archer-c80,,5.5.1,rtos,samples\expand-a\Archer C80(EU)_V1_191204.zip,3315848,6c9cbb15008140de,vxworks,yes,yes,10951,yes,299,0,25
+tp-link,archer-c80,,5.5.1,rtos,samples\expand-a\Archer C80(EU)_V1_200330.zip,3549435,adf5dfcec9cc147b,vxworks,yes,yes,11041,yes,314,0,26
+tp-link,archer-c80,,5.5.1,rtos,samples\expand-a\Archer C80(EU)_V1_200628.zip,3549153,342bbd20d8991c4e,vxworks,yes,yes,11042,yes,314,0,26
+tp-link,archer-c80,,5.5.1,rtos,samples\expand-a\Archer C80(EU)_V1_201003.zip,3538766,98fe475cd1575d33,vxworks,yes,yes,10944,yes,317,0,26
+tp-link,archer-c80,,5.5.1,rtos,samples\expand-a\Archer C80(EU)_V1_210128.zip,3618124,a061ee2f437e3b42,vxworks,yes,yes,10373,yes,309,0,26
+tp-link,archer-c80,,5.5.1,rtos,samples\expand-a\Archer C80(EU)_V1_210308.zip,3697473,a45c5db64ebb3a8d,vxworks,yes,yes,11208,yes,309,0,0
+tp-link,tl-wa501g_v1,,5.5.1,legacy,samples\tp-link\TL-WA501G_V1_120727.zip,987205,f6ed9621cdbb39b1,vxworks,yes,no,0,yes,57,72,0
+tp-link,tl-wa501g_v1,,5.5.1,legacy,samples\tp-link\20104235180311.zip,1011105,04955eafee6cc0c4,vxworks,yes,no,0,yes,57,72,0
+tp-link,tl-wr642g_v2,,5.5.1,legacy,samples\tp-link\200774112527.zip,1055957,f339eba5f42d977b,vxworks,yes,no,0,no,0,103,0
+tp-link,tl-wr820n,,5.5.1,rtos,samples\expand-a\TL-WR820N(EU)_V1_190506.zip,1460975,5182078f8bd93c52,vxworks,yes,no,0,yes,92,0,0
+tp-link,tl-wr820n,,5.5.1,rtos,samples\expand-a\TL-WR820N(RU)_V1_190422.zip,1486286,946c0692bfce3c7d,vxworks,yes,no,0,yes,95,0,0
+tp-link,tl-wr820n,,5.5.1,rtos,samples\expand-a\TL-WR820N(EU)_V2_191129.zip,1920681,7184322fc9363839,vxworks,yes,yes,6196,yes,251,0,0
+tp-link,tl-wr820n,,5.5.1,rtos,samples\expand-a\TL-WR820N(EU)_V2_200731.zip,1882138,de1e0ed0d1302838,vxworks,yes,yes,6329,yes,265,0,0
+trendnet,TEW-453APB,2.0.39,5.4.2,other,samples\expand-g\trendnet_TEW-453APB_2.0.39_WW.zip,1103197,31f559c12870793c,vxworks,yes,no,0,yes,62,0,0
+trendnet,TEW-453APB,2.3.03,5.4.2,other,samples\expand-g\trendnet_TEW-453APB_2.3.03.zip,1181713,132b41a3441acbae,vxworks,yes,no,0,yes,68,0,0
+trendnet,TEW-455APBO,,5.4.2,other,samples\expand-g\trendnet_TEW-455APBO_v1-8-9_EU.zip,1039988,a3832bbb6d67d0be,vxworks,yes,no,0,yes,48,0,0
+trendnet,TEW-455APBO,,5.4.2,other,samples\expand-g\trendnet_TEW-455APBO_v1-8-9_A.zip,1039986,f4baeb17fbf0feee,vxworks,yes,no,0,yes,48,0,0
+trendnet,TEW-510APB,1.1.21,5.4.2,other,samples\expand-g\trendnet_TEW-510APB_1.1.21_EU.zip,873222,b0d71c5a3621a3ce,vxworks,yes,no,0,yes,51,0,0
+trendnet,TEW-511BRP,1.0.19,5.4.2,other,samples\expand-g\trendnet_TEW-511BRP_1.0.19_US.zip,1345366,736aa3fb6da0dad0,vxworks,yes,no,0,yes,149,0,0
+trendnet,TEW-511BRP,1.0.20,5.4.2,other,samples\expand-g\trendnet_TEW-511BRP_1.0.20_EU.zip,1406593,6972304a106f7014,vxworks,yes,no,0,yes,149,0,0

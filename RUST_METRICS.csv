@@ -1,0 +1,309 @@
+sample,vendor,ok,rename,symbols,coverage,out_bytes,container_bytes,minifs,pk11,v2,streams,table_files,carved,sym_names
+anritsu_MS2024A_V1.66_fw.zip (MS2024A),anritsu,yes,no,yes,1.000,11737600,11737600,0,0,0,0,0,1,5489
+anritsu_MS2026B_V2.01_fw.zip (MS2026B),anritsu,yes,no,yes,1.000,16428565,16428565,0,0,0,0,0,1,6087
+anritsu_MS2034A_V1.21_fw.zip (MS2034A),anritsu,yes,no,yes,1.000,11737600,11737600,0,0,0,0,0,1,5489
+anritsu_MS2717B_V4.04_fw.zip (MS2717B),anritsu,yes,no,yes,1.000,12265072,12265072,0,0,0,0,0,1,6106
+anritsu_MS2720T_V4.80_fw.zip (MS2720T),anritsu,yes,no,yes,1.000,17919484,17919484,0,0,0,0,0,4,6357
+anritsu_MS2721B_V1.51_fw.zip (MS2721B),anritsu,yes,no,yes,1.000,12411552,12411552,0,0,0,0,0,1,6289
+anritsu_MS2723B_V1.39_fw.zip (MS2723B),anritsu,yes,no,yes,1.000,12264704,12264704,0,0,0,0,0,1,6106
+anritsu_MS272xC_V2.30_fw.zip (MS272xC),anritsu,yes,no,yes,1.000,17964473,17964473,0,0,0,0,0,4,6493
+anritsu_MT8222A_V1.80_fw.zip (MT8222A),anritsu,yes,no,yes,1.000,12411552,12411552,0,0,0,0,0,1,6289
+anritsu_MW82119A_V2.30_fw.zip (MW82119A),anritsu,yes,no,yes,1.000,17964473,17964473,0,0,0,0,0,4,6493
+anritsu_MW82119B_V4.80_fw.zip (MW82119B),anritsu,yes,no,yes,1.000,17919484,17919484,0,0,0,0,0,4,6357
+anritsu_S412E_V4.81_fw.zip (S412E),anritsu,yes,no,yes,1.000,17944204,17944204,0,0,0,0,0,4,6388
+belkin_F5D5230-4-v1.20.001.bin (F5D5230-4),belkin,yes,no,yes,1.000,1848212,1848212,0,0,0,0,0,28,4168
+belkin_F5D5230u4-v1.20.002-runtime.bin (F5D5230-4),belkin,yes,no,yes,1.000,1938104,1938104,0,0,0,0,0,30,4234
+belkin_F5D5230u4-v1.20.003-runtime.bin (F5D5230-4),belkin,yes,no,yes,1.000,1962248,1962248,0,0,0,0,0,30,4250
+belkin_F5D6230-3-v1.20.000.bin (F5D6230-3),belkin,no,no,yes,0.058,38934,676180,0,0,0,0,0,1,4610
+belkin_F5D6230-3-v1.20.004-runtime.bin (F5D6230-3),belkin,yes,no,yes,1.000,5297536,2426476,0,0,0,0,0,47,4768
+belkin_F5D6230g3-v1.20.000-runtime.bin (F5D6230-3),belkin,yes,no,yes,1.000,4437614,2507604,0,0,0,0,0,49,4801
+trendnet_TEW-453APB_2.0.39_WW.zip (TEW-453APB),trendnet,yes,yes,no,0.930,2549392,2741508,0,0,0,0,1,8,0
+trendnet_TEW-453APB_2.3.03.zip (TEW-453APB),trendnet,yes,yes,no,0.913,2618108,2868184,0,0,0,0,1,7,0
+trendnet_TEW-455APBO_v1-8-9_EU.zip (TEW-455APBO),trendnet,no,no,yes,0.007,7362,1054588,0,0,0,0,0,1,5658
+trendnet_TEW-455APBO_v1-8-9_A.zip (TEW-455APBO),trendnet,no,no,yes,0.007,7362,1054588,0,0,0,0,0,1,5658
+trendnet_TEW-510APB_1.1.21_EU.zip (TEW-510APB),trendnet,yes,no,no,1.000,2041528,2041528,0,0,0,0,0,5,0
+trendnet_TEW-511BRP_1.0.19_US.zip (TEW-511BRP),trendnet,yes,yes,no,1.000,4231539,2783700,0,0,0,0,10,17,0
+trendnet_TEW-511BRP_1.0.20_EU.zip (TEW-511BRP),trendnet,yes,yes,no,1.000,4582419,2956000,0,0,0,0,10,17,0
+tektronix_TDS210_1.06_fw.bin (TDS210),tektronix,yes,no,no,1.000,524288,524288,0,0,0,0,0,0,0
+tektronix_TDS210_1.09_fw.bin (TDS210),tektronix,yes,no,no,1.000,524288,524288,0,0,0,0,0,0,0
+tektronix_TDS210_1.17_fw.bin (TDS210),tektronix,yes,no,no,1.000,524288,524288,0,0,0,0,0,0,0
+tektronix_TDS210_1.19_fw.bin (TDS210),tektronix,yes,no,no,1.000,524288,524288,0,0,0,0,0,0,0
+tektronix_TDS210_1.19b_fw.bin (TDS210),tektronix,yes,no,no,1.000,524288,524288,0,0,0,0,0,0,0
+tektronix_TDS510A_1.0e_fw.bin (TDS510A),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,4933
+tektronix_TDS520_v2.16e_fw.bin (TDS520),tektronix,yes,no,no,1.000,1572864,1572864,0,0,0,0,0,0,0
+tektronix_TDS520A_v3.8.7e_fw.bin (TDS520A),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,4937
+tektronix_TDS520C_v5.0e_fw.bin (TDS520C),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,2,0,6,6256
+tektronix_TDS520C_v5.1.1e_fw.bin (TDS520C),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,2,0,1,6301
+tektronix_TDS520C_5.3e_fw.bin (TDS520C),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,2,0,4,6335
+tektronix_TDS524A_v3.8.7e_fw.bin (TDS524A),tektronix,yes,no,yes,1.000,3145728,3145728,0,0,0,0,0,1,4937
+tektronix_TDS540_v2.16e_fw.bin (TDS540),tektronix,yes,no,no,1.000,1572864,1572864,0,0,0,0,0,1,0
+tektronix_TDS540A_v3.8.3e_fw.bin (TDS540A),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,4927
+tektronix_TDS540B_v4.1e_fw.bin (TDS540B),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,5391
+tektronix_TDS540C_v5.2e_fw.bin (TDS540C),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,2,0,1,6359
+tektronix_TDS544A_v3.8.4e_eprom_fw.bin (TDS544A),tektronix,yes,no,yes,1.000,3145728,3145728,0,0,0,0,0,1,4930
+tektronix_TDS620_v2.04e_bin_fw.bin (TDS620),tektronix,yes,no,no,1.000,1572864,1572864,0,0,0,0,0,1,0
+tektronix_TDS620A_v3.8.5e_fw.bin (TDS620A),tektronix,yes,no,yes,1.000,3145728,3145728,0,0,0,0,0,3,4832
+tektronix_TDS620B_v4.2e_fw.bin (TDS620B),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,2,5242
+tektronix_TDS620B_v4.4.1e_fw.bin (TDS620B),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,5316
+tektronix_TDS644A_v3.8.4e_fw.bin (TDS644A),tektronix,yes,no,yes,1.000,3145728,3145728,0,0,0,0,0,2,4832
+tektronix_TDS644A_v3.8.5e_fw.bin (TDS644A),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,2,4832
+tektronix_TDS684C_v5.1e_fw.bin (TDS684C),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,4,5994
+tektronix_TDS714L_v7.4e_fw.bin (TDS714L),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,1,0,1,7165
+tektronix_TDS714L_v7.1.1e_fw.bin (TDS714L),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,1,0,1,7150
+tektronix_TDS744A_1.0e_fw.bin (TDS744A),tektronix,yes,no,yes,1.000,3145728,3145728,0,0,0,0,0,1,5298
+tektronix_TDS744A_1.1e_fw.bin (TDS744A),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,5301
+tektronix_TDS744A_4.0e_fw.bin (TDS744A),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,5388
+tektronix_TDS744A_4.2.1e_fw.bin (TDS744A),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,5391
+tektronix_TDS754D_v6.0e_fw.bin (TDS754D),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,1,0,4,7069
+tektronix_TDS784D_v6.6e_fw.bin (TDS784D),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,1,0,2,7131
+tektronix_TDS784D_v7.2e_fw.bin (TDS784D),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,1,0,1,7162
+tektronix_TDS794D_v8.0e_fw.bin (TDS794D),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,1,0,1,7135
+tektronix_TDS794D_v6.3e_fw.bin (TDS794D),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,1,0,2,7101
+tektronix_TDS794D_v6.4e_fw.bin (TDS794D),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,1,0,3,7129
+tektronix_TDS820_2.03_fw.bin (TDS820),tektronix,yes,no,no,1.000,4194304,4194304,0,0,0,0,0,6,0
+tektronix_THS710A_1.11_fw.bin (THS710A),tektronix,yes,no,no,1.000,1048576,1048576,0,0,0,2,0,1,0
+tektronix_THS720_1.03_fw.bin (THS720),tektronix,yes,no,no,1.000,1048576,1048576,0,0,0,2,0,1,0
+tektronix_THS720X_1.16_fw.bin (THS720X),tektronix,yes,no,no,1.000,1048576,1048576,0,0,0,1,0,1,0
+tektronix_TLS216_1.0.3e_fw.bin (TLS216),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,4807
+tektronix_TLS216_1.0e_fw.bin (TLS216),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,0,0,1,4797
+a6_belkin_F5D5231-4_v1-1.00.00.bin (Belkin F5D5231-4 v1),belkin,yes,no,no,1.000,30039565,2968344,0,0,0,0,0,72,0
+2011824152834.rar (FR40),fast,yes,no,no,1.000,902576,359892,0,0,0,1,0,0,0
+20091028152225.rar (FR50),fast,yes,no,no,1.000,815616,815636,0,0,0,0,0,1,0
+2009102990137.rar (FR516),fast,yes,no,no,1.000,1951264,600404,0,0,0,1,0,0,4
+2009102990609.rar (FR524),fast,yes,no,no,1.000,1951264,600468,0,0,0,1,0,0,4
+2013125191408.rar (FR60),fast,no,no,yes,0.725,2884204,3978261,0,0,0,234,0,0,17754
+201182201224.rar (FR80),fast,no,no,no,0.684,1087236,1588449,0,0,0,168,0,0,0
+2010119143518.rar (FR90),fast,no,no,no,0.059,77142,1297524,0,0,0,0,0,1,0
+2014326163556.zip (FW150R),fast,no,yes,no,0.009,7514,866564,0,0,0,0,6,0,0
+FW150R__20121212153667.bin (FW150R),fast,no,yes,no,0.129,138436,1076564,0,0,0,0,11,2,0
+FW300R__2012126162529.bin (FW300R),fast,no,yes,no,0.002,3255,1574884,0,0,0,0,4,0,6
+2013117155732.rar (FW300R),fast,yes,no,yes,1.000,4303616,1835008,0,0,0,1,0,0,6847
+2013724172437.rar (FW300R),fast,yes,no,yes,1.000,4335216,1835008,0,0,0,1,0,0,6911
+2014314161063.zip (FW300R),fast,no,yes,no,0.008,6888,854564,0,0,0,0,5,0,0
+201615150824.zip (FW325R),fast,yes,yes,no,1.000,960431,889108,131,0,0,0,15,0,0
+intellistar_thunderstorm_bootrom.bin (IntelliStar 1 ThunderStorm bootrom),intellistar,no,no,no,0.047,8192,174848,0,0,0,1,0,0,0
+intellistar_thunderstorm_vxworks.bin (IntelliStar 1 ThunderStorm 图形卡),intellistar,yes,no,yes,1.000,652544,652544,0,0,0,1,0,0,2586
+linksys_WRT54Gv5v6_1.02.5.bin (WRT54G v5/v6),linksys,yes,yes,yes,1.000,3334614,1672996,0,0,0,0,8,12,684
+linksys_WRT54Gv5v6_1.02.8.bin (WRT54G v5/v6),linksys,yes,yes,yes,1.000,5964351,1768904,0,0,0,0,8,14,685
+linksys_WRT54Gv7.2_7.2.01.007.bin (WRT54G v7.2),linksys,yes,yes,yes,1.000,5963430,1768116,0,0,0,0,7,14,685
+linksys_WRT54G2v1_1.0.01.003.bin (WRT54G2 v1),linksys,yes,yes,yes,1.000,5869453,1779120,0,0,0,0,7,14,685
+linksys_FW_WRT54G2V1.3_1.3.00.028_US_20081205.bin (WRT54G2 v1.3),linksys,yes,yes,yes,1.000,5299932,1723384,0,0,0,0,1,14,8176
+linksys_FW_WRT54G2V1.5_1.5.02.005_US_20120221.bin (WRT54G2 v1.5),linksys,yes,no,yes,1.000,7999045,1699832,0,0,0,111,0,14,8791
+linksys_FW_WRT54GSv5v6_1.52.8.001_US_20091005.bin (WRT54GS v5/v6),linksys,yes,yes,yes,1.000,5964351,1769384,0,0,0,0,8,14,685
+linksys_WRT54GS-v5v6_1.52.5.002_fw.bin (WRT54GS v5/v6),linksys,yes,yes,yes,1.000,3334626,1673180,0,0,0,0,8,12,684
+linksys_WRT54GSv5_v1_50_9.zip (WRT54GS v5/v6),linksys,yes,yes,yes,1.000,3536918,1556836,0,0,0,0,8,12,747
+linksys_WRT54GS2v1_1.0.02.007.bin (WRT54GS2 v1),linksys,yes,yes,yes,1.000,5360223,1762240,0,0,0,0,2,14,8385
+MAC1200RE_V2.0.zip (MAC1200RE),mercury,yes,no,yes,0.955,1434786,1502360,0,0,175,0,0,0,6188
+MR100P-AC_V1.0_171124.zip (MR100P-AC),mercury,no,yes,no,0.802,759239,946452,105,0,0,0,15,0,0
+MR804_V1_V5_V6_100430.rar (MR804),mercury,yes,no,no,1.000,940720,398388,0,0,0,1,0,0,0
+MR804_V7_100624.rar (MR804),mercury,yes,no,no,1.000,930528,361796,0,0,0,1,0,0,0
+MR804_V8_101220.rar (MR804),mercury,yes,no,no,1.000,902576,357972,0,0,0,1,0,0,0
+MR804_V8_120312.rar (MR804),mercury,yes,no,no,1.000,993136,394708,0,0,0,1,0,0,0
+MR804_V9_121023.rar (MR804),mercury,no,yes,no,0.262,129364,493508,0,0,0,0,4,1,0
+MR804_V9_121225.rar (MR804),mercury,no,yes,no,0.149,73305,491076,0,0,0,0,4,1,0
+2010628150457.rar (MR804),mercury,yes,no,no,1.000,945104,368756,0,0,0,1,0,0,0
+2011113135422.rar (MR804),mercury,yes,no,no,1.000,953088,365780,0,0,0,1,0,0,0
+2011921171332.rar (MR804),mercury,yes,no,no,1.000,903904,360164,0,0,0,1,0,0,0
+20111215182029.rar (MR804),mercury,yes,no,no,1.000,920304,359844,0,0,0,1,0,0,0
+mercury_MR804_V1V5V6_100526_special.bin (MR804),mercury,yes,no,no,1.000,946176,400788,0,0,0,1,0,0,0
+mercury_MR804_V1V5V6_100728_test.bin (MR804),mercury,yes,no,no,1.000,940960,398324,0,0,0,1,0,0,0
+MR807_V2_101125.rar (MR807),mercury,yes,no,no,1.000,886192,358196,0,0,0,1,0,0,0
+MR807_V2_120312.rar (MR807),mercury,yes,no,no,1.000,993136,395108,0,0,0,1,0,0,0
+2011113140253.rar (MR807),mercury,yes,no,no,1.000,936160,376580,0,0,0,1,0,0,0
+2011113140954.rar (MR807),mercury,yes,no,no,1.000,920288,359748,0,0,0,1,0,0,0
+2009115163851.rar (MR808),mercury,yes,yes,no,1.000,11539267,1875328,0,0,0,0,4,7,0
+mercury_MR808_v1v2v3_090916_special.bin (MR808),mercury,yes,no,no,1.000,1942640,596356,0,0,0,1,0,0,4
+2009115171255.rar (MR814),mercury,yes,yes,no,1.000,11504911,1875296,0,0,0,0,4,7,0
+2009115170928.rar (MR814),mercury,yes,yes,no,1.000,10537560,1949088,0,0,0,0,11,7,0
+mercury_MR814_V1_070807.bin (MR814),mercury,yes,yes,no,1.000,9176381,1757616,0,0,0,0,3,6,0
+200911695340.rar (MR816),mercury,yes,yes,no,1.000,11504883,1875424,0,0,0,0,4,7,0
+200911695119.rar (MR816),mercury,yes,no,no,1.000,1949072,598484,0,0,0,1,0,0,4
+2009116100221.rar (MR824),mercury,yes,no,no,1.000,1949072,598548,0,0,0,1,0,0,4
+mercury_MR824_V2_081020.bin (MR824),mercury,yes,yes,no,1.000,11504827,1875424,0,0,0,0,4,7,0
+MR900_V2_130109.rar (MR900),mercury,no,no,yes,0.728,2895606,3979162,0,0,0,234,0,1,17754
+MR900_V3.0_20161126.zip (MR900),mercury,yes,no,yes,1.000,11932175,2783073,0,0,0,240,0,1,18011
+MR900B_V2_130109.rar (MR900B),mercury,no,no,yes,0.775,3123081,4030539,0,0,0,246,0,0,17754
+MR900B_V3.0_150521.zip (MR900B),mercury,yes,no,yes,1.000,12249648,2830289,0,0,0,252,0,0,17989
+MR900B_V3.0_161126.zip (MR900B),mercury,yes,no,yes,1.000,12288990,2822643,0,0,0,252,0,1,18011
+MR904_V1_100107.rar (MR904),mercury,yes,no,no,1.000,23203341,3528016,0,0,0,3,0,8,0
+MR904_V2.0_101130.zip (MR904),mercury,no,no,no,0.063,79196,1251636,0,0,0,0,0,1,0
+MR904_V3_110529.rar (MR904),mercury,no,no,no,0.657,1031404,1569463,0,0,0,163,0,0,0
+MR904_V3_110714.rar (MR904),mercury,no,no,no,0.685,1087268,1588008,0,0,0,169,0,0,0
+MR904B_V1_100107.rar (MR904B),mercury,yes,no,no,1.000,23791719,3612432,0,0,0,3,0,9,0
+MR904B_v2_110529.rar (MR904B),mercury,no,no,no,0.707,1125633,1591709,0,0,0,176,0,0,0
+MR904B_v2_110714.rar (MR904B),mercury,no,no,no,0.734,1181497,1610232,0,0,0,182,0,0,0
+MR914_V1_100107.rar (MR914),mercury,yes,no,no,1.000,23204441,3528608,0,0,0,3,0,8,0
+MR914B_V1_100107.rar (MR914B),mercury,yes,no,no,1.000,23795807,3613008,0,0,0,3,0,9,0
+mercury_MW108R_V1_070820.bin (MW108R),mercury,yes,no,no,1.000,3680247,2567744,0,0,0,1,0,7,0
+MW150R_V10.0_140225.rar (MW150R),mercury,no,yes,no,0.004,3409,860948,0,0,0,0,7,0,0
+MW150R_V5_V6_111219.rar (MW150R),mercury,no,yes,no,0.002,2319,1522932,0,0,0,0,4,0,7
+MW150R_V8_121113.rar (MW150R),mercury,no,yes,no,0.121,129536,1068916,0,0,0,0,3,1,0
+MW150R__201342200320.bin (MW150R),mercury,no,yes,no,0.017,18743,1074164,0,0,0,0,3,1,0
+mercury_MW150R_V5-V6_111231_test.bin (MW150R),mercury,no,yes,no,0.004,5202,1260852,0,0,0,0,5,0,7
+mercury_MW150R_V5-V6_120109_special.bin (MW150R),mercury,no,yes,no,0.001,1338,1260820,0,0,0,0,3,0,7
+mercury_MW150R_V5-V6_120217_special.bin (MW150R),mercury,no,yes,no,0.001,1338,1270516,0,0,0,0,3,0,7
+mercury_MW150R_V8_130226_test.bin (MW150R),mercury,no,yes,no,0.017,18743,1074148,0,0,0,0,3,1,0
+MW150RM_V1_V2_120530.rar (MW150RM),mercury,no,yes,no,0.001,1338,1296452,0,0,0,0,3,0,6
+MW150RM_V1_V2_120809.rar (MW150RM),mercury,no,yes,no,0.001,1338,1561844,0,0,0,0,3,0,6
+MW1515R_V1_121012.rar (MW1515R),mercury,no,yes,no,0.058,56417,980564,0,0,0,0,6,1,0
+MW151R_V1_100113.rar (MW151R),mercury,no,yes,no,0.001,920,1327132,0,0,0,0,2,0,6
+MW151R__2010628151219.bin (MW151R),mercury,no,yes,no,0.004,5776,1331228,0,0,0,0,3,0,6
+MW151RM_V1_120425.rar (MW151RM),mercury,no,yes,no,0.001,1338,1290132,0,0,0,0,3,0,6
+MW151RM_V1_121107.rar (MW151RM),mercury,no,yes,no,0.001,1338,1562772,0,0,0,0,3,0,6
+MW151RM__201223163746.bin (MW151RM),mercury,no,yes,no,0.002,2071,1333988,0,0,0,0,4,0,6
+MW153R_V1_110909.rar (MW153R),mercury,no,yes,no,0.001,1338,1278820,0,0,0,0,3,0,7
+MW153R_V1_121127.rar (MW153R),mercury,no,yes,no,0.122,130091,1069828,0,0,0,0,3,2,0
+MW153R__201342200827.bin (MW153R),mercury,no,yes,no,0.018,18985,1074340,0,0,0,0,4,1,0
+MW153R__201342200957.bin (MW153R),mercury,no,yes,no,0.018,18985,1074244,0,0,0,0,4,1,0
+MW155R_V1.0_140310.zip (MW155R),mercury,no,yes,no,0.002,1338,866036,0,0,0,0,3,0,0
+MW155R_V1_V2_130427.rar (MW155R),mercury,no,yes,no,0.008,6436,846276,0,0,0,0,5,0,0
+MW300R_V10.0_150504.zip (MW300R),mercury,yes,yes,no,1.000,969387,913684,95,0,0,0,12,1,0
+MW300R_V10.0_150902.zip (MW300R),mercury,yes,yes,no,1.000,955970,905492,123,0,0,0,13,0,0
+MW300R_V12.0_150610.zip (MW300R),mercury,yes,yes,no,0.937,952328,1016084,123,0,0,0,13,0,0
+MW300R_V12.0_160309.zip (MW300R),mercury,yes,yes,no,0.937,956264,1020180,123,0,0,0,13,0,0
+MW300R_V15.0_160506.zip (MW300R),mercury,yes,yes,no,1.000,960657,889108,123,0,0,0,14,0,0
+MW300R_V4_121126.rar (MW300R),mercury,no,yes,no,0.001,1338,1571284,0,0,0,0,3,0,6
+MW300R_V6.0_130705.rar (MW300R),mercury,yes,no,yes,1.000,4335216,1835008,0,0,0,1,0,0,6911
+MW300R_V6_130226.rar (MW300R),mercury,yes,no,yes,1.000,4327488,1835008,0,0,0,1,0,0,6885
+MW300R_V9.0_140210.rar (MW300R),mercury,no,yes,no,0.002,1338,848964,0,0,0,0,3,0,0
+MW300R_V9.0_140528.zip (MW300R),mercury,no,yes,no,0.002,1338,849748,0,0,0,0,3,0,0
+MW300R__201275172121.bin (MW300R),mercury,no,yes,no,0.001,1338,1309124,0,0,0,0,3,0,6
+MW300R__201275173752.bin (MW300R),mercury,no,yes,no,0.003,3855,1308756,0,0,0,0,5,0,6
+MW300R__201216162049.bin (MW300R),mercury,no,yes,no,0.001,1338,1260020,0,0,0,0,3,0,6
+MW300R__201275174246.bin (MW300R),mercury,no,yes,no,0.001,1789,1258468,0,0,0,0,4,0,6
+MW300R__201275174464.bin (MW300R),mercury,no,yes,no,0.001,1338,1258100,0,0,0,0,3,0,6
+MW300RE_V2.0_20161230.zip (MW300RE),mercury,no,yes,no,0.732,731515,999700,101,0,0,0,7,0,0
+MW301RE_V1.0_160421.zip (MW301RE),mercury,no,yes,no,0.701,689316,983316,98,0,0,0,7,0,0
+MW303R_V1_120201.rar (MW303R),mercury,no,yes,no,0.001,1338,1307652,0,0,0,0,3,0,6
+MW303R__201275174751.bin (MW303R),mercury,no,yes,no,0.001,1338,1309204,0,0,0,0,3,0,6
+MW303R__201275174943.bin (MW303R),mercury,no,yes,no,0.001,1338,1308836,0,0,0,0,3,0,6
+MW305R_V1.0_130627.rar (MW305R),mercury,yes,no,yes,1.000,4335184,1835008,0,0,0,1,0,0,6911
+MW305R_V1_130111.rar (MW305R),mercury,yes,no,yes,1.000,4303600,1835008,0,0,0,1,0,0,6847
+MW305R_V3.0_140210.zip (MW305R),mercury,no,yes,no,0.002,1338,848964,0,0,0,0,3,0,0
+MW305R_V3.0_140528.zip (MW305R),mercury,no,yes,no,0.002,1813,849764,0,0,0,0,4,0,0
+MW305R_V4.0_150428.zip (MW305R),mercury,no,yes,no,0.815,794895,975124,95,0,0,0,12,0,0
+MW305R_V5.0_150929.zip (MW305R),mercury,yes,yes,no,1.000,955964,905492,123,0,0,0,13,0,0
+MW305R_V5.0_151111.zip (MW305R),mercury,yes,yes,no,1.000,955964,905492,123,0,0,0,13,0,0
+MW305R_V7.0_150706.zip (MW305R),mercury,yes,yes,no,0.934,953097,1020180,123,0,0,0,13,0,0
+MW305R_V7.0_160121.zip (MW305R),mercury,yes,yes,no,0.937,956025,1020180,123,0,0,0,13,0,0
+2014512165923.zip (MW305R+),mercury,no,yes,no,0.002,1338,848964,0,0,0,0,3,0,0
+MW306R_V1.0_140210.zip (MW306R),mercury,no,yes,no,0.002,1338,848964,0,0,0,0,3,0,0
+MW306R_V1.0_140528.zip (MW306R),mercury,no,yes,no,0.002,1813,849764,0,0,0,0,4,0,0
+MW309R_V1.0_140219.zip (MW309R),mercury,no,yes,no,0.002,1338,849508,0,0,0,0,3,0,0
+MW309R_V1.0_140613.zip (MW309R),mercury,no,yes,no,0.002,1338,850276,0,0,0,0,3,0,0
+MW310R_V1_V2_120201.rar (MW310R),mercury,no,yes,no,0.001,1338,1307668,0,0,0,0,3,0,6
+MW310R_V1_V2_130201.rar (MW310R),mercury,no,yes,no,0.001,1338,1575124,0,0,0,0,3,0,7
+MW310R_V5.0_150624.zip (MW310R),mercury,yes,yes,no,0.933,951579,1020180,123,0,0,0,12,0,0
+MW310R_V5.0_160301.zip (MW310R),mercury,yes,yes,no,0.937,956259,1020180,123,0,0,0,13,0,0
+mercury_MW310R_V1-V2_120507_special.bin (MW310R),mercury,no,yes,no,0.001,1338,1309204,0,0,0,0,3,0,6
+mercury_MW310R_V1-V2_120508_special.bin (MW310R),mercury,no,yes,no,0.001,1338,1308836,0,0,0,0,3,0,6
+MW310RE_V2.0_170227.zip (MW310RE),mercury,no,yes,no,0.730,727210,995604,102,0,0,0,8,0,0
+MW310RE_V3.0.zip (MW310RE),mercury,no,yes,no,0.672,660485,983316,88,0,0,0,8,0,0
+MW313R_V1.0_140307.zip (MW313R),mercury,yes,no,no,1.000,1692688,1032192,0,0,0,1,0,0,0
+MW313R_V1.0_140701.zip (MW313R),mercury,yes,no,no,1.000,1692560,1032192,0,0,0,1,0,0,0
+MW313R_V2.0_150110.zip (MW313R),mercury,no,yes,no,0.832,851968,1024276,95,0,0,0,13,0,0
+MW313R_V2.0_150305.zip (MW313R),mercury,no,yes,no,0.820,823546,1003796,92,0,0,0,12,0,0
+MW313R_V2.0_150428.zip (MW313R),mercury,no,yes,no,0.815,794883,975124,95,0,0,0,12,0,0
+MW313R_V3.0_151021.zip (MW313R),mercury,yes,yes,no,0.936,954764,1020180,123,0,0,0,13,0,0
+MW313R_V3.0_160314.zip (MW313R),mercury,yes,yes,no,0.940,958778,1020180,123,0,0,0,14,0,0
+MW313R_V4.0_160602.zip (MW313R),mercury,yes,yes,no,1.000,957444,889108,123,0,0,0,13,0,0
+MW315R_V1.0_160323.zip (MW315R),mercury,yes,yes,no,0.937,956257,1020180,123,0,0,0,13,0,0
+MW315R_V1.0_161020.zip (MW315R),mercury,yes,yes,no,0.935,953535,1020180,123,0,0,0,13,0,0
+MW315R_V2.0_160616.zip (MW315R),mercury,yes,yes,no,1.000,957444,889108,123,0,0,0,13,0,0
+MW316R_V1.0_141105.zip (MW316R),mercury,no,yes,no,0.002,1338,851860,0,0,0,0,3,0,0
+MW316R_V1.0_150611.zip (MW316R),mercury,yes,yes,no,1.000,952410,913684,123,0,0,0,12,0,0
+MW316R_V1.0_150817.zip (MW316R),mercury,yes,yes,no,1.000,955942,913684,123,0,0,0,14,0,0
+MW320R_V1.0_141111.zip (MW320R),mercury,no,yes,no,0.002,1338,852052,0,0,0,0,3,0,0
+MW320R_V1.0_150925.zip (MW320R),mercury,yes,yes,no,1.000,957282,893204,123,0,0,0,14,0,0
+MW323R_V1.0_150504.zip (MW323R),mercury,yes,yes,no,1.000,972075,917780,95,0,0,0,13,1,0
+MW325R_V2.0_160607.zip (MW325R),mercury,yes,yes,no,1.000,957444,889108,123,0,0,0,13,0,0
+MW325R_V3.0_160725.zip (MW325R),mercury,yes,yes,no,0.933,952126,1020180,123,0,0,0,13,0,0
+MW325R_V3.0_160926.zip (MW325R),mercury,yes,yes,no,0.935,953529,1020180,123,0,0,0,13,0,0
+MW325R_V4.0.zip (MW325R),mercury,yes,yes,no,0.941,956534,1016084,124,0,0,0,15,0,0
+MW326R_V1.0_150626.zip (MW326R),mercury,yes,yes,no,1.000,952639,889108,123,0,0,0,12,0,0
+MW326R_V2.0_160328.zip (MW326R),mercury,yes,yes,no,0.938,957221,1020180,123,0,0,0,13,0,0
+MW326R_V2.0_160803.zip (MW326R),mercury,yes,yes,no,0.937,955892,1020180,123,0,0,0,14,0,0
+MW351R_V1.0_160329.zip (MW351R),mercury,yes,yes,no,0.937,956245,1020180,123,0,0,0,13,0,0
+MW450R_V2.0_140225.zip (MW450R),mercury,no,yes,no,0.001,1338,1115636,0,0,0,0,3,0,6
+MW450R_V4.0_150925.zip (MW450R),mercury,yes,yes,no,0.943,954736,1011988,123,0,0,0,13,0,0
+MW548R_V1_091104.rar (MW548R),mercury,no,yes,no,0.595,1700903,2858416,0,0,0,0,6,5,0
+MW54R_V10_110311.rar (MW54R),mercury,no,yes,no,0.001,1338,1216788,0,0,0,0,3,0,6
+MW54R_V4_V5_V6_V7_100531.rar (MW54R),mercury,no,yes,no,0.007,5940,875100,0,0,0,0,3,0,0
+MW54R__201181192837.bin (MW54R),mercury,no,yes,no,0.001,1338,1227748,0,0,0,0,3,0,7
+MW54R__2011111162552.bin (MW54R),mercury,no,yes,no,0.001,1338,1298596,0,0,0,0,3,0,7
+MW54R__2011111163235.bin (MW54R),mercury,no,yes,no,0.001,1338,1298628,0,0,0,0,3,0,7
+mercury_MW54R_V4V5V6V7_100625_special.bin (MW54R),mercury,no,yes,no,0.006,4970,877596,0,0,0,0,2,0,0
+mercury_MW54R_V4V5V6V7_101227_special.bin (MW54R),mercury,no,yes,no,0.006,4970,885248,0,0,0,0,2,0,0
+2009115105714.rar (MW54R+),mercury,yes,no,no,1.000,3675127,2566720,0,0,0,1,0,7,0
+2009115105451.rar (MW54R+),mercury,yes,no,no,1.000,3830727,2607248,0,0,0,1,0,7,0
+a6b_1_WGR614v5_20Initial_20Release_20Firmware_20Version_201.03.zip (Netgear WGR614v5),netgear,yes,yes,no,1.000,4206183,3332312,0,144,0,0,0,42,6
+a6b_2_WGR614v5_20Firmware_20Version_201.07.zip (Netgear WGR614v5),netgear,yes,yes,no,1.000,4290290,3367373,0,146,0,0,0,44,6
+a6b_3_WGT624_20and_20WGT624v2_20Firmware_20Version_204.2.10.zip (Netgear WGT624v2),netgear,yes,yes,yes,1.000,5069366,4733068,0,143,0,0,0,48,9682
+WGR614v7_FW2.0.30.zip (WGR614V7-V2.0.30_2.0.30NA/WGR614V7-V2.0.30_2.0.30NA.chk),netgear,yes,yes,no,1.000,6715543,3634832,0,190,0,0,0,55,10
+WGR614v3_FW2.00.zip (WGR614v3_FW2.00.zip),netgear,yes,yes,no,1.000,4071065,3898976,0,120,0,0,0,39,9
+WGT624v1_FW4.2.8.zip (WGT624v1_FW4.2.8.zip),netgear,yes,yes,yes,1.000,5091977,4734908,0,143,0,0,0,49,9682
+WGT624v2_FW4.2.11.zip (WGT624v2_FW4.2.11.zip),netgear,yes,yes,yes,1.000,5070800,4736412,0,143,0,0,0,48,9687
+a6_WPN824v2_2.0.16.zip (a6_WPN824v2_2.0.16.zip),netgear,yes,yes,yes,1.000,22708675,4253292,0,252,0,0,0,108,7611
+WGR614v5_FW1.09.zip (wgr614v5_1_0_9_1_0_6.chk),netgear,yes,yes,no,1.000,4290290,3367772,0,146,0,0,0,44,6
+nortel_contivity1500_partial.img (Nortel Contivity Extranet Switch 1500),nortel,yes,no,no,1.000,209715200,209715200,0,0,0,3,0,1,0
+tektronix_1740_SOFTWARE.bin (Tektronix 1740A/1750A/1760 波形监视器 FW 2.2),tektronix,yes,no,no,1.000,524288,524288,0,0,0,0,0,2,0
+tektronix_tds1012_flash.bin (Tektronix TDS1012 示波器),tektronix,yes,no,no,1.000,2097152,2097152,0,0,0,0,0,1,0
+tektronix_tds754c_fw53e.zip (Tektronix TDS754C 示波器 FW 5.3e),tektronix,yes,no,yes,1.000,4194304,4194304,0,0,0,2,0,4,6335
+Archer C64(EU)_V1_210219.zip (Archer C64),tp-link,yes,yes,yes,1.000,5655422,2925188,338,0,0,0,0,1,10407
+tplink_ArcherC80_V1_200628_US.bin (Archer C80),tp-link,yes,yes,yes,1.000,5172851,2855396,333,0,0,0,0,0,11081
+tplink_ArcherC80_V1_200907_US.bin (Archer C80),tp-link,yes,yes,yes,1.000,5197580,2847204,336,0,0,0,0,0,10963
+tplink_ArcherC80_V1_201003_US.bin (Archer C80),tp-link,yes,yes,yes,1.000,5197628,2847204,336,0,0,0,0,0,10971
+tplink_ArcherC80_V1_210128_US.bin (Archer C80),tp-link,yes,yes,yes,1.000,5569906,2925148,335,0,0,0,0,0,10395
+tplink_ArcherC80_V1_210308_US.bin (Archer C80),tp-link,yes,yes,yes,1.000,5674418,3007068,335,0,0,0,0,1,11230
+tplink_ArcherC80_V1_210203_CA.bin (Archer C80),tp-link,yes,yes,yes,1.000,5569606,2925148,335,0,0,0,0,0,10395
+Archer_C80(US)_V1_200221.zip (Archer C80(US)_V1-_200221/C80(US)_v1-up-noboot_2020-02-21_16.07.06.bin),tp-link,yes,yes,yes,1.000,5134919,2843108,328,0,0,0,0,0,10998
+Archer_C80_US_V1_191122.zip (Archer_C80_US_V1_191122.zip),tp-link,yes,yes,yes,1.000,3947396,2617628,297,0,0,0,0,0,10999
+TL-ER5120_V1_120719.zip (TL-ER5120),tp-link,no,no,yes,0.667,3111229,4665412,0,0,0,223,0,1,15492
+TL-ER5120_V2_140212.zip (TL-ER5120),tp-link,no,no,yes,0.668,3072696,4600596,0,0,0,225,0,0,15576
+TL-ER6020_V1_120807.zip (TL-ER6020),tp-link,no,no,yes,0.785,3493006,4447398,0,0,0,239,0,0,19302
+TL-ER604W_V1_130116.zip (TL-ER604W),tp-link,no,no,yes,0.585,3047967,5213188,0,0,0,250,0,2,18151
+TL-ER604W(EU)_V2_160825_1480562237189w.zip (TL-ER604W),tp-link,no,no,yes,0.644,3176085,4933716,0,0,0,264,0,0,22278
+TL-ER6120_V1_120719.zip (TL-ER6120),tp-link,no,no,yes,0.736,3483265,4732564,0,0,0,238,0,1,15492
+TL-R402M_V2_091224.zip (TL-R402M),tp-link,yes,no,no,1.000,950128,401332,0,0,0,1,0,0,0
+TL_R402M_V3_2010122118525815.zip (TL-R402M),tp-link,yes,no,no,1.000,959584,386548,0,0,0,1,0,0,0
+TL-R410_V1_070703.zip (TL-R410),tp-link,yes,yes,no,1.000,9307334,1894992,0,0,0,0,5,12,0
+TL-R4299G_V1_091225.zip (TL-R4299G),tp-link,yes,yes,no,1.000,12364527,3717824,0,0,0,0,1,6,0
+TL-R460_v5.0_120704_RU_UA.zip (TL-R460),tp-link,no,yes,no,0.022,15223,691240,0,0,0,0,6,0,0
+TL-R488T_V2_091225.zip (TL-R488T),tp-link,yes,yes,no,1.000,12328731,3705968,0,0,0,0,1,6,0
+TL_R860_V1_201112513445417.zip (TL-R860),tp-link,yes,no,no,1.000,2040176,624404,0,0,0,1,0,0,4
+TL_WA501G_V1_2007818085933.zip (TL-WA501G),tp-link,yes,no,no,1.000,3597148,2432960,0,0,0,1,0,12,0
+TL_WA5110G_V1_2009721151054.zip (TL-WA5110G),tp-link,yes,yes,no,1.000,4965830,2876496,0,0,0,0,12,10,0
+TL-WA5110G_V1_For_EU.zip (TL-WA5110G),tp-link,no,yes,no,0.030,86016,2895216,0,0,0,0,11,6,0
+TL-WA5110G_V2_120217.zip (TL-WA5110G),tp-link,yes,yes,no,1.000,3353006,2877824,0,0,0,0,16,9,0
+TL-WA5210G_V1_130502.zip (TL-WA5210G),tp-link,no,yes,no,0.032,96814,2996192,0,0,0,0,13,6,0
+TL-WR340G_V1_101102.zip (TL-WR340G),tp-link,no,yes,no,0.023,21327,910588,0,0,0,0,6,0,0
+TL_WR340G_V2_2010102011103318.zip (TL-WR340G),tp-link,no,yes,no,0.026,23404,910316,0,0,0,0,7,0,0
+TL_WR340GD_V1_2007811080925.zip (TL-WR340GD),tp-link,no,no,no,0.072,72033,1006228,0,0,0,0,0,1,0
+ru_2010461450313.zip (TL-WR340GD),tp-link,no,yes,no,0.023,20554,896412,0,0,0,0,5,0,0
+TL-WR541G_V2_070714.zip (TL-WR541G),tp-link,yes,no,no,1.000,4354757,2565504,0,0,0,1,0,10,0
+TL_WR541G_V3_200911516304613.zip (TL-WR541G),tp-link,no,yes,no,0.025,75115,3007632,0,0,0,0,11,4,0
+ru_2010462074711.zip (TL-WR541G),tp-link,no,yes,no,0.022,20554,922928,0,0,0,0,5,0,0
+TL_WR541G_V4_20071217204439.zip (TL-WR541G),tp-link,yes,no,no,1.000,4418405,2581632,0,0,0,1,0,10,0
+TL_WR541G_V4_200961473666.zip (TL-WR541G),tp-link,yes,yes,no,1.000,4627771,2842736,0,0,0,0,9,9,0
+TL_WR543G_V1_2007811082554.zip (TL-WR543G),tp-link,yes,no,no,1.000,4324589,2567984,0,0,0,1,0,10,0
+TL_WR543G_V1_200872391554.zip (TL-WR543G),tp-link,yes,no,no,1.000,4324589,2567568,0,0,0,1,0,10,0
+TL-WR543G_V2_081013.zip (TL-WR543G),tp-link,yes,no,no,1.000,4530791,2668912,0,0,0,1,0,8,0
+TL_WR641G_V1_200774114608.zip (TL-WR641G),tp-link,yes,yes,no,1.000,12377357,2191232,0,0,0,0,5,12,0
+TL-WR820N(EU)_V1_180817.zip (TL-WR820N),tp-link,yes,no,no,1.000,2347192,991508,0,0,0,8,0,0,0
+TL-WR820N(EU)_V1_190905.zip (TL-WR820N),tp-link,yes,no,no,1.000,2362755,995604,0,0,0,8,0,0,0
+Archer C64(EU)_V1_210317.zip (archer-c64),tp-link,yes,yes,yes,1.000,5616684,2929404,342,0,0,0,0,0,10412
+Archer C64(EU)_V1_210609.zip (archer-c64),tp-link,yes,yes,yes,1.000,5656176,2937276,336,0,0,0,0,0,10440
+Archer C80(EU)_V1 200907.zip (archer-c80),tp-link,yes,yes,yes,1.000,5197580,2847204,336,0,0,0,0,0,10963
+Archer C80(EU)_V1_191204.zip (archer-c80),tp-link,yes,yes,yes,1.000,4036274,2625820,307,0,0,0,0,0,10990
+Archer C80(EU)_V1_200330.zip (archer-c80),tp-link,yes,yes,yes,1.000,5172851,2855396,333,0,0,0,0,0,11080
+Archer C80(EU)_V1_200628.zip (archer-c80),tp-link,yes,yes,yes,1.000,5172851,2855396,333,0,0,0,0,0,11081
+Archer C80(EU)_V1_201003.zip (archer-c80),tp-link,yes,yes,yes,1.000,5197628,2847204,336,0,0,0,0,0,10971
+Archer C80(EU)_V1_210128.zip (archer-c80),tp-link,yes,yes,yes,1.000,5569906,2925148,335,0,0,0,0,0,10395
+Archer C80(EU)_V1_210308.zip (archer-c80),tp-link,yes,yes,yes,1.000,5674418,3007068,335,0,0,0,0,1,11230
+TL-WA501G_V1_120727.zip (tl-wa501g_v1),tp-link,yes,no,no,1.000,2435536,2435536,0,0,0,1,0,4,0
+20104235180311.zip (tl-wa501g_v1),tp-link,yes,no,no,1.000,2432016,2432016,0,0,0,1,0,4,0
+200774112527.zip (tl-wr642g_v2),tp-link,yes,no,no,1.000,4330828,2562176,0,0,0,1,0,10,0
+TL-WR820N(EU)_V1_190506.zip (tl-wr820n),tp-link,yes,no,no,1.000,2383057,999700,0,0,0,8,0,1,0
+TL-WR820N(RU)_V1_190422.zip (tl-wr820n),tp-link,yes,no,no,1.000,2583269,1024276,0,0,0,7,0,0,0
+TL-WR820N(EU)_V2_191129.zip (tl-wr820n),tp-link,yes,yes,no,1.000,2088767,1462604,251,0,0,0,0,0,10
+TL-WR820N(EU)_V2_200731.zip (tl-wr820n),tp-link,yes,yes,no,1.000,2209223,1421684,270,0,0,0,0,0,10

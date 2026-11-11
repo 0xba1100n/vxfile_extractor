@@ -1,0 +1,27 @@
+# 样本与运行产物不进仓库
+samples/
+runs/
+work/
+repo/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Rust
+rust/vxcore/target/
+target/
+
+# 编辑器与系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 编译产物
+*.elf
+*.exe
+*.dll
+*.dylib

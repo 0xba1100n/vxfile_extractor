@@ -1,74 +1,154 @@
-# vxfile_extractor
-[EN_readme](https://github.com/0xba1100n/vxfile_extractor/blob/main/README_EN.md)
-## 当前版本
-V2.1版本兼容了另外一种形态的符号表，感谢winmt师傅的建议，原理详见
-https://arxiv.org/html/2407.05064v1
-晚些时候会在看雪上补充相关细节，欢迎提改进建议和issue
+# VxWorks 固件解包：语料 + 工具
 
-此外，V2.1版本还有主要bin文件寻找和函数符号表提取功能，这也许是需求最大的功能，现在也可一键自动化了
+v3.0.0
 
-![image.png](https://balloonblogsrcs.oss-cn-shanghai.aliyuncs.com/20241128192235.png)
+给 [0xba1100n/vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) 攒的测试语料，顺手把里面能自动化的部分做成了工具。
+
+## 为什么搞这个
+
+手里 VxWorks 固件太少，改一行代码只能拿四五个样本验，很容易改好一个弄坏一片。
+所以先攒样本，再拿样本反推工具哪里不行。
+
+现在 **308 个已确认样本 / 148 个型号 / 11 家厂商**，每个都有来源 URL、sha256 和判定依据（`CORPUS.csv`）。
+
+## 三个指标（Rust 引擎，308 样本）
+
+| 指标 | 命中 | 比例 |
+|---|---:|---:|
+| 解包（所解容器覆盖率 ≥90%） | 209 | 67.9% |
+| 重命名（恢复原始文件名） | 164 | 53.2% |
+| 符号表导出 | 103 | 33.4% |
+
+另有 75 个样本「覆盖率 <50% 且高熵 >50%」，判定为疑似加密/未识别容器。
+
+逐固件结果在 `RUST_METRICS.csv`，汇总在 [docs/DELIVERY.md](docs/DELIVERY.md)。
+
+## 输出长什么样
+
+跑完屏幕上会直接告诉你东西在哪：
+
+```
+[+] Filesystem unpacked (MINIFS, layer 0x158910): 297 files
+[+] Filename table (vxtable/minifs-pool): 297 entries -> MINIFS_Table.csv
+[+] Output layout
+    bin/   8 file(s)  <- executable / firmware image candidates
+    src/   285 file(s)  <- static resources (js 166, html 81, css 13, json 9, xml 6)
+    cfg/   4 file(s)  <- certificates / configs
+[*] Likely main logic: kernel image layer @0x158910 (3947396 B)
+    main HTTP/CGI code lives inside this image, not as a separate file
+```
+
+`bin/` 放可执行体和固件镜像候选，`src/` 放网页/脚本/样式/图片，`cfg/` 放证书和配置，都是硬链接，不多占空间。
+
+完整说明（目录结构、分类规则、`SUMMARY.json` 字段、常见问题）在 **[docs/OUTPUT.md](docs/OUTPUT.md)**。
+
+## 和 binwalk 比
+
+全量 308 个样本，`binwalk 3.1.0 -Me` 与本工具各跑一遍：
+
+| 参数 | binwalk | 本工具 |
+|---|---:|---:|
+| 有产出的样本 | 159 / 306 | **298 / 308** |
+| 解出的文件总数 | 3,321 | **30,690** |
+| 符号名总数 | 0 | **824,018** |
+| 总耗时 | 26 秒 | 约 13 分钟（4 并发） |
+
+![对照](docs/binwalk_compare.png)
+
+完整表在 [BINWALK_COMPARE.md](BINWALK_COMPARE.md)，逐样本在 `binwalk_compare.csv`，复现：
+
+```bash
+bash tools/compare_binwalk.sh
+```
+
+几句实话：binwalk 在 147 个样本上一个文件都没解出来，基本是它认不出容器（`.chk`、TP-Link 的壳、裸内核）；
+符号表和文件名表它本来就不做；Linksys 那批反过来是它赢，因为一版固件里有 180 多条独立 gzip 流，它一条条都解。
+
+## 逐偏移画像
+
+仿 binwalk，但落成可机读的表：
+
+```bash
+vx profile fw.bin --block 1024 --ascii   # 单样本：每块熵 + 类型 + 合并区间
+vx profile-batch . -o PROFILE.csv        # 全量：按类型统计字节占比（13 秒）
+vx entropy . -o ENTROPY.csv              # 全量：高熵区间 [start,end)（10 秒）
+```
+
+输出示例：
+
+```
+0x00156000-0x00156400       1024 B  ent  4.95  minifs
+0x00158C00-0x0027E800    1203200 B  ent  7.81  high-entropy
+[!] high-entropy 0x00040000-0x00141000 (1028 KiB, 99.4%) -> likely encrypted / unknown container
+```
+
+细节在 [docs/PROFILE.md](docs/PROFILE.md)。
+
+## 摸清的四种文件系统
+
+| 变体 | 代表 | 结构 |
+|---|---|---|
+| MINIFS v1 | Mercury MW/MR | `[size][offset][name:0x50]`，每文件一条 LZMA 流，offset 相对首个 `5A 00 00 80` |
+| MINIFS v3 | Archer C80/C64 | 32 字节头 + ToN/ToF/ToC 三表 + chunk 级 LZMA，配置字 `5D 00 00 80` |
+| MINIFS v2 | MAC1200RE | 32 字节头 + `[hash16][压缩长][name_off][解压长][0]` 与流交替，名字已哈希 |
+| OW | MR900 | LZMA 流内 32 字节 `OW` 魔数 + 76 字节记录（`name[60]+0+size+offset+0`） |
+| PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]`，数据顺序排列 |
+
+带 hexdump 和推导过程的版本：[docs/structures.md](docs/structures.md)；
+哪些类别试过但解不开：[docs/UNSOLVED.md](docs/UNSOLVED.md)。
+
+## 怎么用
+
+Python（需要 binwalk）：
+
+```bash
+python tools/verdict.py fw.bin            # 先确认是不是 VxWorks
+python tools/vxfile_extractor/vxfile_extracter.py fw.bin
+python tools/run_extractor.py --limit 5   # 批量跑，结果进 runs/
+python tools/capability_report.py         # 生成 CAPABILITY.md
+```
+
+Rust（不需要 Python、不需要 binwalk）：
+
+```bash
+vx extract fw.bin -o out/
+vx scan fw.bin
+vx tables fw.bin
+vx symbols fw.bin
+```
+
+## 解不开的
+
+- **Belkin 7 个样本**：层里几百个 `.htm` 全是 MIME 类型和调试字符串，没有已知文件系统魔数。
+- **TP-Link 老机型 / MR904**：升级包里只有内核和一张名字清单，`<html`、`PNG`、`GIF8` 出现次数都是 0，文件数据在设备另一个 flash 分区。
+- **TRENDnet `*_nml.bin`**：786,432 字节，8 字节头 + 约 590 KB 密文（熵 7.96），无 ECB 重复块，68 个候选密钥的 AES 全败，密钥在 bootloader 里。
+- **泰克 TDS210 / THS**：裸内核，没有文件系统，解不出文件属正常。
+
+## 关于符号表
+
+`SYMBOL_Table` 是**符号名串**，没有地址。想要「函数名 → 地址」，得另去定位 VxWorks 的 `symTbl` 结构，目前没做。
+符号名的用途：grep 函数名确认库在不在、判断版本、给反汇编器做函数名提示。
 
 ## TODO
 
-只可惜仍有部分固件(vxfile_wr842nv7和v9、wdr7660gv1)的文件偏移表仍然以各种方式，即使采用更aggressive的lzma策略，似乎都寻不到，如果有相关方法的话请师傅务必issue，这块我目前也很想搞懂
+- 符号表补上地址映射
+- MiniFS v2 的名字（现在只能按内容编号）
+- TRENDnet `*_nml.bin` 的解密（缺密钥，除非拿到设备）
 
-具体而言，这类无法解析出文件偏移表的，一般在binwalk解压后，grep -r "Decryption for config.bin"能够匹配到结果
+## 目录
 
-目前看来，这种固件有些没有文件偏移反倒会有符号表，所以我还实现了符号表提取、主要bin文件识别，希望能弥补这一缺点以帮助师傅们日常的分析
+```
+tools/            判定、解包、统计、对照脚本
+rust/vxcore/      Rust 版引擎，编译成单文件
+docs/             OUTPUT.md、结构说明、流水线图
+CORPUS.csv        308 条样本的来源和 sha256
+CAPABILITY.md     三项能力统计（自动生成）
+dist/             已编译的产物
+```
 
-## 简介
-一键提取vxwork固件内部文件，并依据binwalk分析结果和uboot镜像内文件名偏移表，正确恢复vxwork文件名
+## 致谢
 
-在V2.1版本更新下，还引入了主要bin文件（分析web服务cgi后端之类的都找这个就对了）寻找和函数符号表提取功能，这也许是需求最大的功能，现在也可一键自动化了
+样本和格式认识基本都来自 0xba1100n 的 vxfile_extractor 和那篇[看雪帖](https://bbs.kanxue.com/thread-284324.htm)，
+MINIFS 分块结构参考了 [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) 与 winmt 师傅的[论文](https://arxiv.org/html/2407.05064v1)。
 
-在日常分析固件的过程中，遇到不少设备是RTOS，其中目前见得最多的就是vxworks系统
-
-binwalk尚未支持对vxworks系统固件的正确解包，而且已经停止更新很久了。直接用binwalk一把梭会遇到这种情况：全是莫名其妙的文件名
-![1](https://github.com/user-attachments/assets/7aaf1cee-de63-4af5-b145-95eafdfd2d88)
-这对于日常的分析而言，带来了麻烦。本来符号表缺失就有些麻烦了，现在连文件名都是"乱码"，分析下图类似于这类cgi路由自然是徒增几分困难
-![2](https://github.com/user-attachments/assets/2f179233-c580-4f01-bef3-fd7c9b7fd512)
-
-这个工具的功能是，在uImage中寻找偏移表，正确恢复文件名，并将恢复后的文件放入独立的结果文件夹；如果固件内部记录了路径，还会将文件放入正确的路径（否则将其放入一个默认文件夹，需要进一步分析）。
-附上博客文章作为补充说明：https://ba1100n.tech/iot_security/%e6%8e%a2%e7%a9%b6vxworks%e6%96%87%e4%bb%b6%e5%90%8d%e6%81%a2%e5%a4%8d/
-
-# 使用方法
-用法：
-    python3 vxfile_extracter.py <bin 文件路径> [--fuzzymode]
-
-选项：
-    -h, --help      显示帮助信息
-    --fuzzymode      使用模糊匹配模式处理文件
-
-说明：
-    该工具用于处理 bin 文件。默认情况下，优先使用精确匹配。如果指定 --fuzzymode 参数，将强制使用模糊匹配。
-
-# 效果展示
-该工具会一键解包、自动寻找偏移表位置、自动提取每个文件的偏移，并根据偏移表中记录的名称恢复文件名
-![3](https://github.com/user-attachments/assets/6279fdca-8e35-4227-aea4-1621d7b0a329)
-如果固件内部记录了路径，还会放入正确的路径
-![4](https://github.com/user-attachments/assets/8f34b6ad-9655-4120-8e4d-3fc2efa180b6)
-其中一个路径的文件如下
-![5](https://github.com/user-attachments/assets/ae9c3f81-404e-46d1-a70d-e355e2ad12b8)
-可以看到图片名称的恢复，也是能对上名字的
-![image](https://github.com/user-attachments/assets/749b9416-5514-41da-ae15-5bff4ab66539)
-主要bin文件寻找和函数符号表提取（如果有的话）功能
-![image.png](https://balloonblogsrcs.oss-cn-shanghai.aliyuncs.com/20241128192235.png)
-
-# 通过的测试用例
-- Mercury水星mw313rV4固件
-- tplink wr-855n固件
-- tplink wr842nv3固件
-- tplink Archer系列 C80v1 C80v2固件
-
-# 注意事项
-使用前请确保您的镜像能够通过binwalk正确解包，类似以下结果，这意味着固件没有加密，是正常的vxworks镜像
-![384422042-7ef8cedf-0028-4f56-915f-35ddc8708229](https://github.com/user-attachments/assets/b2b05bd0-6176-4a75-b840-95c56fedb36e)
-
-目前测试主要集中在vxworks 5.5及以下版本，这是最常见的版本，高版本暂时未遇到过。
-某些固件的偏移表未记录路径，导致文件结构显得"扁平化"，需要进一步分析内部html文件引用以确定静态资源文件的正确位置。目前尚未找到合适的解决办法。
-![image](https://github.com/user-attachments/assets/fb30a9dd-481d-4686-986c-20548dc40afd)
-
-程序设计细节和恢复原理详见：https://bbs.kanxue.com/thread-284324.htm
-
-如有问题欢迎提出issue，如果觉得好用请不吝⭐star，谢谢~
+有错误欢迎拍砖，觉得有用就给个 ⭐。

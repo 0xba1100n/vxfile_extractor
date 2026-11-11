@@ -1,0 +1,28 @@
+﻿[package]
+name = "vxcore"
+version = "3.0.0"
+edition = "2021"
+description = "VxWorks firmware extraction engine (port of vxfile_extractor)"
+
+[lib]
+name = "vxcore"
+path = "src/lib.rs"
+
+[[bin]]
+name = "vx"
+path = "src/main.rs"
+
+[dependencies]
+flate2 = "1.1.1"
+xz2 = "0.1.7"
+bzip2 = "0.4.4"
+memchr = "2.7.4"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+clap = { version = "4.5.39", features = ["derive"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
