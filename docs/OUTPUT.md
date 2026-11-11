@@ -109,7 +109,7 @@ intStubSelect\0excNoFpu\0excReturn\0nested\0save_critical\0...
 
 ## Rust 版的输出
 
-`vx extract fw.bin -o out/` 的布局略有不同，因为 Rust 版不跑 binwalk：
+`vxfile_extractor extract fw.bin -o out/` 的布局略有不同，因为 Rust 版不跑 binwalk：
 
 ```
 out/
@@ -123,14 +123,14 @@ out/
 同样的英文提示会打到 **stderr**，stdout 只留 JSON，方便管道：
 
 ```bash
-vx extract fw.bin -o out/ 2>/dev/null | jq .verdict
+vxfile_extractor extract fw.bin -o out/ 2>/dev/null | jq .verdict
 ```
 
 ## 常见问题
 
 **`src/` 是空的？** 这个固件没有网页资源，或者网页在加密分区里。看 `SUMMARY.json` 的 `recovered_named`。
 
-**`bin/` 里几百个文件？** 说明把解压层也算进去了。`vx` 会自动排除 `00158910_lzma-alone` 这类层转储。
+**`bin/` 里几百个文件？** 说明把解压层也算进去了。`vxfile_extractor` 会自动排除 `00158910_lzma-alone` 这类层转储。
 
 **符号表有，但没地址？** 正常，见上面那节。
 

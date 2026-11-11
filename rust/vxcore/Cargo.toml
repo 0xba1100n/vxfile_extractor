@@ -9,6 +9,10 @@ name = "vxcore"
 path = "src/lib.rs"
 
 [[bin]]
+name = "vxfile_extractor"
+path = "src/main.rs"
+
+[[bin]]
 name = "vx"
 path = "src/main.rs"
 

@@ -31,7 +31,7 @@ Per-firmware data lives in [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv), t
    | OW | MR900 | 32-byte `OW` magic inside an LZMA stream + 76-byte records |
    | PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]`, data laid out sequentially |
 
-3. **New UI capability (CLI).** So you can actually *look* at the structure: `vx profile` reports the detected type and entropy of every block, and `vx entropy` marks high-entropy ranges as `0xstart-0xend`, telling you whether that region was decoded or is likely encrypted. No more guessing what a chunk is.
+3. **New UI capability (CLI).** So you can actually *look* at the structure: `vxfile_extractor profile` reports the detected type and entropy of every block, and `vxfile_extractor entropy` marks high-entropy ranges as `0xstart-0xend`, telling you whether that region was decoded or is likely encrypted. No more guessing what a chunk is.
 
 4. **Reproducible corpus.** Vendor, model, version, sha256, source URL and filesystem family for all 308 samples: [`stats/CORPUS.csv`](stats/CORPUS.csv).
 
@@ -46,7 +46,7 @@ git checkout v3.0.0
 
 cd rust/vxcore
 cargo build --release
-./target/release/vx --version     # vx 3.0.0
+./target/release/vx --version     # vxfile_extractor 3.0.0
 ```
 
 For cross builds, `rustup target add <target>` and point cargo at a linker:
@@ -77,7 +77,7 @@ On Linux / macOS just make it executable:
 
 ```bash
 chmod +x VxFirmwareExtractor_linux_x86_64_gnu
-./VxFirmwareExtractor_linux_x86_64_gnu --version    # vx 3.0.0
+./VxFirmwareExtractor_linux_x86_64_gnu --version    # vxfile_extractor 3.0.0
 ```
 
 sha256 checksums are listed on the release page for every file.
@@ -86,23 +86,29 @@ Release page: <https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0
 
 ## Usage
 
-The commands you will actually use:
+The short version:
 
 ```bash
-vx verdict   fw.bin                  # is it VxWorks?
-vx scan      fw.bin                  # list containers / layers
-vx tables    fw.bin                  # dump filename tables
-vx symbols   fw.bin                  # dump symbol names
-vx extract   fw.bin -o out/          # files + symbols + summary
-vx profile   fw.bin --block 1024 --ascii   # per-block type and entropy
-
-# batch
-vx batch         . -o stats/RUST_METRICS.csv   # three metrics (19 min / 308 samples)
-vx profile-batch . -o stats/PROFILE.csv        # type shares (13 s)
-vx entropy       . -o stats/ENTROPY.csv        # high-entropy ranges (10 s)
+vxfile_extractor fw.bin            # one shot: unpack into ./out
 ```
 
-What `vx extract` produces:
+Same as `vxfile_extractor extract fw.bin -o out/`. Subcommands when you want details:
+
+```bash
+vxfile_extractor verdict   fw.bin                  # is it VxWorks?
+vxfile_extractor scan      fw.bin                  # list containers / layers
+vxfile_extractor tables    fw.bin                  # dump filename tables
+vxfile_extractor symbols   fw.bin                  # dump symbol names
+vxfile_extractor extract   fw.bin -o out/          # files + symbols + summary
+vxfile_extractor profile   fw.bin --block 1024 --ascii   # per-block type and entropy
+
+# batch
+vxfile_extractor batch         . -o stats/RUST_METRICS.csv   # three metrics (19 min / 308 samples)
+vxfile_extractor profile-batch . -o stats/PROFILE.csv        # type shares (13 s)
+vxfile_extractor entropy       . -o stats/ENTROPY.csv        # high-entropy ranges (10 s)
+```
+
+What `vxfile_extractor extract` produces:
 
 ```
 out/
@@ -118,7 +124,7 @@ out/
 Extract:
 
 ```
-$ vx extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
+$ vxfile_extractor extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
 [+] Output layout
     bin/   8 file(s)  <- executable / firmware image candidates
     src/   285 file(s)  <- static resources (js 166, html 81, css 13, json 9, xml 6)
@@ -130,7 +136,7 @@ $ vx extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
 Per-block profile:
 
 ```
-$ vx profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
+$ vxfile_extractor profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
 0x00000000-0x00000400       1024 B  ent  7.43  data
 0x00000400-0x00101000    1051648 B  ent  7.81  high-entropy
 0x0012C000-0x0012C400       1024 B  ent  7.82  lzma
@@ -142,7 +148,7 @@ high-entropy        1298432        3   99.2%
 Encrypted verdict:
 
 ```
-$ vx extract samples/expand-a/inner/FW300R__2012126162529.bin -o out/
+$ vxfile_extractor extract samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 [!] high-entropy 0x00040000-0x00141000 (1028 KiB, 99.4%) -> likely encrypted / unknown container
 ```
 

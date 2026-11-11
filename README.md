@@ -31,7 +31,7 @@
    | OW | MR900 | LZMA 流内 32 字节 `OW` 魔数 + 76 字节记录 |
    | PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]` |
 
-3. **新的 UI 能力（命令行）**。顺手做了个能「看」结构的东西：`vx profile` 逐块给出识别类型和熵值，`vx entropy` 直接把高熵区间标成 `0x起-0x止`，并判断这一段是已经解出来了、还是疑似加密。分析的时候不用再猜这块到底是什么。
+3. **新的 UI 能力（命令行）**。顺手做了个能「看」结构的东西：`vxfile_extractor profile` 逐块给出识别类型和熵值，`vxfile_extractor entropy` 直接把高熵区间标成 `0x起-0x止`，并判断这一段是已经解出来了、还是疑似加密。分析的时候不用再猜这块到底是什么。
 
 4. **固件案例可复现**。308 个样本的厂商、型号、版本、sha256、来源 URL、文件系统族都在 [`stats/CORPUS.csv`](stats/CORPUS.csv)。
 
@@ -46,7 +46,7 @@ git checkout v3.0.0
 
 cd rust/vxcore
 cargo build --release
-./target/release/vx --version     # vx 3.0.0
+./target/release/vx --version     # vxfile_extractor 3.0.0
 ```
 
 要交叉编译的话，先 `rustup target add <target>` 再配上对应 linker，比如：
@@ -77,7 +77,7 @@ Linux / macOS 下载后给个执行权限就能跑：
 
 ```bash
 chmod +x VxFirmwareExtractor_linux_x86_64_gnu
-./VxFirmwareExtractor_linux_x86_64_gnu --version    # vx 3.0.0
+./VxFirmwareExtractor_linux_x86_64_gnu --version    # vxfile_extractor 3.0.0
 ```
 
 校验和（sha256）在 Release 页面每个文件下面，也可以直接对：
@@ -99,23 +99,29 @@ Release 页：<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0
 
 ## 用法
 
-常用的几条：
+最省事的就一条：
 
 ```bash
-vx verdict   fw.bin                  # 先看是不是 VxWorks
-vx scan      fw.bin                  # 列出容器 / 解压层
-vx tables    fw.bin                  # 打印文件名偏移表
-vx symbols   fw.bin                  # 打印符号名表
-vx extract   fw.bin -o out/          # 解包：文件 + 符号 + 摘要
-vx profile   fw.bin --block 1024 --ascii   # 逐块类型 + 熵
-
-# 批量跑
-vx batch         . -o stats/RUST_METRICS.csv   # 三项能力（19 分钟 / 308 样本）
-vx profile-batch . -o stats/PROFILE.csv        # 类型占比（13 秒）
-vx entropy       . -o stats/ENTROPY.csv        # 高熵区间（10 秒）
+vxfile_extractor fw.bin            # 一键解包，产物落在当前目录的 out/
 ```
 
-`vx extract` 出来的东西长这样：
+等价于 `vxfile_extractor extract fw.bin -o out/`。想细看结构再用子命令：
+
+```bash
+vxfile_extractor verdict   fw.bin                  # 先看是不是 VxWorks
+vxfile_extractor scan      fw.bin                  # 列出容器 / 解压层
+vxfile_extractor tables    fw.bin                  # 打印文件名偏移表
+vxfile_extractor symbols   fw.bin                  # 打印符号名表
+vxfile_extractor extract   fw.bin -o out/          # 解包：文件 + 符号 + 摘要
+vxfile_extractor profile   fw.bin --block 1024 --ascii   # 逐块类型 + 熵
+
+# 批量跑
+vxfile_extractor batch         . -o stats/RUST_METRICS.csv   # 三项能力（19 分钟 / 308 样本）
+vxfile_extractor profile-batch . -o stats/PROFILE.csv        # 类型占比（13 秒）
+vxfile_extractor entropy       . -o stats/ENTROPY.csv        # 高熵区间（10 秒）
+```
+
+`vxfile_extractor extract` 出来的东西长这样：
 
 ```
 out/
@@ -131,7 +137,7 @@ out/
 跑起来大概是这样——先看解包：
 
 ```
-$ vx extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
+$ vxfile_extractor extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
 [+] Output layout
     bin/   8 file(s)  <- executable / firmware image candidates
     src/   285 file(s)  <- static resources (js 166, html 81, css 13, json 9, xml 6)
@@ -143,7 +149,7 @@ $ vx extract samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
 再看逐块画像：
 
 ```
-$ vx profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
+$ vxfile_extractor profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
 0x00000000-0x00000400       1024 B  ent  7.43  data
 0x00000400-0x00101000    1051648 B  ent  7.81  high-entropy
 0x0012C000-0x0012C400       1024 B  ent  7.82  lzma
@@ -155,7 +161,7 @@ high-entropy        1298432        3   99.2%
 以及疑似加密的判定：
 
 ```
-$ vx extract samples/expand-a/inner/FW300R__2012126162529.bin -o out/
+$ vxfile_extractor extract samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 [!] high-entropy 0x00040000-0x00141000 (1028 KiB, 99.4%) -> likely encrypted / unknown container
 ```
 

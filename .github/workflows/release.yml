@@ -78,7 +78,7 @@ jobs:
             name="VxFirmwareExtractor_${os}_${arch}${ext}"
           fi
           mkdir -p dist
-          cp "target/${{ matrix.target }}/release/vx${ext}" "dist/${name}"
+          cp "target/${{ matrix.target }}/release/vxfile_extractor${ext}" "dist/${name}"
           ls -l dist
 
       - uses: actions/upload-artifact@v4

@@ -1,11 +1,11 @@
-# 逐偏移画像（vx profile）
+# 逐偏移画像（vxfile_extractor profile）
 
 仿 binwalk 的 `-E`（熵图）和签名扫描，但把结果落成「每块的熵 + 类型 + 合并区间」。
 
 ## 用法
 
 ```
-vx profile <firmware> [--block 1024] [-o blocks.csv] [--ascii]
+vxfile_extractor profile <firmware> [--block 1024] [-o blocks.csv] [--ascii]
 ```
 
 - `--block`：窗口大小，默认 1024 字节
@@ -15,7 +15,7 @@ vx profile <firmware> [--block 1024] [-o blocks.csv] [--ascii]
 ## 输出
 
 ```
-$ vx profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024 --ascii
+$ vxfile_extractor profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024 --ascii
 {"file": "...", "size": 1309124, "block": 1024, "regions": 7}
 0x00000000-0x00000400       1024 B  ent  7.43  data
 0x00000400-0x00101000    1051648 B  ent  7.81  high-entropy
@@ -75,7 +75,7 @@ anritsu（SH4 内核，无文件系统）：
 
 ## 和 binwalk 的差别
 
-| | binwalk `-E` | `vx profile` |
+| | binwalk `-E` | `vxfile_extractor profile` |
 |---|---|---|
 | 熵 | 有，出图 | 有，CSV + ASCII |
 | 逐偏移定性 | 只有签名命中 | 每块都有 kind |

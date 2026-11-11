@@ -69,15 +69,15 @@ out/
 ## 6. 复现
 
 ```bash
-vx verdict fw.bin
-vx extract fw.bin -o out/
-vx batch . -o stats/RUST_METRICS.csv
+vxfile_extractor verdict fw.bin
+vxfile_extractor extract fw.bin -o out/
+vxfile_extractor batch . -o stats/RUST_METRICS.csv
 ```
 
 批量统计：
 
 ```bash
-vx extract fw.bin -o out/
+vxfile_extractor extract fw.bin -o out/
 ```
 
 ![总览](pipeline.png)

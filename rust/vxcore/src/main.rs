@@ -7,7 +7,7 @@ use clap::{Parser, Subcommand};
 use vxcore::{find_symbols, find_tables, judge, judge_image, scan_all};
 
 #[derive(Parser)]
-#[command(name = "vx", version, about = "VxWorks firmware extraction engine")]
+#[command(name = "vxfile_extractor", version, about = "VxWorks firmware extraction engine")]
 struct Cli {
     #[command(subcommand)]
     cmd: Cmd,
@@ -789,7 +789,18 @@ fn run_profile_batch(root: &Path, out_csv: Option<&Path>, block: usize) -> i32 {
 }
 
 fn main() {
-    let cli = Cli::parse();
+    // 一键用法：vxfile_extractor fw.bin 等价于 extract fw.bin
+    let mut argv: Vec<String> = std::env::args().collect();
+    const SUBS: [&str; 9] = ["verdict", "scan", "tables", "symbols", "extract",
+                             "batch", "entropy", "profile", "profile-batch"];
+    if argv.len() >= 2 {
+        let a = argv[1].as_str();
+        let is_sub = SUBS.contains(&a) || a == "-h" || a == "--help" || a == "-V" || a == "--version";
+        if !is_sub && !a.starts_with('-') {
+            argv.insert(1, "extract".to_string());
+        }
+    }
+    let cli = Cli::parse_from(argv);
     let code = match cli.cmd {
         Cmd::Batch { root, out, limit } => run_batch(&root, out.as_deref(), limit),
         Cmd::Entropy { root, out, window } => run_entropy(&root, out.as_deref(), window),
