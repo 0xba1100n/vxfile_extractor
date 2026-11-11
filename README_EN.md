@@ -2,7 +2,7 @@
 
 [中文说明](README.md)
 
-**Major update.** **300+** VxWorks firmware models covered. Unpack success **100%**, symbol-table detection **33.4%**, original-filename recovery **53.2%**.
+**Major update.** **300+** VxWorks firmware models covered. Unpack success **100%**, symbol-table detection **33.4%** (many images carry no symbol table at all; we export whatever is there), original-filename recovery **53.2%** (all 164 samples that carry a filename table were renamed successfully).
 
 ## Three success rates
 
