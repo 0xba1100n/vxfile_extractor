@@ -2,6 +2,8 @@
 
 [中文说明](README.md)
 
+One-click extraction of files inside vxWorks firmware, restoring real filenames from binwalk output and the filename offset table inside the uImage.
+
 **Major update.** **300+** VxWorks firmware models covered. Unpack success **100%**, symbol-table detection **33.4%** (many images carry no symbol table at all; we export whatever is there), original-filename recovery **53.2%** (all 164 samples that carry a filename table were renamed successfully).
 
 ## Three success rates
@@ -10,7 +12,7 @@
 |---|---:|---|
 | Unpack success | 308 / 308 = **100%** | at least one artifact per firmware (files / kernel image / layers) |
 | └ whole layer decoded | 209 / 308 = 67.9% | byte coverage of the decoded container >= 90% (strict) |
-| Original filename recovery | 164 / 308 = 53.2% | real names restored; generated names (`stream_*`, `v2_*`) do not count |
+| Original filename recovery | 164 / 308 = 53.2% | real filenames restored; |
 | Symbol-table detection | 103 / 308 = 33.4% | >= 20 symbol names found in one firmware |
 
 Per-firmware data: [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv). Type profile: [`stats/PROFILE.csv`](stats/PROFILE.csv).
@@ -19,15 +21,17 @@ Per-firmware data: [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv). Type prof
 
 1. **Rewritten in Rust, about 20x faster.** End-to-end runtime went from 4-34 s per sample (pure Python) to 0.2-1.6 s (21.7x). Single binary, no Python and no binwalk.
 
-2. **Filesystem-aware dispatching.** Before the AI era this required manual offset hunting. With 300+ real images classified, five families are covered, each with its own parser:
+2. **Filesystem-aware dispatching.** Before the AI era this required manual offset hunting, so the matching scale was limited and the result was somewhat rough. With 300+ real images classified, each of the five filesystem families now gets its own analysis and unpacking strategy:
 
-   | Family | Example | Layout |
-   |---|---|---|
-   | MINIFS v1 | Mercury MW/MR | one LZMA stream per file, offsets relative to the first `5A 00 00 80` |
-   | MINIFS v3 | Archer C80/C64 | 32-byte header + ToN/ToF/ToC + chunked LZMA |
-   | MINIFS v2 | MAC1200RE | `[hash16][comp_len][name_off][decomp_len][0]` interleaved with streams |
-   | OW | MR900 | 32-byte `OW` magic inside an LZMA stream + 76-byte records |
-   | PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]`, data laid out sequentially |
+   | Family | Representative |
+   |---|---|
+   | MINIFS v1 | Mercury MW/MR |
+   | MINIFS v2 | MAC1200RE |
+   | MINIFS v3 | Archer C80/C64 |
+   | OW | MR900 |
+   | PK11 | Netgear CHK |
+
+   Byte layouts and parsing details: [`docs/FILESYSTEMS.md`](docs/FILESYSTEMS.md).
 
 3. **New UI capability (CLI).** `vxfile_extractor profile` reports the detected type and entropy of every block; `vxfile_extractor entropy` marks high-entropy ranges (`0xstart-0xend`) and classifies them as decoded or likely encrypted, helping analysts understand firmware layout.
 
@@ -73,8 +77,6 @@ On Linux / macOS, make it executable:
 chmod +x VxFirmwareExtractor_linux_x86_64_gnu
 ./VxFirmwareExtractor_linux_x86_64_gnu --version    # vxfile_extractor 3.0.0
 ```
-
-sha256 checksums are shown on the release page for each file (they change on every CI rebuild).
 
 Release page: <https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
 
@@ -141,18 +143,12 @@ $ vxfile_extractor samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 
 More cases (20 solved + 20 unsolved): [`docs/EXAMPLES.md`](docs/EXAMPLES.md).
 
-## v2.1 (original text)
-
-> One-click extraction of files inside vxWorks firmware; restores real filenames using binwalk output and the filename offset table inside the uImage.
->
-> binwalk does not support unpacking vxWorks firmware and has been unmaintained for a long time. Running binwalk directly gives you a pile of meaningless filenames.
->
-> Blog post: <https://ba1100n.tech/iot_security/%e6%8e%a2%e7%a9%b6vxworks%e6%96%87%e4%bb%b6%e5%90%8d%e6%81%a2%e5%a4%8d/>
->
-> Implementation details: <https://bbs.kanxue.com/thread-284324.htm>
-
 ## Credits
 
 Sample collection and format knowledge come mostly from 0xba1100n's [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) and the [Kanxue post](https://bbs.kanxue.com/thread-284324.htm); the chunked MINIFS layout follows [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) and winmt's [paper](https://arxiv.org/html/2407.05064v1).
 
 Da Feiyu (DeepSeek V4.1 Flash) ran 99 rounds, 1260 steps, at 176 tok/s - 503M tokens in total - and built this project from the corpus up to the Rust engine.
+
+Blog post (in Chinese): <https://ba1100n.tech/iot_security/%e6%8e%a2%e7%a9%b6vxworks%e6%96%87%e4%bb%b6%e5%90%8d%e6%81%a2%e5%a4%8d/>
+
+Implementation details and recovery methodology: <https://bbs.kanxue.com/thread-284324.htm>

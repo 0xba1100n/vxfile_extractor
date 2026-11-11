@@ -2,6 +2,8 @@
 
 [English](README_EN.md)
 
+一键提取 vxwork 固件内部文件，并依据 binwalk 分析结果和 uboot 镜像内文件名偏移表，正确恢复 vxwork 文件名。
+
 **重大更新！** 适配 **300+** 型号 VxWorks 固件，解包成功率 **100%**，符号表识别率 **33.4%**（有很多没有符号表，尽可能导出了），文件名重命名成功率 **53.2%**（有文件名表的 164 个样本全部成功）。
 
 ## 三个成功率
@@ -10,7 +12,7 @@
 |---|---:|---|
 | 解包成功率 | 308 / 308 = **100%** | 每个固件至少解出产物（文件 / 内核镜像 / 解压层） |
 | └ 整层全解出 | 209 / 308 = 67.9% | 所解容器的字节覆盖率 ≥ 90%，严格口径 |
-| 文件名重命名成功率 | 164 / 308 = 53.2% | 恢复出**原始文件名**，生成名（`stream_*`、`v2_*`）不算 |
+| 文件名重命名成功率 | 164 / 308 = 53.2% | 恢复出原始文件名； |
 | 符号表识别率 | 103 / 308 = 33.4% | 单个固件内识别到 ≥ 20 个符号名 |
 
 逐固件数据在 [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv)，类型画像在 [`stats/PROFILE.csv`](stats/PROFILE.csv)。
@@ -19,15 +21,17 @@
 
 1. **以 Rust 重构，速度提升约 20 倍**。端到端从纯 Python 版的 4–34 秒/样本降到 0.2–1.6 秒/样本（21.7×），单文件二进制，不再依赖 Python 和 binwalk。
 
-2. **按文件系统分类适配**。前 AI 时代只能靠人力逐个试偏移；这次用 300+ 个真实固件做分类匹配，摸清五类文件系统，每类采用不同的分析方案和解包方法：
+2. **按文件系统分类适配**。前 AI 时代只能靠人力逐个试偏移，因此受限于匹配规模，做的略显粗糙；这次用 300+ 个真实固件做分类匹配，按五类文件系统的特点，采用不同的分析方案和解包方法：
 
-   | 族 | 代表 | 结构 |
-   |---|---|---|
-   | MINIFS v1 | Mercury MW/MR | 每文件一条 LZMA 流，offset 相对首个 `5A 00 00 80` |
-   | MINIFS v3 | Archer C80/C64 | 32 字节头 + ToN/ToF/ToC + chunk 级 LZMA |
-   | MINIFS v2 | MAC1200RE | `[hash16][压缩长][name_off][解压长][0]` 与流交替 |
-   | OW | MR900 | LZMA 流内 32 字节 `OW` 魔数 + 76 字节记录 |
-   | PK11 | Netgear CHK | `PK11` + `[name\0][u32 LE size]` |
+   | 族 | 代表 |
+   |---|---|
+   | MINIFS v1 | Mercury MW/MR |
+   | MINIFS v2 | MAC1200RE |
+   | MINIFS v3 | Archer C80/C64 |
+   | OW | MR900 |
+   | PK11 | Netgear CHK |
+
+   各类的字节布局和解析细节见 [`docs/FILESYSTEMS.md`](docs/FILESYSTEMS.md)。
 
 3. **新的 UI 能力（命令行）**。`vxfile_extractor profile` 展示每个文件块的识别类型与熵值，`vxfile_extractor entropy` 标出高熵区间（`0x起-0x止`）并判断该区域已解出还是疑似加密，辅助分析人员快速理解固件结构组成。
 
@@ -73,8 +77,6 @@ Linux / macOS 下载后赋予执行权限：
 chmod +x VxFirmwareExtractor_linux_x86_64_gnu
 ./VxFirmwareExtractor_linux_x86_64_gnu --version    # vxfile_extractor 3.0.0
 ```
-
-校验和见 Release 页面每个文件下方（每次 CI 重建都会变，此处不固定）。
 
 Release 页：<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0>
 
@@ -141,18 +143,12 @@ $ vxfile_extractor samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 
 更多案例（20 个解开 + 20 个解不开）：[`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
 
-## v2.1（原文）
-
-> 一键提取 vxwork 固件内部文件，并依据 binwalk 分析结果和 uboot 镜像内文件名偏移表，正确恢复 vxwork 文件名。
->
-> binwalk 尚未支持对 vxworks 系统固件的正确解包，而且已经停止更新很久了。直接用 binwalk 一把梭会遇到这种情况：全是莫名其妙的文件名。
->
-> 附上博客文章作为补充说明：<https://ba1100n.tech/iot_security/%e6%8e%a2%e7%a9%b6vxworks%e6%96%87%e4%bb%b6%e5%90%8d%e6%81%a2%e5%a4%8d/>
->
-> 程序设计细节和恢复原理详见：<https://bbs.kanxue.com/thread-284324.htm>
-
 ## 鸣谢
 
 样本和格式认识基本都来自 0xba1100n 的 [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) 和那篇[看雪帖](https://bbs.kanxue.com/thread-284324.htm)，MINIFS 分块结构参考了 [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) 与 winmt 师傅的[论文](https://arxiv.org/html/2407.05064v1)。
 
 大肥鱼（DeepSeek V4.1 Flash）跑了 99 轮、1260 步，176 tok/s，一共 503M tokens，把这个项目从语料一路搭到 Rust 引擎。
+
+附上博客文章作为补充说明：<https://ba1100n.tech/iot_security/%e6%8e%a2%e7%a9%b6vxworks%e6%96%87%e4%bb%b6%e5%90%8d%e6%81%a2%e5%a4%8d/>
+
+程序设计细节和恢复原理详见：<https://bbs.kanxue.com/thread-284324.htm>
