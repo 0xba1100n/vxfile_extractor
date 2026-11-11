@@ -33,7 +33,7 @@ Per-firmware data: [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv). Type prof
 
    Byte layouts and parsing details: [`docs/FILESYSTEMS.md`](docs/FILESYSTEMS.md).
 
-3. **New UI capability (CLI).** `vxfile_extractor profile` reports the detected type and entropy of every block; `vxfile_extractor entropy` marks high-entropy ranges (`0xstart-0xend`) and classifies them as decoded or likely encrypted, helping analysts understand firmware layout.
+3. **New UI capability (CLI).** During extraction it reports the detected type and entropy per block, marks high-entropy ranges (`0xstart-0xend`) and classifies them as decoded or likely encrypted, helping analysts understand firmware layout.
 
 4. **Reproducible corpus.** Vendor, model, version, sha256, source URL and filesystem family for all 308 samples: [`stats/CORPUS.csv`](stats/CORPUS.csv).
 
@@ -83,21 +83,11 @@ Release page: <https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0
 ## Usage
 
 ```bash
-vxfile_extractor fw.bin                      # one shot, output in ./out
-vxfile_extractor extract fw.bin -o out/      # same, explicit output directory
-vxfile_extractor verdict   fw.bin            # is it VxWorks?
-vxfile_extractor scan      fw.bin            # list containers / layers
-vxfile_extractor tables    fw.bin            # dump filename tables
-vxfile_extractor symbols   fw.bin            # dump symbol names
-vxfile_extractor profile   fw.bin --block 1024 --ascii   # per-block type and entropy
-
-# batch
-vxfile_extractor batch         . -o stats/RUST_METRICS.csv   # three metrics (19 min / 308 samples)
-vxfile_extractor profile-batch . -o stats/PROFILE.csv        # type shares (13 s)
-vxfile_extractor entropy       . -o stats/ENTROPY.csv        # high-entropy ranges (10 s)
+vxfile_extractor fw.bin                 # one shot, output in ./out
+vxfile_extractor fw.bin --out result    # custom output directory
 ```
 
-Output of `vxfile_extractor extract`:
+Output:
 
 ```
 out/
@@ -120,18 +110,6 @@ $ vxfile_extractor samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
     cfg/   4 file(s)  <- certificates / configs
 [*] Likely main logic: kernel image layer 0x158910 (3947396 B)
 [!] high-entropy 0x00158C00-0x0027E800 (1203 KiB, 99.4%) -> compressed (data was recovered)
-```
-
-Per-block profile:
-
-```
-$ vxfile_extractor profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
-0x00000000-0x00000400       1024 B  ent  7.43  data
-0x00000400-0x00101000    1051648 B  ent  7.81  high-entropy
-0x0012C000-0x0012C400       1024 B  ent  7.82  lzma
-kind                  bytes  regions   share
-high-entropy        1298432        3   99.2%
-[entropy 0..8] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@
 ```
 
 High-entropy region verdict:

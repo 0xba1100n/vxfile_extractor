@@ -9,21 +9,31 @@ use vxcore::{find_symbols, find_tables, judge, judge_image, scan_all};
 #[derive(Parser)]
 #[command(name = "vxfile_extractor", version, about = "VxWorks firmware extraction engine")]
 struct Cli {
+    /// firmware image (bin / zip / rar / 7z)
+    file: Option<PathBuf>,
+    /// output directory
+    #[arg(short, long, default_value = "out")]
+    out: PathBuf,
     #[command(subcommand)]
-    cmd: Cmd,
+    cmd: Option<Cmd>,
 }
 
 #[derive(Subcommand)]
 enum Cmd {
     /// Judge a firmware image (plain file or zip)
+    #[command(hide = true)]
     Verdict { file: PathBuf },
     /// List containers/layers found in an image
+    #[command(hide = true)]
     Scan { file: PathBuf, #[arg(long, default_value_t = 50)] limit: usize },
     /// Dump filename tables
+    #[command(hide = true)]
     Tables { file: PathBuf },
     /// Dump symbol tables
+    #[command(hide = true)]
     Symbols { file: PathBuf, #[arg(long, default_value_t = 20)] limit: usize },
     /// Per-firmware three outcomes (unpack / rename / symbols) over a directory
+    #[command(hide = true)]
     Batch {
         root: PathBuf,
         #[arg(short, long)]
@@ -32,6 +42,7 @@ enum Cmd {
         limit: Option<usize>,
     },
     /// 批量逐偏移画像：每个固件按类型统计字节占比
+    #[command(hide = true)]
     ProfileBatch {
         root: PathBuf,
         #[arg(short, long)]
@@ -40,6 +51,7 @@ enum Cmd {
         block: usize,
     },
     /// Per-offset entropy + type classification (binwalk-like)
+    #[command(hide = true)]
     Profile {
         file: PathBuf,
         #[arg(long, default_value_t = 1024)]
@@ -51,6 +63,7 @@ enum Cmd {
         ascii: bool,
     },
     /// Entropy profile of each firmware payload (4 KiB windows)
+    #[command(hide = true)]
     Entropy {
         root: PathBuf,
         #[arg(short, long)]
@@ -59,6 +72,7 @@ enum Cmd {
         window: usize,
     },
     /// Extract a firmware: layers + tables + symbols + names
+    #[command(hide = true)]
     Extract {
         file: PathBuf,
         #[arg(short, long, default_value = "out")]
@@ -788,20 +802,9 @@ fn run_profile_batch(root: &Path, out_csv: Option<&Path>, block: usize) -> i32 {
     0
 }
 
-fn main() {
-    // 一键用法：vxfile_extractor fw.bin 等价于 extract fw.bin
-    let mut argv: Vec<String> = std::env::args().collect();
-    const SUBS: [&str; 9] = ["verdict", "scan", "tables", "symbols", "extract",
-                             "batch", "entropy", "profile", "profile-batch"];
-    if argv.len() >= 2 {
-        let a = argv[1].as_str();
-        let is_sub = SUBS.contains(&a) || a == "-h" || a == "--help" || a == "-V" || a == "--version";
-        if !is_sub && !a.starts_with('-') {
-            argv.insert(1, "extract".to_string());
-        }
-    }
-    let cli = Cli::parse_from(argv);
-    let code = match cli.cmd {
+fn run(cli: Cli) -> i32 {
+    let cmd = cli.cmd.expect("subcommand");
+    let code = match cmd {
         Cmd::Batch { root, out, limit } => run_batch(&root, out.as_deref(), limit),
         Cmd::Entropy { root, out, window } => run_entropy(&root, out.as_deref(), window),
         Cmd::Profile { file, block, out, ascii } => run_profile(&file, block, out.as_deref(), ascii),
@@ -1107,7 +1110,31 @@ fn main() {
             0
         }
     };
-    std::process::exit(code);
+    code
+}
+
+fn main() {
+    let cli = Cli::parse();
+    // 唯一用法：vxfile_extractor fw.bin [--out DIR]
+    if cli.cmd.is_none() {
+        let file = match cli.file.clone() {
+            Some(f) => f,
+            None => {
+                eprintln!("Usage: vxfile_extractor <firmware> [--out DIR]");
+                std::process::exit(2);
+            }
+        };
+        let argv = vec![
+            "vxfile_extractor".to_string(),
+            "extract".to_string(),
+            file.to_string_lossy().to_string(),
+            "-o".to_string(),
+            cli.out.to_string_lossy().to_string(),
+        ];
+        let inner = Cli::parse_from(argv);
+        std::process::exit(run(inner));
+    }
+    std::process::exit(run(cli));
 }
 
 fn limit_names() -> usize { 20 }

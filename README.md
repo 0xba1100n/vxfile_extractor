@@ -33,7 +33,7 @@
 
    各类的字节布局和解析细节见 [`docs/FILESYSTEMS.md`](docs/FILESYSTEMS.md)。
 
-3. **新的 UI 能力（命令行）**。`vxfile_extractor profile` 展示每个文件块的识别类型与熵值，`vxfile_extractor entropy` 标出高熵区间（`0x起-0x止`）并判断该区域已解出还是疑似加密，辅助分析人员快速理解固件结构组成。
+3. **新的 UI 能力（命令行）**。解包时会按块给出识别类型与熵值，并标出高熵区间（`0x起-0x止`）、判断该区域已解出还是疑似加密，辅助分析人员快速理解固件结构组成。
 
 4. **固件案例可复现**。308 个样本的厂商、型号、版本、sha256、来源 URL、文件系统族见 [`stats/CORPUS.csv`](stats/CORPUS.csv)。
 
@@ -83,21 +83,11 @@ Release 页：<https://github.com/0xba1100n/vxfile_extractor/releases/tag/v3.0.0
 ## 用法
 
 ```bash
-vxfile_extractor fw.bin                      # 一键解包，产物在 ./out
-vxfile_extractor extract fw.bin -o out/      # 同上，显式指定输出目录
-vxfile_extractor verdict   fw.bin            # 判定是否为 VxWorks
-vxfile_extractor scan      fw.bin            # 列出容器 / 解压层
-vxfile_extractor tables    fw.bin            # 打印文件名偏移表
-vxfile_extractor symbols   fw.bin            # 打印符号名表
-vxfile_extractor profile   fw.bin --block 1024 --ascii   # 逐块类型 + 熵
-
-# 批量
-vxfile_extractor batch         . -o stats/RUST_METRICS.csv   # 三项能力（19 分钟 / 308 样本）
-vxfile_extractor profile-batch . -o stats/PROFILE.csv        # 类型占比（13 秒）
-vxfile_extractor entropy       . -o stats/ENTROPY.csv        # 高熵区间（10 秒）
+vxfile_extractor fw.bin                 # 一键解包，产物在 ./out
+vxfile_extractor fw.bin --out result    # 指定产物目录
 ```
 
-`vxfile_extractor extract` 的产物：
+产物：
 
 ```
 out/
@@ -120,18 +110,6 @@ $ vxfile_extractor samples/tp-link/Archer_C80_US_V1_191122.zip -o out/
     cfg/   4 file(s)  <- certificates / configs
 [*] Likely main logic: kernel image layer 0x158910 (3947396 B)
 [!] high-entropy 0x00158C00-0x0027E800 (1203 KiB, 99.4%) -> compressed (data was recovered)
-```
-
-逐块画像：
-
-```
-$ vxfile_extractor profile samples/expand-a/inner/MW300R__201275172121.bin --block 1024
-0x00000000-0x00000400       1024 B  ent  7.43  data
-0x00000400-0x00101000    1051648 B  ent  7.81  high-entropy
-0x0012C000-0x0012C400       1024 B  ent  7.82  lzma
-kind                  bytes  regions   share
-high-entropy        1298432        3   99.2%
-[entropy 0..8] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@
 ```
 
 高熵加密区域判定：
