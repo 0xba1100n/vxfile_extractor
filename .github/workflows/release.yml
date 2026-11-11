@@ -67,8 +67,18 @@ jobs:
             i686-*)    arch="i686" ;;
             *)         arch="unknown" ;;
           esac
+          # linux 区分 gnu / musl，否则两个产物同名会互相覆盖
+          if [ "$os" = "linux" ]; then
+            case "${{ matrix.target }}" in
+              *musl*) libc="musl" ;;
+              *)      libc="gnu" ;;
+            esac
+            name="VxFirmwareExtractor_${os}_${arch}_${libc}${ext}"
+          else
+            name="VxFirmwareExtractor_${os}_${arch}${ext}"
+          fi
           mkdir -p dist
-          cp "target/${{ matrix.target }}/release/vx${ext}" "dist/VxFirmwareExtractor_${os}_${arch}${ext}"
+          cp "target/${{ matrix.target }}/release/vx${ext}" "dist/${name}"
           ls -l dist
 
       - uses: actions/upload-artifact@v4
