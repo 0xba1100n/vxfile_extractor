@@ -143,9 +143,11 @@ $ vxfile_extractor samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 
 更多案例（20 个解开 + 20 个解不开）：[`docs/EXAMPLES.md`](docs/EXAMPLES.md)。
 
+样本和格式认识基本都来自 0xba1100n 的 [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) 和那篇[看雪帖](https://bbs.kanxue.com/thread-284324.htm)，MINIFS 分块结构参考了 [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) 与 winmt 师傅的[论文](https://arxiv.org/html/2407.05064v1)。
+
 ## 鸣谢
 
-样本和格式认识基本都来自 0xba1100n 的 [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) 和那篇[看雪帖](https://bbs.kanxue.com/thread-284324.htm)，MINIFS 分块结构参考了 [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) 与 winmt 师傅的[论文](https://arxiv.org/html/2407.05064v1)。
+winmt、大肥鱼。
 
 大肥鱼（DeepSeek V4.1 Flash）跑了 99 轮、1260 步，176 tok/s，一共 503M tokens，把这个项目从语料一路搭到 Rust 引擎。
 

@@ -143,9 +143,11 @@ $ vxfile_extractor samples/expand-a/inner/FW300R__2012126162529.bin -o out/
 
 More cases (20 solved + 20 unsolved): [`docs/EXAMPLES.md`](docs/EXAMPLES.md).
 
+Sample collection and format knowledge come mostly from 0xba1100n's [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) and the [Kanxue post](https://bbs.kanxue.com/thread-284324.htm); the chunked MINIFS layout follows [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) and winmt's [paper](https://arxiv.org/html/2407.05064v1).
+
 ## Credits
 
-Sample collection and format knowledge come mostly from 0xba1100n's [vxfile_extractor](https://github.com/0xba1100n/vxfile_extractor) and the [Kanxue post](https://bbs.kanxue.com/thread-284324.htm); the chunked MINIFS layout follows [RedaOps/minifs-extractor](https://github.com/RedaOps/minifs-extractor) and winmt's [paper](https://arxiv.org/html/2407.05064v1).
+winmt, Da Feiyu.
 
 Da Feiyu (DeepSeek V4.1 Flash) ran 99 rounds, 1260 steps, at 176 tok/s - 503M tokens in total - and built this project from the corpus up to the Rust engine.
 
