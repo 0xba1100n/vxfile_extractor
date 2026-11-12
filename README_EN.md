@@ -44,7 +44,7 @@ Per-firmware data: [`stats/RUST_METRICS.csv`](stats/RUST_METRICS.csv). Type prof
 ```bash
 git clone https://github.com/0xba1100n/vxfile_extractor.git
 cd vxfile_extractor
-git checkout v3.0.0
+git checkout v3.0.1
 
 cd rust/vxcore
 cargo build --release

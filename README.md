@@ -44,7 +44,7 @@ v3.0.1 兼容了水星（Mercury）部分路由器，如 MW300R、MW151RM、MW15
 ```bash
 git clone https://github.com/0xba1100n/vxfile_extractor.git
 cd vxfile_extractor
-git checkout v3.0.0
+git checkout v3.0.1
 
 cd rust/vxcore
 cargo build --release
