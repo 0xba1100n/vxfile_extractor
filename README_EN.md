@@ -4,7 +4,7 @@
 
 One-click extraction of files inside vxWorks firmware, restoring real filenames from binwalk output and the filename offset table inside the uImage.
 
-**Major update.** **300+** VxWorks firmware models covered. Unpack success **100%**, symbol-table detection **33.4%** (many images carry no symbol table at all; we export whatever is there), original-filename recovery **53.2%** (all 164 samples that carry a filename table were renamed successfully).
+**Major update.** **300+** VxWorks firmware models covered. Analysis coverage is close to **100%** (median 100%, mean 91.5%), symbol-table detection **33.4%** (many images carry no symbol table at all; we export whatever is there), original-filename recovery **53.2%** (all 164 samples that carry a filename table were renamed successfully).
 
 v3.0.1 adds support for a number of Mercury routers such as MW300R, MW151RM and MW150R (IMG0 header + LZMA stream).
 
@@ -12,8 +12,8 @@ v3.0.1 adds support for a number of Mercury routers such as MW300R, MW151RM and 
 
 | Metric | Result | Definition |
 |---|---:|---|
-| Unpack success | 308 / 308 = **100%** | at least one artifact per firmware (files / kernel image / layers) |
-| └ whole layer decoded | 209 / 308 = 67.9% | byte coverage of the decoded container >= 90% (strict) |
+| Analysis coverage (mean) | 91.5% | decoded bytes / container bytes per firmware, averaged; median 100% |
+| └ samples with coverage >= 90% | 266 / 308 = 86.4% | strict whole-layer criterion |
 | Original filename recovery | 164 / 308 = 53.2% | real filenames restored; |
 | Symbol-table detection | 103 / 308 = 33.4% | >= 20 symbol names found in one firmware |
 
