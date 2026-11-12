@@ -19,7 +19,7 @@ pub fn detect(blob: &[u8]) -> Option<(&'static str, usize)> {
     if n == blob.len() - 20 && arm_prologue(blob, 20) {
         return Some(("arm-kernel-with-20b-header", 20));
     }
-    if memchr::memmem::find(&blob[..blob.len().min(8 << 20)], b"WIND version").is_some() {
+    if memchr::memmem::find(blob, b"WIND version").is_some() {
         return Some(("flat-vxworks-kernel", 0));
     }
     None

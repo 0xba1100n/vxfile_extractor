@@ -465,7 +465,8 @@ fn analyze_blob(b: &[u8], st: &mut Stats) {
     let carved = carved_e.len();
     bytes_here += carved_e.iter().map(|c| c.size).sum::<usize>();
     let mut stream_bytes = 0usize;
-    let streams = if minifs + pk11 + v2 + table_files == 0 {
+    // 表里解出几个小文件不能代表整层，LZMA 流仍要试（覆盖取最大）
+    let streams = if minifs + pk11 + v2 == 0 {
         let se = vxcore::lzcarve::carve(b, 200);
         stream_bytes = se.iter().map(|e| e.data.len()).sum::<usize>();
         se.len()
@@ -484,7 +485,8 @@ fn analyze_blob(b: &[u8], st: &mut Stats) {
         }
     }
     // 文件系统没解出来时，看这一层是不是裸内核（整层即数据区）
-    if minifs + pk11 + v2 + table_files == 0 {
+    // 伪偏移表不该挡住裸内核判定
+    if minifs + pk11 + v2 == 0 {
         if let Some((_k, body)) = vxcore::rawkernel::extract(b) {
             let cov = (body.data.len() as f64 / b.len() as f64).min(1.0);
             if cov > st.best_cov + 1e-9 {
