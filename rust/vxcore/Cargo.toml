@@ -1,6 +1,6 @@
 ﻿[package]
 name = "vxcore"
-version = "3.0.0"
+version = "3.0.1"
 edition = "2021"
 description = "VxWorks firmware extraction engine (port of vxfile_extractor)"
 

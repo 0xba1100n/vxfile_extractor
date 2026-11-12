@@ -1,10 +1,12 @@
-# vxfile_extractor V3.0.0
+# vxfile_extractor V3.0.1
 
 [中文说明](README.md)
 
 One-click extraction of files inside vxWorks firmware, restoring real filenames from binwalk output and the filename offset table inside the uImage.
 
 **Major update.** **300+** VxWorks firmware models covered. Unpack success **100%**, symbol-table detection **33.4%** (many images carry no symbol table at all; we export whatever is there), original-filename recovery **53.2%** (all 164 samples that carry a filename table were renamed successfully).
+
+v3.0.1 adds support for a number of Mercury routers such as MW300R, MW151RM and MW150R (IMG0 header + LZMA stream).
 
 ## Three success rates
 
